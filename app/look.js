@@ -109,11 +109,6 @@ registerComponent('mylook-controls', {
   },
 
   tick: function (t) {
-    var worldPos = new THREE.Vector3();
-    worldPos.setFromMatrixPosition(
-        document.getElementById("cursor").object3D.matrixWorld);
-    // console.log(worldPos);
-    
     var data = this.data;
     if (!data.enabled) { return; }
     this.updateOrientation();
