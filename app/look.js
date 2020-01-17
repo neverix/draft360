@@ -6,6 +6,18 @@ var bind = utils.bind;
 // To avoid recalculation at every mouse movement tick
 var PI_2 = Math.PI / 2;
 
+function isTouch() {
+    var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+    var mq = function (query) {
+        return window.matchMedia(query).matches;
+    }
+    if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+        return true;
+    }
+    var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+    return mq(query);
+}
+
 /**
  * look-controls. Update entity pose, factoring mouse, touch, and WebVR API data.
  */
@@ -23,6 +35,11 @@ registerComponent('mylook-controls', {
   },
 
   init: function () {
+    if(!isTouch()) {
+      document.body.requestPointerLock();
+      console.log("lock");
+    }
+    
     this.deltaYaw = 0;
     this.previousHMDPosition = new THREE.Vector3();
     this.hmdQuaternion = new THREE.Quaternion();
