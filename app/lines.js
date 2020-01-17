@@ -1,19 +1,20 @@
-AFRAME.registerComponent('mylook-controls', {
+AFRAME.registerComponent('line-renderer', {
   schema: {
     enabled: {default: true},
-    material: {default: new THREE.LineBasicMaterial({ color: 0x0000ff })},
-    cursorId: {default: "cursor"},
-    cursor: {default: }
+    cursorId: {default: "cursor"}
   },
   init: function() {
-    this.geometry = new THREE.Geometry();
-    this.line = new THREE.Line(geometry, material);
+    this.geometry = new THREE.BufferGeometry();
+    this.material = new THREE.LineBasicMaterial({ color: 0x0000ff });
+    this.line = new THREE.Line(this.geometry, this.material);
     this.object3d.add(this.line);
-    this.worldPos = new THREE.Vector3();
-    this.cursor = document.get
+    this.cursor = document.getElementById(this.data.cursorId);
   },
   tick: function(t) {
     if(!this.data.enabled) return;
-    this.worldPos.setFromMatrixPosition(this.object3D.matrixWorld);
+    var worldPos = new THREE.Vector3();
+    worldPos.setFromMatrixPosition(this.cursor.object3d.matrixWorld);
+    console.log(worldPos);
+    this.geometry.vertices.add(worldPos);
   }
 })
