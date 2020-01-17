@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mouse Click Example - A-Frame</title>
+    <meta name="description" content="Mouse Click Example - A-Frame">
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <!--
+    The event-set component gives you a quick way to add events
+    to elements (like click, mouseenter, mouseleave, mousedown, mouseup, and fusing)
+    without having to write Javascript for each event.
+    
+    For exmample if you want to give the user feedback when they hover over the element,
+    you can do event-set__enter="_event: mouseenter; material.color: blue"
+    -->
+    <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- 
+           The camera has a cursor component,
+           which uses the mouse as the rayOrigin,
+           so that you can click entities in the scene
+           with the mouse.
+      -->
+      <a-entity id="camera" camera="userHeight: 1.6" look-controls cursor="rayOrigin: mouse"></a-entity>
+
+     <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" shadow
+                event-set__enter="_event: mouseenter; color: #026fc9"
+                event-set__leave="_event: mouseleave; color: #EF2D5E">
+        
+       <!-- Adding a clickable link to thhis sphere -->
+       <a-entity link="href: index.html; title: Another Scene;"></a-entity>
+       
+        <!-- This animation begins when the sphere is clicked with the mouse. -->
+        <!--<a-animation attribute="position"
+               dur="1000"
+               fill="forwards"
+               to="0 2.5 -6"
+               direction="alternate"
+               begin="click"></a-animation> -->
+      </a-sphere>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow></a-plane>
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>
