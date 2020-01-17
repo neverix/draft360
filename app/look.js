@@ -34,9 +34,7 @@ registerComponent('mylook-controls', {
     touchMult: {default: 0.3}
   },
 
-  init: function () {
-    this.movementMode = false;
-    
+  init: function () {    
     this.deltaYaw = 0;
     this.previousHMDPosition = new THREE.Vector3();
     this.hmdQuaternion = new THREE.Quaternion();
@@ -63,6 +61,8 @@ registerComponent('mylook-controls', {
 
     // Call enter VR handler if the scene has entered VR before the event listeners attached.
     if (this.el.sceneEl.is('vr-mode')) { this.onEnterVR(); }
+    
+    this.movementMode = false;
   },
 
   setupMagicWindowControls: function () {
@@ -168,8 +168,8 @@ registerComponent('mylook-controls', {
     }
 
     // Mouse events.
-    canvasEl.addEventListener('mousedown', this.onMouseDown, false);
-    window.addEventListener('mousemove', this.onMouseMove, false);
+    canvasEl.addEventListener('mousedown', e => this.onMouseDown(e), false);
+    window.addEventListener('mousemove', e => this.onMouseMove(e), false);
     window.addEventListener('mouseup', this.onMouseUp, false);
 
     // Touch events.
@@ -182,7 +182,11 @@ registerComponent('mylook-controls', {
     sceneEl.addEventListener('exit-vr', this.onExitVR);
     
     // keyboard
-    window.addEventListener('keydown', e => this.onKeyDown(e), false);
+    window.addEventListener('keydown', function (e) {
+      if(e.keyCode == 32) {
+        this.movementMode = !this.movementMode;
+      }
+    });
 
     // Pointer Lock events.
     if (this.data.pointerLockEnabled) {
@@ -284,15 +288,15 @@ registerComponent('mylook-controls', {
    * Dragging left and right rotates the camera around the Y-axis (pitch).
    */
   onMouseMove: function (event) {
+    // Not dragging and in movement mode
+    if(this.movementMode && !this.mouseDown) return;
+    
     var direction;
     var movementX;
     var movementY;
     var pitchObject = this.pitchObject;
     var previousMouseEvent = this.previousMouseEvent;
     var yawObject = this.yawObject;
-
-    // Not dragging and in movement mode
-    if(this.movementMode && !this.mouseDown) return;
 
     // Calculate delta.
     movementX = event.movementX || event.mozMovementX || 0;
@@ -303,12 +307,6 @@ registerComponent('mylook-controls', {
     yawObject.rotation.y += movementX * 0.002 * direction;
     pitchObject.rotation.x += movementY * 0.002 * direction;
     pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
-  },
-  
-  onKeyDown: function (e) {
-    if(e.keyCode == 32) {
-      this.movementMode = !this.movementMode;
-    }
   },
 
   /**
