@@ -35,6 +35,8 @@ registerComponent('mylook-controls', {
   },
 
   init: function () {
+    this.movementMode = false;
+    
     this.deltaYaw = 0;
     this.previousHMDPosition = new THREE.Vector3();
     this.hmdQuaternion = new THREE.Quaternion();
@@ -178,6 +180,9 @@ registerComponent('mylook-controls', {
     // sceneEl events.
     sceneEl.addEventListener('enter-vr', this.onEnterVR);
     sceneEl.addEventListener('exit-vr', this.onExitVR);
+    
+    // keyboard
+    window.addEventListener('keydown', e => this.onKeyDown(e), false);
 
     // Pointer Lock events.
     if (this.data.pointerLockEnabled) {
@@ -286,8 +291,8 @@ registerComponent('mylook-controls', {
     var previousMouseEvent = this.previousMouseEvent;
     var yawObject = this.yawObject;
 
-    // Not dragging or not enabled.
-    // if (!this.data.enabled || !this.mouseDown) { return; }
+    // Not dragging and in movement mode
+    if(this.movementMode && !this.mouseDown) return;
 
     // Calculate delta.
     movementX = event.movementX || event.mozMovementX || 0;
@@ -298,6 +303,12 @@ registerComponent('mylook-controls', {
     yawObject.rotation.y += movementX * 0.002 * direction;
     pitchObject.rotation.x += movementY * 0.002 * direction;
     pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
+  },
+  
+  onKeyDown: function (e) {
+    if(e.keyCode == 32) {
+      this.movementMode = !this.movementMode;
+    }
   },
 
   /**
