@@ -10,11 +10,6 @@ AFRAME.registerComponent('renderer', {
     this.line = [];
     this.lines = [this.line];
     this.texture = new THREE.Texture(this.canvas);
-    var material = new THREE.MeshBasicMaterial({
-      map: this.texture,
-      flatShading: true,
-      side: THREE.BackSide
-    });
   },
   tick: function(t) {
     var rot = this.el.getAttribute("rotation");
