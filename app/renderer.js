@@ -3,7 +3,8 @@ AFRAME.registerComponent('renderer', {
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#000000";
+    ctx.strokeStyle = "#000000";
+    ctx.strokeWidth = 5;
     this.ctx = ctx;
     this.canvas = canvas;
   },
@@ -16,6 +17,8 @@ AFRAME.registerComponent('renderer', {
     y *= this.canvas.height;
     x = Math.floor(x);
     y = Math.floor(y);
-    this.ctx.fillRect(x, y, x + 10, y + 10);
+    this.ctx.moveTo(x, y);
+    this.ctx.lineTo(x, y);
+    this.ctx.stroke();
   }
 });
