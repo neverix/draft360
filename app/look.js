@@ -351,6 +351,8 @@ registerComponent('mylook-controls', {
     var canvas = this.el.sceneEl.canvas;
     var deltaY, deltaX;
     var yawObject = this.yawObject;
+    var pitchObject = this.pitchObject;
+
 
     if (!this.touchStarted || !this.data.touchEnabled) { return; }
 
@@ -360,7 +362,7 @@ registerComponent('mylook-controls', {
     direction = this.data.reverseTouchDrag ? 1 : -1;
     // Limit touch orientaion to to yaw (y axis).
     yawObject.rotation.y -= deltaY * 0.5 * this.data.touchMult * direction;
-    yawObject.rotation.x -= deltaX * 0.5 * this.data.touchMult * direction;
+    pitchObject.rotation.x -= deltaX * 0.5 * this.data.touchMult * direction;
     this.touchStart = {
       x: evt.touches[0].pageX,
       y: evt.touches[0].pageY
