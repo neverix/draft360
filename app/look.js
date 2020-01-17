@@ -63,6 +63,9 @@ registerComponent('mylook-controls', {
     if (this.el.sceneEl.is('vr-mode')) { this.onEnterVR(); }
     
     this.movementMode = false;
+    
+    // keyboard
+    window.addEventListener('keyup', this.onKeyDown.bind(this));
   },
 
   setupMagicWindowControls: function () {
@@ -168,28 +171,8 @@ registerComponent('mylook-controls', {
     }
 
     // Mouse events.
-    canvasEl.addEventListener('mousedown', e => this.onMouseDown(e), false);
-    window.addEventListener('mousemove', function (event) {
-      // Not dragging and in movement mode
-      if(this.movementMode && !this.mouseDown) return;
-
-      var direction;
-      var movementX;
-      var movementY;
-      var pitchObject = this.pitchObject;
-      var previousMouseEvent = this.previousMouseEvent;
-      var yawObject = this.yawObject;
-
-      // Calculate delta.
-      movementX = event.movementX || event.mozMovementX || 0;
-      movementY = event.movementY || event.mozMovementY || 0;
-
-      // Calculate rotation.
-      direction = this.data.reverseMouseDrag ? 1 : -1;
-      yawObject.rotation.y += movementX * 0.002 * direction;
-      pitchObject.rotation.x += movementY * 0.002 * direction;
-      pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
-    }.bind(this), false);
+    canvasEl.addEventListener('mousedown', this.onMouseDown, false);
+    window.addEventListener('mousemove', this.onMouseMove, false);
     window.addEventListener('mouseup', this.onMouseUp, false);
 
     // Touch events.
@@ -200,19 +183,40 @@ registerComponent('mylook-controls', {
     // sceneEl events.
     sceneEl.addEventListener('enter-vr', this.onEnterVR);
     sceneEl.addEventListener('exit-vr', this.onExitVR);
-    
-    // keyboard
-    window.addEventListener('keyup', function (e) {
-      if(e.keyCode == 32) {
-        this.movementMode = !this.movementMode;
-      }
-    }.bind(this));
 
     // Pointer Lock events.
     if (this.data.pointerLockEnabled) {
       document.addEventListener('pointerlockchange', this.onPointerLockChange, false);
       document.addEventListener('mozpointerlockchange', this.onPointerLockChange, false);
       document.addEventListener('pointerlockerror', this.onPointerLockError, false);
+    }
+  },
+  
+  onMouseMove: function (event) {
+    // Not dragging and in movement mode
+    if(this.movementMode && !this.mouseDown) return;
+
+    var direction;
+    var movementX;
+    var movementY;
+    var pitchObject = this.pitchObject;
+    var previousMouseEvent = this.previousMouseEvent;
+    var yawObject = this.yawObject;
+
+    // Calculate delta.
+    movementX = event.movementX || event.mozMovementX || 0;
+    movementY = event.movementY || event.mozMovementY || 0;
+
+    // Calculate rotation.
+    direction = this.data.reverseMouseDrag ? 1 : -1;
+    yawObject.rotation.y += movementX * 0.002 * direction;
+    pitchObject.rotation.x += movementY * 0.002 * direction;
+    pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
+  },
+  
+  onKeyDown: function (e) {
+    if(e.keyCode == 32) {
+      this.movementMode = !this.movementMode;
     }
   },
 
