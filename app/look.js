@@ -9,7 +9,7 @@ var PI_2 = Math.PI / 2;
 /**
  * look-controls. Update entity pose, factoring mouse, touch, and WebVR API data.
  */
-module.exports.Component = registerComponent('mylook-controls', {
+registerComponent('mylook-controls', {
   dependencies: ['position', 'rotation'],
 
   schema: {
@@ -269,17 +269,11 @@ module.exports.Component = registerComponent('mylook-controls', {
     var yawObject = this.yawObject;
 
     // Not dragging or not enabled.
-    if (!this.data.enabled || (!this.mouseDown && !this.pointerLocked)) { return; }
+    //if (!this.data.enabled || (!this.mouseDown && !this.pointerLocked)) { return; }
 
     // Calculate delta.
-    if (this.pointerLocked) {
-      movementX = event.movementX || event.mozMovementX || 0;
-      movementY = event.movementY || event.mozMovementY || 0;
-    } else {
-      movementX = event.screenX - previousMouseEvent.screenX;
-      movementY = event.screenY - previousMouseEvent.screenY;
-    }
-    this.previousMouseEvent = event;
+    movementX = event.movementX || event.mozMovementX || 0;
+    movementY = event.movementY || event.mozMovementY || 0;
 
     // Calculate rotation.
     direction = this.data.reverseMouseDrag ? 1 : -1;
