@@ -1,9 +1,18 @@
-# A-Frame Project
+// server.js
 
-**[Subscribe to the A-Frame newsletter!](https://aframe.io/subscribe/)**
+// init project
+var express = require('express');
+var app = express();
 
-Built with [A-Frame](https://aframe.io), a web framework for building virtual reality experiences.
+// http://expressjs.com/en/starter/static-files.html
+app.use(express.static('app'));
 
-Make WebVR with HTML and Entity-Component. Works on Vive, Rift, Quest, desktop, mobile platforms.
+// http://expressjs.com/en/starter/basic-routing.html
+app.get("/", function(request, response) {
+  response.sendFile(__dirname + '/app/index.html');
+});
 
-Click and drag on desktop. Open it on a smartphone and use the device motion sensors. Or [plug in a VR headset](https://aframe.io/docs/0.8.0/introduction/vr-headsets-and-webvr-browsers.html)!
+// listen for requests :)
+var listener = app.listen(process.env.PORT, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
