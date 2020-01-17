@@ -9,12 +9,6 @@
   "dependencies": {
     "express": "^4.16.4"
   },
-  "engines": {
-    "node": "8.x"
-  },
-  "repository": {
-    "url": "https://glitch.com/edit/#!/starter-react"
-  },
   "license": "MIT",
   "keywords": [
     "node",
