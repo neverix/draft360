@@ -104,6 +104,11 @@ registerComponent('mylook-controls', {
   },
 
   tick: function (t) {
+    var worldPos = new THREE.Vector3();
+    worldPos.setFromMatrixPosition(
+        document.getElementById("cursor").object3D.matrixWorld);
+    // console.log(worldPos);
+    
     var data = this.data;
     if (!data.enabled) { return; }
     this.updateOrientation();
@@ -282,7 +287,7 @@ registerComponent('mylook-controls', {
     var yawObject = this.yawObject;
 
     // Not dragging or not enabled.
-    if (!this.data.enabled || !this.mouseDown) { return; }
+    // if (!this.data.enabled || !this.mouseDown) { return; }
 
     // Calculate delta.
     movementX = event.movementX || event.mozMovementX || 0;
