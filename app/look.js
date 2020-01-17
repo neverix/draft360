@@ -282,7 +282,7 @@ registerComponent('mylook-controls', {
     var yawObject = this.yawObject;
 
     // Not dragging or not enabled.
-    //if (!this.data.enabled || (!this.mouseDown && !this.pointerLocked)) { return; }
+    if (!this.data.enabled || !this.mouseDown) { return; }
 
     // Calculate delta.
     movementX = event.movementX || event.mozMovementX || 0;
