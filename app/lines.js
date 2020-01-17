@@ -17,7 +17,9 @@ AFRAME.registerComponent('line-renderer', {
     if(!this.data.enabled) return;
     var worldPos = new THREE.Vector3();
     worldPos.setFromMatrixPosition(this.cursor.object3D.matrixWorld);
-    this.geometry.vertices.push(worldPos);
-    this.geometry.recalculateBounds()
+    var elem = document.createElement('a-line');
+    elem.setAttribute("position", worldPos);
+    elem.setAttribute("scale", this.scale);
+    this.el.sceneEl.appendChild(elem);
   }
 })
