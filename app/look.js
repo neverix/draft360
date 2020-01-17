@@ -169,7 +169,27 @@ registerComponent('mylook-controls', {
 
     // Mouse events.
     canvasEl.addEventListener('mousedown', e => this.onMouseDown(e), false);
-    window.addEventListener('mousemove', e => this.onMouseMove(e), false);
+    window.addEventListener('mousemove', function (event) {
+      // Not dragging and in movement mode
+      if(this.movementMode && !this.mouseDown) return;
+
+      var direction;
+      var movementX;
+      var movementY;
+      var pitchObject = this.pitchObject;
+      var previousMouseEvent = this.previousMouseEvent;
+      var yawObject = this.yawObject;
+
+      // Calculate delta.
+      movementX = event.movementX || event.mozMovementX || 0;
+      movementY = event.movementY || event.mozMovementY || 0;
+
+      // Calculate rotation.
+      direction = this.data.reverseMouseDrag ? 1 : -1;
+      yawObject.rotation.y += movementX * 0.002 * direction;
+      pitchObject.rotation.x += movementY * 0.002 * direction;
+      pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
+    }.bind(this), false);
     window.addEventListener('mouseup', this.onMouseUp, false);
 
     // Touch events.
@@ -182,11 +202,11 @@ registerComponent('mylook-controls', {
     sceneEl.addEventListener('exit-vr', this.onExitVR);
     
     // keyboard
-    window.addEventListener('keydown', function (e) {
+    window.addEventListener('keyup', function (e) {
       if(e.keyCode == 32) {
         this.movementMode = !this.movementMode;
       }
-    });
+    }.bind(this));
 
     // Pointer Lock events.
     if (this.data.pointerLockEnabled) {
@@ -279,34 +299,6 @@ registerComponent('mylook-controls', {
         this.previousMagicWindowYaw = magicWindowAbsoluteEuler.y;
       }
     }
-  },
-
-  /**
-   * Translate mouse drag into rotation.
-   *
-   * Dragging up and down rotates the camera around the X-axis (yaw).
-   * Dragging left and right rotates the camera around the Y-axis (pitch).
-   */
-  onMouseMove: function (event) {
-    // Not dragging and in movement mode
-    if(this.movementMode && !this.mouseDown) return;
-    
-    var direction;
-    var movementX;
-    var movementY;
-    var pitchObject = this.pitchObject;
-    var previousMouseEvent = this.previousMouseEvent;
-    var yawObject = this.yawObject;
-
-    // Calculate delta.
-    movementX = event.movementX || event.mozMovementX || 0;
-    movementY = event.movementY || event.mozMovementY || 0;
-
-    // Calculate rotation.
-    direction = this.data.reverseMouseDrag ? 1 : -1;
-    yawObject.rotation.y += movementX * 0.002 * direction;
-    pitchObject.rotation.x += movementY * 0.002 * direction;
-    pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
   },
 
   /**
