@@ -21,13 +21,12 @@ AFRAME.registerComponent('renderer', {
     x = Math.floor(x);
     y = Math.floor(y);
     this.line.push([x, y]);
+    this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.ctx.beginPath();
-    this.ctx.moveTo(x, y);
-    this.ctx.lineTo(x + 5, y);
+    for(var i = 1; i < this.line.length; i++) {
+      this.ctx.moveTo(this.line[i][0], this.line[i][1]);
+      this.ctx.lineTo(this.line[i - 1][0], this.line[i - 1][1]);
+    }
     this.ctx.stroke();
-    console.log(document.getElementById("canvas-360")
-      .getAttribute("material"))
-    document.getElementById("canvas-360")
-      .getAttribute("material").map.needsUpdate = true;
   }
 });
