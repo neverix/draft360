@@ -15,8 +15,9 @@
       <a-entity camera mylook-controls>
           <a-cursor renderer id="cursor"></a-cursor>
       </a-entity>
-      <a-sky src="https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fpuydesancy.jpg"></a-sky>
-      <a-sky src="#canvas" transparent="true" radius="500"></a-sky>
+      <!-https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fpuydesancy.jpg-->
+      <a-sphere material="side: back; transparent: true; alphaTest: 0.5" src="https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fthumbnails%2Fdf0ff60c-2194-40bd-867d-b17b086bb09e.image.png?1579299514832"></a-sky>
+      <a-sky src="#canvas" radius="500" transparent="true"></a-sky>
       <a-text font="kelsonsans" value="Hiya" width="6" position="-2.5 0.25 -1.5"
               rotation="0 15 0"></a-text>
     </a-scene>
