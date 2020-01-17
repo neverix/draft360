@@ -35,11 +35,6 @@ registerComponent('mylook-controls', {
   },
 
   init: function () {
-    if(!isTouch()) {
-      document.body.requestPointerLock();
-      console.log("lock");
-    }
-    
     this.deltaYaw = 0;
     this.previousHMDPosition = new THREE.Vector3();
     this.hmdQuaternion = new THREE.Quaternion();
