@@ -22,6 +22,10 @@ AFRAME.registerComponent('frame-manager', {
       ]);
       showDialog("Frame:", buttons);
     };
+    document.getElementById("export").onclick = () => {
+      //console.log("export button clicked");
+      
+    }
     document.getElementById("new-frame").onclick = () => {
       this.frame = this.frames.length;
       this.frames.push({
@@ -32,6 +36,7 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("delete-frame").onclick = () => {
       if(this.frames.length < 2) return;
       this.frames.splice(this.frame, 1);
+      document.getElementById("renderer").components.renderer.deleteFrame(this.frame);
       this.frame = 0;
     };
     document.getElementById("new-portal").onclick = () => {
@@ -52,6 +57,7 @@ AFRAME.registerComponent('frame-manager', {
     };
   },
   tick: function() {
+    document.getElementById("frame-number").innerText = this.frame + 1
     document.getElementById("renderer").components.renderer
       .loadImage(this.frames[this.frame].base, this.frame);
     for(var i = 0; i < this.frames.length; i++) {
