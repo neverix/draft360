@@ -1,4 +1,5 @@
-document.onload = () => {
-  var dialog = document.querySelector('#modal');
+window.addEventListener("load", () => {
+  var dialog = document.getElementById("modal");
+  console.log(dialog)
   dialog.showModal();
-}
+});
