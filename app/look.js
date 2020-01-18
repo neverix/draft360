@@ -67,6 +67,13 @@ registerComponent('mylook-controls', {
     // keyboard
     window.addEventListener('keyup', this.onKeyDown.bind(this));
     this.touchStarted = false;
+    
+    document.getElementById("edit-mode").onclick = () => {
+      this.movementMode = false;
+    }
+    document.getElementById("move-mode").onclick = () => {
+      this.movementMode = true;
+    }
   },
 
   setupMagicWindowControls: function () {

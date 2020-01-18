@@ -8,13 +8,19 @@ AFRAME.registerComponent('renderer', {
     hThreshold: {default: 0.8},
     enabled: {default: true}
   },
-  init: function() {
+  loadImage: function(img, scene) {
+    if(this.images[scene]) {
+      this.image = this.images[scene];
+      this.canvas = this.canvases[scene];
+      return;
+    }
     this.image = new Image();
     this.image.crossOrigin = "anonymous";
-    this.image.src = this.data.image;
+    this.image.src = img;
     this.loaded = false;
+    this.images[scene] = this.image;
     this.image.onload = (() => {
-      var canvas = document.getElementById("canvas");
+      var canvas = document.createElement("canvas");
       canvas.width = this.image.width;
       canvas.height = this.image.height;
       var ctx = canvas.getContext("2d");
@@ -23,6 +29,7 @@ AFRAME.registerComponent('renderer', {
       ctx.lineWidth = this.data.strokeSize;
       this.ctx = ctx;
       this.ctx.drawImage(this.image, 0, 0);
+      this.canvases[scene] = canvas;
       this.canvas = canvas;
       this.texture = new THREE.Texture(this.canvas);
       var material = new THREE.MeshBasicMaterial({
@@ -38,6 +45,11 @@ AFRAME.registerComponent('renderer', {
       this.loaded = true;
       this.texture.needsUpdate = true;
     }).bind(this);
+  },
+  init: function() {
+    this.loaded = false;
+    this.canvases = {};
+    this.images = {};
     this.line = [];
     this.lines = [];
     this.camera = document.getElementById("camera");
