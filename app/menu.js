@@ -38,13 +38,11 @@ function showQRDialog(url) {
   document.getElementById("modal-text").innerText = "QR Code";
   
   var imageElem = document.getElementById("qr-code");
-  imageElem.innerHTML = "";
   var img = document.createElement('img'); 
   img.src = 'https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2FTeam009QRCode.png?v=1579278312151'; 
   imageElem.appendChild(img);
   
   var buttonsElem = document.getElementById("modal-buttons");
-  buttonsElem.innerHTML = "";
   
   var copyURLbutton = document.createElement("button");
   copyURLbutton.setAttribute("class", "mdl-button");
@@ -62,6 +60,10 @@ function showQRDialog(url) {
 }
 
 function closeDialog() {
+  var imageElem = document.getElementById("qr-code");
+  imageElem.innerHTML = "";
+  var buttonsElem = document.getElementById("modal-buttons");
+  buttonsElem.innerHTML = "";
   getDialog().close();
 }
 
