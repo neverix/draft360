@@ -7,15 +7,20 @@
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
     <script src="look.js"></script>
     <script src="renderer.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   </head>
   <body>
+    
     <a-scene>
       <a-assets>
           <canvas id="canvas"></canvas>
       </a-assets>
-      <a-entity renderer id="renderer"></a-entity>
+      <a-entity renderer="strokeColor: rgb(236, 0, 0)"
+                id="renderer"></a-entity>
       <a-entity camera mylook-controls id="camera">
-          <a-cursor></a-cursor>
+          <a-cursor color="rgb(236, 91, 46)"></a-cursor>
       </a-entity>
     </a-scene>
   </body>
