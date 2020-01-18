@@ -38,24 +38,27 @@ function showQRDialog() {
   document.getElementById("modal-text").innerText = "QR Code";
   
   var imageElem = document.getElementById("qr-code");
+  imageElem.innerHTML = "";
   var img = document.createElement('img'); 
-  img.src =  'https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2FTeam009QRCode.png?v=1579278312151'; 
+  img.src = 'https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2FTeam009QRCode.png?v=1579278312151'; 
   imageElem.appendChild(img);
   
   var buttonsElem = document.getElementById("modal-buttons");
   buttonsElem.innerHTML = "";
-  var button = document.createElement("button");
+  var copyURLbutton = document.createElement("button");
+  button.setAttribute("class", "mdl-button");
   button.setAttribute("type", "button");
-  button.innerText = "CLOSE";
+  button.innerText = "Close";
+  button.onclick = closeDialog;
+  buttonsElem.appendChild(button);
+  var button = document.createElement("button");
+  button.setAttribute("class", "mdl-button");
+  button.setAttribute("type", "button");
+  button.innerText = "Close";
   button.onclick = closeDialog;
   buttonsElem.appendChild(button);
 }
 
 function closeDialog() {
-  getDialog().close();
-}
-
-function closeQRDialog() {
-  
   getDialog().close();
 }
