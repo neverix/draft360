@@ -109,8 +109,10 @@ registerComponent('mylook-controls', {
   },
 
   tick: function (t) {
-    var data = this.data;
-    if (!data.enabled) { return; }
+    var enabled = this.mouseDown && !this.movementMode
+    document
+      .getElementById("renderer")
+      .setAttribute("enabled", "renderer", )
     this.updateOrientation();
   },
 
