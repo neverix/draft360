@@ -27,7 +27,15 @@ AFRAME.registerComponent('frame-manager', {
       var json = this.frames.map(({portals}, index) => ({
         portals, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL()
       }));
-      showQRDialog();
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://team-009.glitch.me/store", true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(json));
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          showQRDialog("https://team-009.glitch.me/draft/" + xhr.responseText);
+        }
+      }
     }
     document.getElementById("new-frame").onclick = () => {
       showDialog("Choose backdrop:", scenes.map(([name, url]) => [

@@ -17,6 +17,7 @@ app.post("/store", function (req, res) {
   var json = req.body;
   var fileName = Math.random().toString(32);
   fs.writeFile(".data/" + fileName + ".json", JSON.stringify(json));
+  res.send(fileName);
 })
 
 // listen for requests :)
