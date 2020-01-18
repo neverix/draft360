@@ -1,4 +1,4 @@
-/* global DeviceOrientationEvent  */
+/* global DeviceOrientationEvent, AFRAME, THREE, DocumentTouch  */
 var registerComponent = AFRAME.registerComponent;
 var utils = AFRAME.utils;
 var bind = utils.bind;
