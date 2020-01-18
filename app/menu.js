@@ -68,7 +68,7 @@ function closeDialog() {
 }
 
 function copyLink(url) {
-  navigator.clipboard.writeText(url)/* who cares about that .then(function() {
+  navigator.clipboard.writeText(url)/* ¯\_(ツ)_/¯ .then(function() {
     // clipboard successfully set
   }, function() {
     // clipboard write failed

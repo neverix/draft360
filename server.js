@@ -15,6 +15,7 @@ app.get("/", function(request, response) {
 app.use(express.json());
 app.post("/store", function (req, res) {
   var json = req.body;
+  res.send(json); return;
   var fileName = Math.random().toString(32);
   fs.writeFile(".data/" + fileName + ".json", JSON.stringify(json));
   res.send(fileName);
