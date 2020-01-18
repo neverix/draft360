@@ -1,7 +1,7 @@
 AFRAME.registerComponent('renderer', {
   schema: {
     image: {default: "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2F8b4718d5-af4e-4720-b09b-9c4f4a59768f.image.png?v=1579359942179"},
-    radius: {default: 1000},
+    radius: {default: 10000},
     subdiv: {default: 64},
     strokeColor: {default: "red"},
     strokeSize: {default: 3},
@@ -12,6 +12,10 @@ AFRAME.registerComponent('renderer', {
     if(this.images[scene]) {
       this.image = this.images[scene];
       this.canvas = this.canvases[scene];
+      if(this.canvases[scene]) {
+        this.loaded = true;
+        this.el.setObject3D("mesh", this.meshes[scene]);
+      }
       return;
     }
     this.image = new Image();
@@ -41,6 +45,7 @@ AFRAME.registerComponent('renderer', {
                                               this.data.subdiv,
                                               this.data.subdiv);
       var mesh = new THREE.Mesh(geometry, material);
+      this.meshes[scene] = mesh;
       this.el.setObject3D("mesh", mesh);
       this.loaded = true;
       this.texture.needsUpdate = true;
@@ -50,6 +55,7 @@ AFRAME.registerComponent('renderer', {
     this.loaded = false;
     this.canvases = {};
     this.images = {};
+    this.meshes = {};
     this.line = [];
     this.lines = [];
     this.camera = document.getElementById("camera");

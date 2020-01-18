@@ -10,14 +10,14 @@ AFRAME.registerComponent('frame-manager', {
   tick: function() {
     document.getElementById("renderer").components.renderer
       .loadImage(this.frames[this.frame].base, this.frame);
-    document.getElementById("frames").onclick = () => {
-      
-    }
-    document.getElementById("new-frame").onclick = () => {
+    document.getElementById("frames").onclick = (() => {
+      this.frame = 0;
+    }).bind(this);
+    document.getElementById("new-frame").onclick = (() => {
       this.frame = this.frames.length;
       this.frames.push({
         base: this.frames[this.frames.length - 1].base
       });
-    }
+    }).bind(this);
   }
 });
