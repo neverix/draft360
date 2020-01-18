@@ -2,6 +2,7 @@ AFRAME.registerComponent('frame-manager', {
   init: function() {
     this.frames = [
       {
+        //needs to change with upload functionality
         base: "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2F8b4718d5-af4e-4720-b09b-9c4f4a59768f.image.png?v=1579359942179"
       }
     ];
