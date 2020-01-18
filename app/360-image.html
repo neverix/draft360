@@ -13,11 +13,10 @@
       <a-assets>
           <canvas id="canvas"></canvas>
       </a-assets>
-      <a-entity camera mylook-controls renderer>
+      <a-entity camera mylook-controls>
           <a-cursor id="cursor"></a-cursor>
       </a-entity>
-      <a-sky src="https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fpuydesancy.jpg"></a-sky>
-      <a-entity id="canvas-360" geometry="primitive: sphere; radius: 5" material='side: back; src: "#canvas"; repeat:-1 1; alphaTest: 0.5; transparent: true;'></a-entity>
+      <a-entity renderer></a-entity>
       <a-text font="kelsonsans" value="Hiya" width="6" position="-2.5 0.25 -1.5"
               rotation="0 15 0"></a-text>
     </a-scene>

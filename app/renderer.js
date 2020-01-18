@@ -1,15 +1,38 @@
 AFRAME.registerComponent('renderer', {
+  schema: {
+    image: {default: "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fpuydesancy.jpg"},
+    radius: {default: 1000},
+    subdiv: {default: 64}
+  },
   init: function() {
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.strokeStyle = "#000000";
-    ctx.strokeWidth = 10;
-    this.ctx = ctx;
-    this.canvas = canvas;
+    this.image = new Image();
+    this.image.src = this.data.image;
+    this.loaded = false;
+    this.image.onload = (() => {
+      var canvas = document.getElementById("canvas");
+      canvas.width = this.image.width;
+      canvas.height = this.image.height;
+      var ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = "#000000";
+      ctx.strokeWidth = 10;
+      this.ctx = ctx;
+      this.canvas = canvas;
+      this.texture = new THREE.Texture(this.canvas);
+      var material = new THREE.MeshBasicMaterial({
+        map: this.texture,
+        shading: THREE.FlatShading,
+        side: THREE.BackSide
+      });
+      var geometry = new THREE.SphereGeometry(this.data.radius,
+                                              this.data.subdiv,
+                                              this.data.subdiv);
+      var mesh = new THREE.Mesh(geometry, material);
+      this.el.setObject3D("mesh", mesh);
+      this.loaded = true;
+    }).bind(this);
     this.line = [];
     this.lines = [this.line];
-    this.texture = new THREE.Texture(this.canvas);
   },
   tick: function(t) {
     var rot = this.el.getAttribute("rotation");
