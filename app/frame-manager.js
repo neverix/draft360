@@ -7,9 +7,9 @@ AFRAME.registerComponent('frame-manager', {
   init: function() {
     this.frames = [
       {
-        //needs to change with upload functionality
+        //needs to change with upload functionality // of course
         portals: [],
-        base: "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2F8b4718d5-af4e-4720-b09b-9c4f4a59768f.image.png?v=1579359942179"
+        base: scenes[0][1]
       }
     ];
     this.frame = 0;
@@ -27,14 +27,16 @@ AFRAME.registerComponent('frame-manager', {
       showQRDialog();
     }
     document.getElementById("new-frame").onclick = () => {
-      showDialog("Choose backdrop:", scenes.map(scene => {
-        
-      }));
-      this.frame = this.frames.length;
-      this.frames.push({
-        base: this.frames[this.frames.length - 1].base,
-        portals: []
-      });
+      showDialog("Choose backdrop:", scenes.map(([name, url]) => [
+        name, () => {
+          closeDialog();
+          this.frame = this.frames.length;
+          this.frames.push({
+            base: url,
+            portals: []
+          });
+        }
+      ]));
     };
     document.getElementById("delete-frame").onclick = () => {
       if(this.frames.length < 2) return;
