@@ -1,5 +1,8 @@
 /* global AFRAME THREE closeDialog showDialog */
 AFRAME.registerComponent('frame-manager', {
+  schema: {
+    portalDistance: {default: 5}
+  },
   init: function() {
     this.frames = [
       {
@@ -35,12 +38,11 @@ AFRAME.registerComponent('frame-manager', {
           var cursor = document.getElementById("cursor");
           var worldPos = new THREE.Vector3();
           worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
+          worldPos.multiplyScalar(this.data.portalDistance);
           var portal = document.createElement("a-sphere");
-          portal.setAttribute("cursor-listener", '');
           var w = worldPos;
-          portal.position = `${w.x} ${w.y} ${w.z}`;
-          portal.radius = 0.1;
-          portal.color = "red";
+          portal.setAttribute("position", `${w.x} ${w.y} ${w.z}`);
+          portal.setAttribute("color", "red");
           portal.onclick = () => {
             this.frame = index;
           };
