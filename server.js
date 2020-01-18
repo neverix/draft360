@@ -1,5 +1,5 @@
 // server.js
-
+var fs = require('fs');
 // init project
 var express = require('express');
 var app = express();
@@ -12,8 +12,11 @@ app.get("/", function(request, response) {
   response.sendFile(__dirname + '/app/index.html');
 });
 
+app.use(express.json());
 app.post("/store", function (req, res) {
-  
+  var json = req.body;
+  var fileName = Math.random().toString(32);
+  fs.writeFile(".data/" + fileName + ".json", JSON.stringify(json));
 })
 
 // listen for requests :)
