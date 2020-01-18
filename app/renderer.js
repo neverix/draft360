@@ -6,6 +6,7 @@ AFRAME.registerComponent('renderer', {
   },
   init: function() {
     this.image = new Image();
+    this.image.crossOrigin = "anonymous";
     this.image.src = this.data.image;
     this.loaded = false;
     this.image.onload = (() => {
@@ -17,11 +18,12 @@ AFRAME.registerComponent('renderer', {
       ctx.strokeStyle = "#000000";
       ctx.strokeWidth = 10;
       this.ctx = ctx;
+      this.ctx.drawImage(this.image, 0, 0);
       this.canvas = canvas;
       this.texture = new THREE.Texture(this.canvas);
       var material = new THREE.MeshBasicMaterial({
         map: this.texture,
-        shading: THREE.FlatShading,
+        flatShading: THREE.FlatShading,
         side: THREE.BackSide
       });
       var geometry = new THREE.SphereGeometry(this.data.radius,
@@ -33,24 +35,26 @@ AFRAME.registerComponent('renderer', {
     }).bind(this);
     this.line = [];
     this.lines = [this.line];
+    this.camera = document.getElementById("camera");
   },
   tick: function(t) {
-    var rot = this.el.getAttribute("rotation");
-    var x = rot.y / 360 + 0.5;
-    var y = rot.x / 360 + 0.5;
+    if(!this.loaded) return;
+    var rot = this.camera.getAttribute("rotation");
+    var x = (rot.y + 90) / 360 + 0.5;
+    var y = rot.x / -360 + 0.5;
     x -= Math.floor(x);
     x *= this.canvas.width;
     y *= this.canvas.height;
     x = Math.floor(x);
     y = Math.floor(y);
     this.line.push([x, y]);
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.beginPath();
-    for(var i = 1; i < this.line.length; i++) {
+    if(this.line.length > 1) {
+      this.ctx.beginPath();
+      var i = this.line.length - 1;
       this.ctx.moveTo(this.line[i][0], this.line[i][1]);
       this.ctx.lineTo(this.line[i - 1][0], this.line[i - 1][1]);
+      this.ctx.stroke();
+      this.texture.needsUpdate = true;
     }
-    this.ctx.stroke();
-    this.texture.needsUpdate = true;
   }
 });
