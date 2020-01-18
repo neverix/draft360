@@ -5,7 +5,8 @@ AFRAME.registerComponent('renderer', {
     subdiv: {default: 64},
     strokeColor: {default: "#101010"},
     strokeSize: {default: 3},
-    hThreshold: {default: 0.8}
+    hThreshold: {default: 0.8},
+    enabled: {default: true}
   },
   init: function() {
     this.image = new Image();
@@ -39,13 +40,11 @@ AFRAME.registerComponent('renderer', {
     this.line = [];
     this.lines = [];
     this.camera = document.getElementById("camera");
-    this.cursor = document.getElementById("cursor").object3D;
-    this.enabled = true;
     this.prevEnabled = false;
   },
   tick: function(t) {
     if(!this.loaded) return;
-    if(!this.enabled) {
+    if(!this.data.enabled) {
       this.prevEnabled = false;
       return;
     }
@@ -65,9 +64,7 @@ AFRAME.registerComponent('renderer', {
     this.line.push([x, y]);
     if(this.line.length > 1) {
       var i = this.line.length - 1;
-      if(this.line[i][0] - this.line[i - 1][0]
-         > this.canvas.width * this.data.hThreshold) return;
-      if(this.line[i - 1][0] - this.line[i - 1][0]
+      if(Math.abs(this.line[i][0] - this.line[i - 1][0])
          > this.canvas.width * this.data.hThreshold) return;
       this.ctx.beginPath();
       this.ctx.moveTo(this.line[i][0], this.line[i][1]);
