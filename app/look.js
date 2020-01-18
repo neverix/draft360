@@ -21,7 +21,7 @@ function isTouch() {
 /**
  * look-controls. Update entity pose, factoring mouse, touch, and WebVR API data.
  */
-registerComponent('mylook-controls', {
+registerComponent('mylookcontrols', {
   dependencies: ['position', 'rotation'],
 
   schema: {
@@ -61,8 +61,7 @@ registerComponent('mylook-controls', {
 
     // Call enter VR handler if the scene has entered VR before the event listeners attached.
     if (this.el.sceneEl.is('vr-mode')) { this.onEnterVR(); }
-    
-    this.movementMode = false;
+    this.movementMode = !isTouch();
     
     // keyboard
     window.addEventListener('keyup', this.onKeyDown.bind(this));

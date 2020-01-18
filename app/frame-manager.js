@@ -12,7 +12,7 @@ AFRAME.registerComponent('frame-manager', {
   tick: function() {
     document.getElementById("renderer").components.renderer
       .loadImage(this.frames[this.frame].base, this.frame);
-    document.getElementById("frames").onclick = (() => {
+    document.getElementById("frames").onclick =   () => {
       var buttons = this.frames.map((frame, index) => [
         index + 1, () => {
           this.frame = index;
@@ -20,12 +20,15 @@ AFRAME.registerComponent('frame-manager', {
         }
       ]);
       showDialog("Frame:", buttons);
-    }).bind(this);
-    document.getElementById("new-frame").onclick = (() => {
+    };
+    document.getElementById("new-frame").onclick = () => {
       this.frame = this.frames.length;
       this.frames.push({
         base: this.frames[this.frames.length - 1].base
       });
-    }).bind(this);
+    };
+    document.getElementById("new-portal").onclick = () => {
+      
+    }
   }
 });
