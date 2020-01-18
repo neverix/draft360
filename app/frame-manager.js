@@ -1,4 +1,4 @@
-/* global AFRAME THREE closeDialog showDialog */
+/* global AFRAME THREE closeDialog showDialog showQRDialog scenes */
 AFRAME.registerComponent('frame-manager', {
   schema: {
     portalDistance: {default: 5},
@@ -24,9 +24,12 @@ AFRAME.registerComponent('frame-manager', {
     };
     document.getElementById("export").onclick = () => {
       //console.log("export button clicked");
-      
+      showQRDialog();
     }
     document.getElementById("new-frame").onclick = () => {
+      showDialog("Choose backdrop:", scenes.map(scene => {
+        
+      }));
       this.frame = this.frames.length;
       this.frames.push({
         base: this.frames[this.frames.length - 1].base,
