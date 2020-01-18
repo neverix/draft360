@@ -54,3 +54,8 @@ function showQRDialog() {
 function closeDialog() {
   getDialog().close();
 }
+
+function closeQRDialog() {
+  
+  getDialog().close();
+}
