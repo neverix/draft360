@@ -1,3 +1,4 @@
+/* global AFRAME closeDialog showDialog */
 AFRAME.registerComponent('frame-manager', {
   init: function() {
     this.frames = [
@@ -12,7 +13,13 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("renderer").components.renderer
       .loadImage(this.frames[this.frame].base, this.frame);
     document.getElementById("frames").onclick = (() => {
-      this.frame = 0;
+      var buttons = this.frames.map((frame, index) => [
+        index + 1, () => {
+          this.frame = index;
+          closeDialog();
+        }
+      ]);
+      showDialog("Frame:", buttons);
     }).bind(this);
     document.getElementById("new-frame").onclick = (() => {
       this.frame = this.frames.length;

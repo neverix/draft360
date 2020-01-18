@@ -8,13 +8,11 @@ function getDialog() {
 }
 
 function showDialog(text, buttons) {
-  var dialog = document.getElementById("modal");
-  if (!dialog.showModal) {
-    dialogPolyfill.registerDialog(dialog);
-  }
+  var dialog = getDialog();
   dialog.showModal();
   document.getElementById("modal-text").innerText = text;
   var buttonsElem = document.getElementById("modal-buttons");
+  buttonsElem.innerHTML = "";
   buttons.forEach(([text, action]) => {
     var button = document.createElement("button");
     button.setAttribute("type", "button");
@@ -24,19 +22,7 @@ function showDialog(text, buttons) {
     buttonsElem.appendChild(button);
   });
 }
-function closeDialog() {
-  var dialog = document.getElementById("modal");
-  if (!dialog.showModal) {
-    dialogPolyfill.registerDialog(dialog);
-  }
-  dialog.close();
-}
 
-window.addEventListener("load", () => {
-  showDialog("Hello", [
-    ["Close", () => {
-      alert("Hmm");
-      closeDialog();
-    }]
-  ])
-});
+function closeDialog() {
+  getDialog().close();
+}
