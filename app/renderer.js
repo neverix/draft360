@@ -3,7 +3,7 @@ AFRAME.registerComponent('renderer', {
     image: {default: "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2F8b4718d5-af4e-4720-b09b-9c4f4a59768f.image.png?v=1579359942179"},
     radius: {default: 1000},
     subdiv: {default: 64},
-    strokeColor: {default: "#101010"},
+    strokeColor: {default: "red"},
     strokeSize: {default: 3},
     hThreshold: {default: 0.8},
     enabled: {default: true}
