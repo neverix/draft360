@@ -8,7 +8,8 @@ function getDialog() {
 }
 
 function showDialog(text, buttons) {
-  document.getElementById("camera").components.mylookcontrols
+  document.getElementById("camera").components
+    .mylookcontrols.movementMode = true;
   var dialog = getDialog();
   dialog.showModal();
   document.getElementById("modal-text").innerText = text;

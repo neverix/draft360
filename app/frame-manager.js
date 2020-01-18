@@ -28,7 +28,13 @@ AFRAME.registerComponent('frame-manager', {
       });
     };
     document.getElementById("new-portal").onclick = () => {
-      
+      var buttons = this.frames.map((frame, index) => [
+        index + 1, () => {
+          var cursor = document.getElementById("")
+          closeDialog();
+        }
+      ]);
+      showDialog("Frame:", buttons);
     }
   }
 });
