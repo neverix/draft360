@@ -28,7 +28,7 @@ function showDialog(text, buttons) {
   });
 }
 
-function showQRDialog() {
+function showQRDialog(url) {
   if(!isTouch()) {
     document.getElementById("camera").components
       .mylookcontrols.movementMode = true;
@@ -49,14 +49,14 @@ function showQRDialog() {
   var copyURLbutton = document.createElement("button");
   copyURLbutton.setAttribute("class", "mdl-button");
   copyURLbutton.setAttribute("type", "button");
-  copyURLbutton.innerText = "COPY LINK";
-  copyURLbutton.onclick = copyLink;
+  copyURLbutton.innerText = "Copy link";
+  copyURLbutton.onclick = copyLink.bind(this, url);
   buttonsElem.appendChild(copyURLbutton);
   
   var closeButton = document.createElement("button");
   closeButton.setAttribute("class", "mdl-button");
   closeButton.setAttribute("type", "button");
-  closeButton.innerText = "CLOSE";
+  closeButton.innerText = "Close";
   closeButton.onclick = closeDialog;
   buttonsElem.appendChild(closeButton);
 }
@@ -65,11 +65,13 @@ function closeDialog() {
   getDialog().close();
 }
 
-function copyLink() {
-  navigator.clipboard.writeText("hello world").then(function() {
-    
+function copyLink(url) {
+  navigator.clipboard.writeText(url)/* who cares about that .then(function() {
+    // clipboard successfully set
   }, function() {
-    /* clipboard write failed */
+    // clipboard write failed
   });
-
+  */
+  //getDialog().close();
+  closeDialog();
 }
