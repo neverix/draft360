@@ -15,6 +15,8 @@ AFRAME.registerComponent('renderer', {
       if(this.canvases[scene]) {
         this.loaded = true;
         this.el.setObject3D("mesh", this.meshes[scene]);
+        this.ctx = this.ctxs[scene];
+        this.texture = this.textures[scene];
       }
       return;
     }
@@ -34,8 +36,10 @@ AFRAME.registerComponent('renderer', {
       this.ctx = ctx;
       this.ctx.drawImage(this.image, 0, 0);
       this.canvases[scene] = canvas;
+      this.ctxs[scene] = ctx;
       this.canvas = canvas;
       this.texture = new THREE.Texture(this.canvas);
+      this.textures[scene] = this.texture;
       var material = new THREE.MeshBasicMaterial({
         map: this.texture,
         flatShading: THREE.FlatShading,
@@ -56,6 +60,8 @@ AFRAME.registerComponent('renderer', {
     this.canvases = {};
     this.images = {};
     this.meshes = {};
+    this.textures = {}
+    this.ctxs = {};
     this.line = [];
     this.lines = [];
     this.camera = document.getElementById("camera");
