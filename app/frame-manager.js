@@ -8,6 +8,6 @@ AFRAME.registerComponent('frame-manager', {
     this.frame = 0;
   },
   tick: function() {
-    document.getElementById("renderer").loadImage(this.frames[this.frame].base, this.frame)
+    document.getElementById("renderer").components.renderer.loadImage(this.frames[this.frame].base, this.frame)
   }
 });
