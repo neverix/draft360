@@ -12,14 +12,29 @@ app.get("/", function(request, response) {
   response.sendFile(__dirname + '/app/index.html');
 });
 
-app.use(express.json());
 app.post("/store", function (req, res) {
-  var json = req.body;
-  res.send(json); return;
-  var fileName = Math.random().toString(32);
-  fs.writeFile(".data/" + fileName + ".json", JSON.stringify(json));
-  res.send(fileName);
+  var fileId = Math.random().toString(32)
+  var fileName = __dirname + "/.data/" + fileId + ".json";
+  var body = '';
+  req.on('data', function(data) {
+      body += data;
+  });
+  req.on('end', function (){
+      fs.writeFile(fileName, body, function() {
+          res.send(fileId);
+      });
+  });
 })
+
+app.get("/draft/:draftId", function (req, res) {
+  res.sendFile(__dirname + '/app/index.html');
+})
+
+app.get("/file/:draftId", function (req, res) {
+  var fileId = req.params.draftId;
+  var fileName = __dirname + "/.data/" + fileId + ".json";
+  res.sendFile(fileName);
+});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
