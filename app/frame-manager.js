@@ -8,6 +8,16 @@ AFRAME.registerComponent('frame-manager', {
     this.frame = 0;
   },
   tick: function() {
-    document.getElementById("renderer").components.renderer.loadImage(this.frames[this.frame].base, this.frame)
+    document.getElementById("renderer").components.renderer
+      .loadImage(this.frames[this.frame].base, this.frame);
+    document.getElementById("frames").onclick = () => {
+      
+    }
+    document.getElementById("new-frame").onclick = () => {
+      this.frame = this.frames.length;
+      this.frames.push({
+        base: this.frames[this.frames.length - 1].base
+      });
+    }
   }
 });
