@@ -2,7 +2,9 @@ AFRAME.registerComponent('renderer', {
   schema: {
     image: {default: "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fpuydesancy.jpg"},
     radius: {default: 1000},
-    subdiv: {default: 64}
+    subdiv: {default: 64},
+    strokeColor: {default: "#101010"},
+    strokeSize: {default: 7}
   },
   init: function() {
     this.image = new Image();
@@ -15,8 +17,8 @@ AFRAME.registerComponent('renderer', {
       canvas.height = this.image.height;
       var ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = "#000000";
-      ctx.strokeWidth = 10;
+      ctx.strokeStyle = this.data.strokeColor;
+      ctx.lineWidth = this.data.strokeSize;
       this.ctx = ctx;
       this.ctx.drawImage(this.image, 0, 0);
       this.canvas = canvas;
@@ -36,12 +38,13 @@ AFRAME.registerComponent('renderer', {
     this.line = [];
     this.lines = [this.line];
     this.camera = document.getElementById("camera");
+    this.cursor = document.getElementById("cursor").object3D;
   },
   tick: function(t) {
     if(!this.loaded) return;
     var rot = this.camera.getAttribute("rotation");
     var x = (rot.y + 90) / 360 + 0.5;
-    var y = rot.x / -360 + 0.5;
+    var y = worldPos.y / -2 + 0.5;
     x -= Math.floor(x);
     x *= this.canvas.width;
     y *= this.canvas.height;
