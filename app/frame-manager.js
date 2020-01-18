@@ -1,7 +1,8 @@
 /* global AFRAME THREE closeDialog showDialog */
 AFRAME.registerComponent('frame-manager', {
   schema: {
-    portalDistance: {default: 5}
+    portalDistance: {default: 5},
+    portalRadius: {default: 0.5}
   },
   init: function() {
     this.frames = [
@@ -35,14 +36,6 @@ AFRAME.registerComponent('frame-manager', {
           var worldPos = new THREE.Vector3();
           worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
           worldPos.multiplyScalar(this.data.portalDistance);
-          var portal = document.createElement("a-sphere");
-          var w = worldPos;
-          portal.setAttribute("position", `${w.x} ${w.y} ${w.z}`);
-          portal.setAttribute("color", "red");
-          portal.onclick = () => {
-            this.frame = index;
-          };
-          this.el.sceneEl.appendChild(portal);
           this.frames[index].portals.push({
             position: worldPos,
             to: index
@@ -58,10 +51,23 @@ AFRAME.registerComponent('frame-manager', {
       .loadImage(this.frames[this.frame].base, this.frame);
     for(var i = 0; i < this.frames.length; i++) {
       var { portals } = this.frames[i];
-      portals.forEach(({position, to}) => {
+      portals.forEach(({ position, to }) => {
+        var portalId = `portal-${i}-${to}`;
+        var elem = document.getElementById(portalId);
         if(i == this.frame) {
-          
-        }
+          if(!elem) {
+            var portal = document.createElement("a-sphere");
+            var p = position;
+            portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
+            portal.setAttribute("color", "red");
+            portal.setAttribute("radius", this.data.portalRadius);
+            portal.id = portalId;
+            portal.onclick = () => {
+              this.frame = to;
+            };
+            this.el.sceneEl.appendChild(portal);
+          }
+        } else if(!!elem) elem.remove();
       });
     }
   }
