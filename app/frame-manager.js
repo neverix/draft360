@@ -12,11 +12,7 @@ AFRAME.registerComponent('frame-manager', {
       }
     ];
     this.frame = 0;
-  },
-  tick: function() {
-    document.getElementById("renderer").components.renderer
-      .loadImage(this.frames[this.frame].base, this.frame);
-    document.getElementById("frames").onclick =   () => {
+        document.getElementById("frames").onclick =   () => {
       var buttons = this.frames.map((frame, index) => [
         index + 1, () => {
           this.frame = index;
@@ -55,6 +51,18 @@ AFRAME.registerComponent('frame-manager', {
         }
       ]);
       showDialog("Frame:", buttons);
+    };
+  },
+  tick: function() {
+    document.getElementById("renderer").components.renderer
+      .loadImage(this.frames[this.frame].base, this.frame);
+    for(var i = 0; i < this.frames.length; i++) {
+      var { portals } = this.frames[i];
+      portals.forEach(({position, to}) => {
+        if(i == this.frame) {
+          
+        }
+      });
     }
   }
 });
