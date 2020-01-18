@@ -29,6 +29,11 @@ AFRAME.registerComponent('frame-manager', {
         portals: []
       });
     };
+    document.getElementById("delete-frame").onclick = () => {
+      if(this.frames.length < 2) return;
+      this.frames.splice(this.frame, 1);
+      this.frame = 0;
+    };
     document.getElementById("new-portal").onclick = () => {
       var buttons = this.frames.map((frame, index) => [
         index + 1, () => {
