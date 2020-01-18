@@ -9,11 +9,11 @@ AFRAME.registerComponent('renderer', {
     enabled: {default: true}
   },
   deleteFrame: function(scene) {
-    delete this.canvases[scene];
-    delete this.images[scene];
-    delete this.meshes[scene];
-    delete this.textures[scene];
-    delete this.ctxs[scene];
+    this.canvases.splice(scene, 1);
+    this.images.splice(scene, 1);
+    this.meshes.splice(scene, 1);
+    this.textures.splice(scene, 1);
+    this.ctxs.splice(scene, 1);
   },
   loadImage: function(img, scene) {
     if(this.images[scene]) {
@@ -64,11 +64,11 @@ AFRAME.registerComponent('renderer', {
   },
   init: function() {
     this.loaded = false;
-    this.canvases = {};
-    this.images = {};
-    this.meshes = {};
-    this.textures = {}
-    this.ctxs = {};
+    this.canvases = [];
+    this.images = [];
+    this.meshes = [];
+    this.textures = [];
+    this.ctxs = [];
     this.line = [];
     this.lines = [];
     this.camera = document.getElementById("camera");

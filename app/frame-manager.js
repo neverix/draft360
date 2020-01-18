@@ -24,6 +24,9 @@ AFRAME.registerComponent('frame-manager', {
     };
     document.getElementById("export").onclick = () => {
       //console.log("export button clicked");
+      var json = this.frames.map(({portals}, index) => ({
+        portals, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL()
+      }));
       showQRDialog();
     }
     document.getElementById("new-frame").onclick = () => {
@@ -67,10 +70,9 @@ AFRAME.registerComponent('frame-manager', {
       .loadImage(this.frames[this.frame].base, this.frame);
     for(var i = 0; i < this.frames.length; i++) {
       var { portals } = this.frames[i];
-      portals.forEach(({ position, to }) => {
-        var portalId = `portal-${i}-${to}`;
+      portals.forEach(({ position, to }, nd) => {
+        var portalId = `portal-${i}-${nd}`;
         var elem = document.getElementById(portalId);
-        console.log(portalId, elem);
         if(i == this.frame) {
           if(!elem) {
             var portal = document.createElement("a-sphere");
