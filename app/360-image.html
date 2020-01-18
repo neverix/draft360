@@ -6,6 +6,7 @@
     <title>360&deg; Image</title>
     <meta name="description" content="360&deg; Image - A-Frame">
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <script src="scene-manager.js"></script>
     <script src="look.js"></script>
     <script src="renderer.js"></script>
     <script src="frame-manager.js"></script>
@@ -65,13 +66,7 @@
     <dialog class="mdl-dialog" id="modal" style="z-index: 9001 !important;">
       <div class="mdl-dialog__content">
         <p id="modal-text"></p>
-      </div>
-      <div class="mdl-dialog__actions mdl-dialog__actions--full-width" id="modal-buttons">
-      </div>
-    </dialog>
-    <dialog class="mdl-qr-code-dialog" id="modal-qr-code" style="z-index: 9001 !important;">
-      <div class="mdl-dialog__content">
-        <p id="modal-text"></p>
+        <p id="qr-code"></p>
       </div>
       <div class="mdl-dialog__actions mdl-dialog__actions--full-width" id="modal-buttons">
       </div>

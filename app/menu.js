@@ -28,27 +28,25 @@ function showDialog(text, buttons) {
   });
 }
 
-function getQRCodeDialog() {
-  var dialog = document.getElementById("modal-qr-code");
-  if (!dialog.showModal) {
-    dialogPolyfill.registerDialog(dialog);
-  }
-  return dialog;
-}
-
 function showQRDialog() {
   if(!isTouch()) {
     document.getElementById("camera").components
       .mylookcontrols.movementMode = true;
   }
-  var dialog = getQRCodeDialog();
+  var dialog = getDialog();
   dialog.showModal();
   document.getElementById("modal-text").innerText = "QR Code";
+  
+  var imageElem = document.getElementById("qr-code");
+  var img = document.createElement('img'); 
+  img.src =  'https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2FTeam009QRCode.png?v=1579278312151'; 
+  imageElem.appendChild(img);
+  
   var buttonsElem = document.getElementById("modal-buttons");
   buttonsElem.innerHTML = "";
   var button = document.createElement("button");
   button.setAttribute("type", "button");
-  button.innerText = "OK";
+  button.innerText = "CLOSE";
   button.onclick = closeDialog;
   buttonsElem.appendChild(button);
 }
