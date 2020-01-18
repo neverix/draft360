@@ -45,20 +45,31 @@ function showQRDialog() {
   
   var buttonsElem = document.getElementById("modal-buttons");
   buttonsElem.innerHTML = "";
+  
   var copyURLbutton = document.createElement("button");
-  button.setAttribute("class", "mdl-button");
-  button.setAttribute("type", "button");
-  button.innerText = "Close";
-  button.onclick = closeDialog;
-  buttonsElem.appendChild(button);
-  var button = document.createElement("button");
-  button.setAttribute("class", "mdl-button");
-  button.setAttribute("type", "button");
-  button.innerText = "Close";
-  button.onclick = closeDialog;
-  buttonsElem.appendChild(button);
+  copyURLbutton.setAttribute("class", "mdl-button");
+  copyURLbutton.setAttribute("type", "button");
+  copyURLbutton.innerText = "COPY LINK";
+  copyURLbutton.onclick = copyLink;
+  buttonsElem.appendChild(copyURLbutton);
+  
+  var closeButton = document.createElement("button");
+  closeButton.setAttribute("class", "mdl-button");
+  closeButton.setAttribute("type", "button");
+  closeButton.innerText = "CLOSE";
+  closeButton.onclick = closeDialog;
+  buttonsElem.appendChild(closeButton);
 }
 
 function closeDialog() {
   getDialog().close();
+}
+
+function copyLink() {
+  navigator.clipboard.writeText("hello world").then(function() {
+    
+  }, function() {
+    /* clipboard write failed */
+  });
+
 }

@@ -7,8 +7,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.4",
-    "aframe-meshline-component": "*"
+    "express": "^4.16.4"
   },
   "license": "MIT",
   "keywords": [
