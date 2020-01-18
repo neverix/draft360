@@ -9,6 +9,13 @@ AFRAME.registerComponent('renderer', {
     hThreshold: {default: 0.8},
     enabled: {default: true}
   },
+  deleteFrame: function(scene) {
+    delete this.canvases[scene];
+    delete this.images[scene];
+    delete this.meshes[scene];
+    delete this.textures[scene];
+    delete this.ctxs[scene];
+  },
   loadImage: function(img, scene) {
     if(this.images[scene]) {
       this.image = this.images[scene];
