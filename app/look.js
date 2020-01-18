@@ -66,6 +66,7 @@ registerComponent('mylook-controls', {
     
     // keyboard
     window.addEventListener('keyup', this.onKeyDown.bind(this));
+    this.touchStarted = false;
   },
 
   setupMagicWindowControls: function () {
@@ -109,10 +110,10 @@ registerComponent('mylook-controls', {
   },
 
   tick: function (t) {
-    var enabled = this.mouseDown && !this.movementMode
+    var enabled = (this.mouseDown || this.touchStarted) && !this.movementMode;
     document
       .getElementById("renderer")
-      .setAttribute("enabled", "renderer", )
+      .setAttribute("renderer", "enabled", enabled);
     this.updateOrientation();
   },
 
