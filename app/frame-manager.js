@@ -36,7 +36,7 @@ AFRAME.registerComponent('frame-manager', {
           var worldPos = new THREE.Vector3();
           worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
           worldPos.multiplyScalar(this.data.portalDistance);
-          this.frames[index].portals.push({
+          this.frames[this.frame].portals.push({
             position: worldPos,
             to: index
           });
@@ -54,12 +54,12 @@ AFRAME.registerComponent('frame-manager', {
       portals.forEach(({ position, to }) => {
         var portalId = `portal-${i}-${to}`;
         var elem = document.getElementById(portalId);
+        console.log(portalId, elem);
         if(i == this.frame) {
           if(!elem) {
             var portal = document.createElement("a-sphere");
             var p = position;
             portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
-            portal.setAttribute("color", "red");
             portal.setAttribute("radius", this.data.portalRadius);
             portal.id = portalId;
             portal.onclick = () => {

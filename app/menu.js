@@ -1,4 +1,4 @@
-/* global dialogPolyfill  */
+/* global dialogPolyfill, isTouch  */
 function getDialog() {
   var dialog = document.getElementById("modal");
   if (!dialog.showModal) {
@@ -8,13 +8,16 @@ function getDialog() {
 }
 
 function showDialog(text, buttons) {
-  document.getElementById("camera").components
-    .mylookcontrols.movementMode = true;
+  if(!isTouch()) {
+    document.getElementById("camera").components
+      .mylookcontrols.movementMode = true;
+  }
   var dialog = getDialog();
   dialog.showModal();
   document.getElementById("modal-text").innerText = text;
   var buttonsElem = document.getElementById("modal-buttons");
   buttonsElem.innerHTML = "";
+  buttons.push(["Close", closeDialog]);
   buttons.forEach(([text, action]) => {
     var button = document.createElement("button");
     button.setAttribute("type", "button");
