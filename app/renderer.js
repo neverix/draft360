@@ -36,6 +36,7 @@ AFRAME.registerComponent('renderer', {
       var mesh = new THREE.Mesh(geometry, material);
       this.el.setObject3D("mesh", mesh);
       this.loaded = true;
+      this.texture.needsUpdate = true;
     }).bind(this);
     this.line = [];
     this.lines = [];
