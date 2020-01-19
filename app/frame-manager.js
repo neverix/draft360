@@ -69,10 +69,15 @@ AFRAME.registerComponent('frame-manager', {
       ]));
     };
     document.getElementById("delete-frame").onclick = () => {
-      if(this.frames.length < 2) return;
-      this.frames.splice(this.frame, 1);
-      document.getElementById("renderer").components.renderer.deleteFrame(this.frame);
-      this.frame = 0;
+      showDialog("Are you sure you want to delete this frame? There's no way to undo this action", [
+        ["Yes", () => {
+          closeDialog();
+          if(this.frames.length < 2) return;
+          this.frames.splice(this.frame, 1);
+          document.getElementById("renderer").components.renderer.deleteFrame(this.frame);
+          this.frame = 0;
+        }]
+      ])
     };
     document.getElementById("new-portal").onclick = () => {
       var buttons = this.frames.map((frame, index) => [
@@ -168,9 +173,10 @@ AFRAME.registerComponent('frame-manager', {
             portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             var r = rotation;
             portal.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
-            portal.setAttribute("size", `200 200`);
+            //portal.setAttribute("size", `200 200`);
             portal.setAttribute("src", src);
-            portal.setAttribute("animation", "property: scale; dur: 1000; from: 1 1 1; to: 0.8 0.8 0.8; loop: true; direction: alternate; easing: linear");
+            portal.setAttribute("particle-system", "color: #44CC00; maxAge: 0.1; maxParticleCount: 10");
+            //portal.setAttribute("animation", "property: scale; dur: 1000; from: 1 1 1; to: 0.8 0.8 0.8; loop: true; direction: alternate; easing: linear");
             portal.onclick = () => {
               this.frame = to;
             };
@@ -190,7 +196,7 @@ AFRAME.registerComponent('frame-manager', {
             stampImg.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             var r = rotation;
             stampImg.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
-            stampImg.setAttribute("size", `200 200`);
+            //stampImg.setAttribute("size", `200 200`);
             stampImg.setAttribute("src", src);
             this.el.sceneEl.appendChild(stampImg);
           }
