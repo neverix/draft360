@@ -12,18 +12,43 @@ var images = [
   [
     "Person",
     "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fstamp_person1.png?v=1579396695751"  
+  ],
+  [
+    // temp image for multiple-images testing
+    "Pigeon",
+    "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fpigeon-transparent.png?v=1579407367303"
   ]
 ];
 
 function pickFile() {
-  var input = document.createElement("file")
+  var input = document.createElement("input");
+  input.setAttribute("type", "file");
+  input.click();
+  return new Promise((ok, err) => {
+    input.onchange = () => { 
+      var file = input.files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = result => {
+        var content;
+        icontent = result.target.result;
+        }
+        ok(file.name, content);
+      }
+    }
+  });
 }
 
 window.addEventListener("load", () => {
   document.getElementById("360-open").addEventListener("click", () => {
-    console.log("360");
+    pickFile().then((name, content) => {
+      scenes.push([name, content]);
+    });
   });
   document.getElementById("image-open").addEventListener("click", () => {
-    console.log("image");
+    pickFile().then((name, content) => {
+      console.log(content);
+      images.push([name, content]);
+    });
   });
 });
