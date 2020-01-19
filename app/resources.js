@@ -5,7 +5,7 @@ var scenes = [
   ],
   [
     "City",
-    "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2F360BG_CityTemplateBlue_1080p.jpg?v=1579448445455"
+    "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fcityscape1080px.png?v=1579449483178"
   ],
   [
     "Team 009",

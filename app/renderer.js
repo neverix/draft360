@@ -75,6 +75,7 @@ AFRAME.registerComponent('renderer', {
     this.prevEnabled = false;
   },
   tick: function(t) {
+    document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(!this.loaded) return;
     if(!this.data.enabled) {
       this.prevEnabled = false;

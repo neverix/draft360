@@ -51,7 +51,7 @@ body::-webkit-scrollbar {
   display:inline-block;
   margin-left: 5px;
   width: 36%;
-  border-radius: 8px;
+  
   color: #FFFFFF;
   background-color: #7D4EFF;
   font-size: 16px;
@@ -61,7 +61,6 @@ body::-webkit-scrollbar {
   display:inline-block;
   margin-right: 5px;
   width: 36%;
-  border-radius: 8px;
   color: #FFFFFF;
   background-color: #7D4EFF;
   font-size: 16px;
