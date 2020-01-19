@@ -88,6 +88,13 @@ AFRAME.registerComponent('frame-manager', {
       ]);
       showDialog("Frame:", buttons);
     };
+    this.imageMode = false;
+    document.getElementById("image-mode").onclick = () => {
+      this.imageMode = true;
+      // this.stampImage = new Image();
+      // this.stampImage.crossOrigin = "anonymous";
+      // this.stampImage.src = "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fstamp_person1.png?v=1579396695751";
+    }
   },
   tick: function() {
     if(!this.loaded) return;
