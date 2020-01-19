@@ -1,4 +1,4 @@
-/* global AFRAME THREE closeDialog showDialog showQRDialog scenes */
+/* global AFRAME THREE closeDialog showDialog showQRDialog scenes images */
 var prefix = "https://team-009.glitch.me"
 
 AFRAME.registerComponent('frame-manager', {
@@ -88,16 +88,10 @@ AFRAME.registerComponent('frame-manager', {
           closeDialog();
         }
       ]);
-      showDialog("Frame:", buttons);
+      showDialog("Choose frame to teleport to:", buttons);
     };
     this.imageMode = false;
     document.getElementById("image-mode").onclick = () => {
-      this.imageMode = true;
-      // this.stampImage = new Image();
-      // this.stampImage.crossOrigin = "anonymous";
-      // this.stampImage.src = "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fstamp_person1.png?v=1579396695751";
-    }
-    window.addEventListener('mousedown', () => {
       if (this.imageMode) {
         var cursor = document.getElementById("cursor");
         var worldPos = new THREE.Vector3();
@@ -108,11 +102,21 @@ AFRAME.registerComponent('frame-manager', {
         this.frames[this.frame].images.push({
           position: worldPos,
           rotation: rot,
-          src: "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fstamp_person1.png?v=1579396695751"  
+          src: this.imageSrc
         });
         this.imageMode = false;
+        document.getElementById("image-mode-icon").innerText = "add_photo_alternate";
+      } else {
+        showDialog("Choose image:", images.map(([name, image]) => [
+          name, () => {
+            this.imageMode = true;
+            this.imageSrc = image;
+            document.getElementById("image-mode-icon").innerText = "done";
+            closeDialog();
+          }
+        ]))
       }
-    });
+    }
   },
   tick: function() {
     if(!this.loaded) return;
@@ -139,7 +143,7 @@ AFRAME.registerComponent('frame-manager', {
         } else if(!!elem) elem.remove();
       });
       images.forEach(({ position, rotation, src }, nd) => {
-        var stampId = `portal-${i}-${nd}`;
+        var stampId = `image-${i}-${nd}`;
         var elem = document.getElementById(stampId);
         if(i == this.frame) {
           if(!elem) {
