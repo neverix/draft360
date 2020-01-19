@@ -21,6 +21,7 @@
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script> 
   </head>
   <body style="user-select: none;">
+    <!--Frame-->
     <div style="position: fixed;
                 left: 0;
                 top: 0;
@@ -32,45 +33,21 @@
         Frame: <span id="frame-number">1</span>
       </h2>
     </div>
+    
+    <!--Side-Navigation Menu-->
     <div style="position: fixed;
                 right: 0;
                 z-index: 1337;
                 height: 80%;
+                overflow: hidden;
                 overflow-y: scroll;
                 ">
+      
       <div style="padding: 1em 1em 1em 1em;">
-        <button id="export" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Export">
-          <i class="material-icons">share</i>
-        </button>
-        <br><br>
-        <button id="image-mode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Add Images">
-          <i class="material-icons" id="image-mode-icon">add_photo_alternate</i>
-        </button>
-        <br><br>
-        <button id="text-mode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Add Text">
-          <i class="material-icons">text_fields</i>
-        </button>
-        <br><br>
-        <button id="image-open" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Upload Images">
-          <i class="material-icons">folder_open</i>
-        </button>
-        <br><br>
-        <button id="new-portal" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Create Hotspot">
-          <i class="material-icons">select_all</i>
-        </button>
-        <br><br>
-        <button id="delete-frame" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Delete Scene">
-          <i class="material-icons">delete</i>
-        </button>
-        <br><br>
-        <button id="new-frame" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="New Scene">
-          <i class="material-icons">add</i>
-        </button>
-        <br><br>
-        <button id="frames" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="View Scenes">
-          <i class="material-icons">sort</i>
-        </button>
-        <br><br>
+        <!--Modes-->
+        <p style="font-size:.7em;color:#7d4eff;background-color:#fff;text-align:center;padding:1px;border-radius:5px;">
+          Modes
+        </p>
         <button id="edit-mode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Sketch Mode">
           <i class="material-icons">edit</i>
         </button>
@@ -79,10 +56,61 @@
           <i class="material-icons">open_with</i>
         </button>
         <br><br>
+
+         <!--Actions - Frame-Lvl-->
+        <p style="font-size:.7em;color:#7d4eff;background-color:#fff;text-align:center;border-radius:5px;padding:1px;">
+          Frame 
+        </p>
+        <button id="image-mode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Add Images">
+          <i class="material-icons" id="image-mode-icon">add_photo_alternate</i>
+        </button>
+        <br><br>
+        <button id="text-mode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Add Text">
+          <i class="material-icons">text_fields</i>
+        </button>
+        <br><br>
+         <button id="new-portal" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Add Hotspot">
+          <i class="material-icons">select_all</i>
+        </button>
+        <br><br>
+      
+        
+         <!--Actions - High-Lvl-->
+        <p style="font-size:.7em;color:#7d4eff;background-color:#fff;text-align:center;border-radius:5px;padding:1px;">
+          Scene 
+        </p>
+        <button id="new-frame" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="New Scene">
+          <i class="material-icons">add</i>
+        </button>
+        <br><br>
+        <button id="delete-frame" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Delete Scene">
+          <i class="material-icons">delete</i>
+        </button>
+        <br><br>
+        <button id="frames" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="View All Scenes">
+          <i class="material-icons">sort</i>
+        </button>
+        <br><br>
+        
+        <!--Import/Export-->
+        <p style="font-size:.6em;color:#7d4eff;background-color:#fff;text-align:center;border-radius:5px;padding:1px;">
+         Import/Export 
+        </p>
+         <button id="image-open" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Upload 2D Images">
+          <i class="material-icons">folder_open</i>
+        </button>
+        <br><br>
         <button id="360-open" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Upload 360 BG">
           <i class="material-icons">360</i>
         </button>
+        <br><br>
+        <button id="export" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Export">
+          <i class="material-icons">share</i>
+        </button>
+        <br><br>
+      
       </div>
+      
     </div>
     <dialog class="mdl-dialog" id="modal" style="z-index: 9001 !important;">
       <div class="mdl-dialog__content">
