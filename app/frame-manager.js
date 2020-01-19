@@ -42,8 +42,8 @@ AFRAME.registerComponent('frame-manager', {
     };
     document.getElementById("export").onclick = () => {
       //console.log("export button clicked");
-      var json = this.frames.map(({portals}, index) => ({
-        portals, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL()
+      var json = this.frames.map(({portals, images}, index) => ({
+        portals, images, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL()
       }));
       var xhr = new XMLHttpRequest();
       xhr.open("POST", prefix + "/store/", true);
@@ -152,7 +152,8 @@ AFRAME.registerComponent('frame-manager', {
             stampImg.id = stampId;
             var p = position;
             stampImg.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
-            stampImg.setAttribute("rotation", rotation);
+            var r = rotation;
+            stampImg.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
             stampImg.setAttribute("size", `200 200`);
             stampImg.setAttribute("src", src);
             this.el.sceneEl.appendChild(stampImg);
