@@ -74,9 +74,9 @@ registerComponent('mylookcontrols', {
       this.movementMode = true;
     }
     
-    this.mustAddImage = false;
-    document.getElementById("new-image").onclick = () => {
-      this.mustAddImage = true;
+    this.imageMode = false;
+    document.getElementById("image-mode").onclick = () => {
+      this.imageMode = true;
     }
   },
 
