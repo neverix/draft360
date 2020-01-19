@@ -17,7 +17,7 @@ AFRAME.registerComponent('renderer', {
   },
   loadImage: function(img, scene) {
     if(this.images[scene]) {
-      this.image = this.images[scene];
+    this.image = this.images[scene];                    
       this.canvas = this.canvases[scene];
       if(this.canvases[scene]) {
         this.loaded = true;
