@@ -170,7 +170,7 @@ AFRAME.registerComponent('frame-manager', {
             portal.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
             portal.setAttribute("size", `200 200`);
             portal.setAttribute("src", src);
-            portal.setAttribute("glow", "side: front; scale:1.3; c: 1; p: 1.3; color: #FF00FF;");
+            portal.setAttribute("animation", "property: material.color; dur: 1500; from: red; to: purple; autoplay: true");
             portal.onclick = () => {
               this.frame = to;
             };
