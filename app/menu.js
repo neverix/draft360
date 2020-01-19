@@ -75,5 +75,5 @@ function copyLink(url) {
   });
   */
   //getDialog().close();
-  closeDialog();
+  //closeDialog();
 }
