@@ -57,6 +57,7 @@ body::-webkit-scrollbar {
   background-color: #7D4EFF;
   font-size: 16px;
   border-width: 0px;
+  padding: 0.2em 0.2em 0.2em 0.2em;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
@@ -70,6 +71,8 @@ body::-webkit-scrollbar {
   color: #FFFFFF;
   background-color: #7D4EFF;
   font-size: 16px;
+  padding: 0.2em 0.2em 0.2em 0.2em;
+  text-transform: "uppercase";
   font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
