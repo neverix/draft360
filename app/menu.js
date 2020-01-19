@@ -1,4 +1,4 @@
-/* global dialogPolyfill, isTouch */
+/* global dialogPolyfill, isTouch, QRCode */
 function getDialog() {
   var dialog = document.getElementById("modal");
   if (!dialog.showModal) {
@@ -41,7 +41,11 @@ function showQRDialog(url) {
   // var img = document.createElement('img'); 
   // img.src = 'https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2FTeam009QRCode.png?v=1579278312151'; 
   // imageElem.appendChild(img);
-  var qrcode = new QRCode(document.getElementById("qr-code"), url);
+  var qrcode = new QRCode(document.getElementById("qr-code"), {
+    text: url,                 
+    //width: 128,
+    //height: 128
+  });
   
   var buttonsElem = document.getElementById("modal-buttons");
   
