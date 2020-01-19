@@ -170,7 +170,7 @@ AFRAME.registerComponent('frame-manager', {
             portal.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
             portal.setAttribute("size", `200 200`);
             portal.setAttribute("src", src);
-            stampImg.setAttribute("glow", "scale:1.3; c: 1; p: 1.3; color: #FF00FF;");
+            portal.setAttribute("glow", "side: front; scale:1.3; c: 1; p: 1.3; color: #FF00FF;");
             portal.onclick = () => {
               this.frame = to;
             };
