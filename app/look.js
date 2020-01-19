@@ -360,15 +360,17 @@ registerComponent('mylookcontrols', {
    */
   onMouseUp: function () {
     if (this.imageMode) {
-      var ctx = this.el.sceneEl.canvas.getContext("2d");
-      var img = new Image();
-      img.crossOrigin = "anonymous";
-      //img.onload = uploadTex;
-      //img.src = 'https://cdn.glitch.com/4b5c7989-80fd-4c02-bf65-56330592fae8%2Fpigeon.jpg?v=1579308944972';
-      //img.src = 'https://cdn.glitch.com/4b5c7989-80fd-4c02-bf65-56330592fae8%2Fpigeon-transparent.png?v=1579312086272';
-      img.src = 'https://cdn.glitch.com/4b5c7989-80fd-4c02-bf65-56330592fae8%2Fstamp_person1.png?v=1579315012425';
-      ctx.drawImage(img, canvasPoint.x-img.width/2, canvasPoint.y-img.height/2);
-
+      var cursor = document.getElementById("cursor");
+      var worldPos = new THREE.Vector3();
+      worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
+      //worldPos.multiplyScalar(5);
+      var stampImg = document.createElement("a-image");
+      var p = worldPos;
+      stampImg.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
+      stampImg.setAttribute("size", `200 200`);
+      stampImg.setAttribute("src", "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fstamp_person1.png?v=1579396695751");
+      this.el.sceneEl.appendChild(stampImg);
+      
       this.imageMode = false;
     }
     this.mouseDown = false;
