@@ -1,4 +1,4 @@
-/* global dialogPolyfill, isTouch  */
+/* global dialogPolyfill, isTouch */
 function getDialog() {
   var dialog = document.getElementById("modal");
   if (!dialog.showModal) {
