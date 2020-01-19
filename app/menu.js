@@ -39,7 +39,7 @@ function showQRDialog(url) {
   }
   var dialog = getDialog();
   dialog.showModal();
-  document.getElementById("modal-text").innerText = "QR Code";
+  document.getElementById("modal-text").innerText = "Scan QR Code to Share the Project";
   
   //var imageElem = document.getElementById("qr-code");
   // var img = document.createElement('img'); 
