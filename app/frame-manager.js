@@ -1,10 +1,27 @@
 /* global AFRAME THREE closeDialog showDialog showQRDialog scenes */
+var prefix = "https://team-009.glitch.me"
+
 AFRAME.registerComponent('frame-manager', {
   schema: {
     portalDistance: {default: 5},
     portalRadius: {default: 0.5}
   },
   init: function() {
+    this.loaded = true;
+    var href = window.location.href;
+    if(href.includes("draft")) {
+      this.loaded = false;
+      var parts = href.split('/');
+      var lastSegment = parts.pop() || parts.pop();
+      var url = prefix + "/file/" + lastSegment;
+      fetch(url).then(res => res.json()).then(res => {
+        this.frames = res;
+        this.loaded = true;
+      })
+    .then(response => {
+        // handle response data
+    })
+    }
     this.frames = [
       {
         //needs to change with upload functionality // of course
@@ -28,12 +45,12 @@ AFRAME.registerComponent('frame-manager', {
         portals, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL()
       }));
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "https://team-009.glitch.me/store", true);
+      xhr.open("POST", prefix + "store", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.send(JSON.stringify(json));
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-          showQRDialog("https://team-009.glitch.me/draft/" + xhr.responseText);
+          showQRDialog(prefix + "/draft/" + xhr.responseText);
         }
       }
     }
@@ -73,6 +90,7 @@ AFRAME.registerComponent('frame-manager', {
     };
   },
   tick: function() {
+    if(!this.loaded) return;
     document.getElementById("frame-number").innerText = this.frame + 1
     document.getElementById("renderer").components.renderer
       .loadImage(this.frames[this.frame].base, this.frame);
