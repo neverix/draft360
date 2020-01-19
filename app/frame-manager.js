@@ -92,8 +92,7 @@ AFRAME.registerComponent('frame-manager', {
               var worldPos = new THREE.Vector3();
               worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
               worldPos.multiplyScalar(this.data.portalDistance);
-              var rot = document.getElementById("camera")
-                .getAttribute("rotation");
+              var rot = document.getElementById("camera").object3D.rotation;
               this.frames[this.frame].portals.push({
                 position: worldPos,
                 rotation: rot,
@@ -133,8 +132,7 @@ AFRAME.registerComponent('frame-manager', {
             var worldPos = new THREE.Vector3();
             worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
             worldPos.multiplyScalar(this.data.portalDistance);
-            var rot = document.getElementById("camera")
-              .getAttribute("rotation");
+            var rot = document.getElementById("camera").object3D.rotation;
             this.frames[this.frame].images.push({
               position: worldPos,
               rotation: rot,
@@ -158,8 +156,8 @@ AFRAME.registerComponent('frame-manager', {
           var worldPos = new THREE.Vector3();
           worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
           worldPos.multiplyScalar(this.data.portalDistance);
-          var rot = document.getElementById("camera")
-            .getAttribute("rotation");
+          var rot = document.getElementById("camera").object3D.rotation;
+          console.log(rot);
           this.frames[this.frame].texts.push({
             position: worldPos,
             rotation: rot,
@@ -211,6 +209,8 @@ AFRAME.registerComponent('frame-manager', {
             portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             var r = rotation;
             portal.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
+          } else {
+            elem.setAttribute("look-at", "[camera]");
           }
         } else if(!!elem) elem.remove();
       });
@@ -228,6 +228,8 @@ AFRAME.registerComponent('frame-manager', {
             stampImg.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             var r = rotation;
             stampImg.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
+          } else {
+            elem.setAttribute("look-at", "[camera]");
           }
         } else if(!!elem) elem.remove();
       });
@@ -240,10 +242,12 @@ AFRAME.registerComponent('frame-manager', {
             txt.id = textId;
             txt.setAttribute("text", `width: 2; wrapCount: 10; color: white; align: center; value: ${text}`);
             this.el.sceneEl.appendChild(txt);
-              var p = position;
+            var p = position;
             txt.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             var r = rotation;
             txt.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
+          } else {
+            elem.setAttribute("look-at", "[camera]");
           }
         } else if(!!elem) elem.remove();
       });
