@@ -4,6 +4,10 @@ function getDialog() {
   if (!dialog.showModal) {
     dialogPolyfill.registerDialog(dialog);
   }
+  dialog.style.top = "20vh";
+  var buttonsElem = document.getElementById("modal-buttons");
+  buttonsElem.style.maxHeight = "40vh";
+  buttonsElem.style["overflow-y"] = "scroll";
   return dialog;
 }
 
