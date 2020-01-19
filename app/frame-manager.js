@@ -44,7 +44,7 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("export").onclick = () => {
       //console.log("export button clicked");
       var json = this.frames.map(({portals, images, texts}, index) => ({
-        portals, images, texts, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL("image/jpeg", 0.5)
+        portals, images, texts, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL("image/png")
       }));
       var xhr = new XMLHttpRequest();
       xhr.open("POST", prefix + "/store/", true);
