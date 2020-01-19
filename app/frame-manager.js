@@ -100,7 +100,6 @@ AFRAME.registerComponent('frame-manager', {
         showDialog("Choose image:", images.map(([name, image]) => [
           name, () => {
             this.imageMode = true;
-            this.imageSrc = image;
             //document.getElementById("image-mode-icon").innerText = "done";
             var cursor = document.getElementById("cursor");
             var worldPos = new THREE.Vector3();
@@ -111,7 +110,7 @@ AFRAME.registerComponent('frame-manager', {
             this.frames[this.frame].images.push({
               position: worldPos,
               rotation: rot,
-              src: this.imageSrc
+              src: image
             });
             closeDialog();
           }
