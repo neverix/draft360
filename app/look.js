@@ -360,9 +360,15 @@ registerComponent('mylookcontrols', {
    */
   onMouseUp: function () {
     if (this.imageMode) {
-      var renderer = document.getElementById("renderer");
-      var ctx = renderer.ctx;
-      ctx.drawImage(this.stampImage, 0, 0);
+      var ctx = this.el.sceneEl.canvas.getContext("2d");
+      var img = new Image();
+      img.crossOrigin = "anonymous";
+      //img.onload = uploadTex;
+      //img.src = 'https://cdn.glitch.com/4b5c7989-80fd-4c02-bf65-56330592fae8%2Fpigeon.jpg?v=1579308944972';
+      //img.src = 'https://cdn.glitch.com/4b5c7989-80fd-4c02-bf65-56330592fae8%2Fpigeon-transparent.png?v=1579312086272';
+      img.src = 'https://cdn.glitch.com/4b5c7989-80fd-4c02-bf65-56330592fae8%2Fstamp_person1.png?v=1579315012425';
+      ctx.drawImage(img, canvasPoint.x-img.width/2, canvasPoint.y-img.height/2);
+
       this.imageMode = false;
     }
     this.mouseDown = false;
