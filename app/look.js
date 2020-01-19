@@ -360,10 +360,8 @@ registerComponent('mylookcontrols', {
    */
   onMouseUp: function () {
     if (this.imageMode) {
-    document
-      .getElementById("renderer")
-      var canvas = document.getElementById("canvas");
-      var ctx = canvas.getContext("2d");
+      var renderer = document.getElementById("renderer");
+      var ctx = renderer.ctx;
       ctx.drawImage(this.stampImage, 0, 0);
       this.imageMode = false;
     }
