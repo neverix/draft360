@@ -92,30 +92,31 @@ AFRAME.registerComponent('frame-manager', {
     };
     this.imageMode = false;
     document.getElementById("image-mode").onclick = () => {
-      if (this.imageMode) {
-        var cursor = document.getElementById("cursor");
-        var worldPos = new THREE.Vector3();
-        worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
-        worldPos.multiplyScalar(this.data.portalDistance);
-        var rot = document.getElementById("camera")
-          .getAttribute("rotation");
-        this.frames[this.frame].images.push({
-          position: worldPos,
-          rotation: rot,
-          src: this.imageSrc
-        });
+      /*if (this.imageMode) {
         this.imageMode = false;
         document.getElementById("image-mode-icon").innerText = "add_photo_alternate";
       } else {
+      */
         showDialog("Choose image:", images.map(([name, image]) => [
           name, () => {
             this.imageMode = true;
             this.imageSrc = image;
-            document.getElementById("image-mode-icon").innerText = "done";
+            //document.getElementById("image-mode-icon").innerText = "done";
+            var cursor = document.getElementById("cursor");
+            var worldPos = new THREE.Vector3();
+            worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
+            worldPos.multiplyScalar(this.data.portalDistance);
+            var rot = document.getElementById("camera")
+              .getAttribute("rotation");
+            this.frames[this.frame].images.push({
+              position: worldPos,
+              rotation: rot,
+              src: this.imageSrc
+            });
             closeDialog();
           }
         ]))
-      }
+      //}
     }
   },
   tick: function() {
