@@ -13,7 +13,7 @@ app.get("/", function(request, response) {
 });
 
 app.post("/store", function (req, res) {
-  var fileId = Math.random().toString(32)
+  var fileId = Math.random().toString(16)
   var fileName = __dirname + "/.data/" + fileId + ".json";
   var body = '';
   req.on('data', function(data) {
@@ -27,7 +27,7 @@ app.post("/store", function (req, res) {
 })
 
 app.get("/draft/:draftId", function (req, res) {
-  res.sendFile(__dirname + '/app/index.html');
+  res.sendFile(__dirname + '/app/360-image.html');
 })
 
 app.get("/file/:draftId", function (req, res) {
