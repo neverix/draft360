@@ -1,5 +1,6 @@
 // server.js
 var fs = require('fs');
+var rimraf = require("rimraf");
 // init project
 var express = require('express');
 var app = express();
@@ -25,6 +26,10 @@ app.post("/store", function (req, res) {
           res.send(fileId);
       });
   });
+})
+
+app.get("/clean", function(req, res) {
+  rimraf(".data", () => res("ok"));
 })
 
 app.get("/draft/:draftId", function (req, res) {
