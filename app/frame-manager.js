@@ -3,8 +3,8 @@ var prefix = "https://team-009.glitch.me"
 
 AFRAME.registerComponent('frame-manager', {
   schema: {
-    portalDistance: {default: 5},
-    portalRadius: {default: 0.5}
+    portalDistance: {default: 3},
+    portalRadius: {default: 0.1}
   },
   init: function() {
     this.loaded = true;
@@ -26,6 +26,7 @@ AFRAME.registerComponent('frame-manager', {
       {
         //needs to change with upload functionality // of course
         portals: [],
+        images: [],
         base: scenes[0][1]
       }
     ];
@@ -61,7 +62,8 @@ AFRAME.registerComponent('frame-manager', {
           this.frame = this.frames.length;
           this.frames.push({
             base: url,
-            portals: []
+            portals: [],
+            images: []
           });
         }
       ]));
@@ -95,6 +97,22 @@ AFRAME.registerComponent('frame-manager', {
       // this.stampImage.crossOrigin = "anonymous";
       // this.stampImage.src = "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fstamp_person1.png?v=1579396695751";
     }
+    window.addEventListener('mousedown', () => {
+      if (this.imageMode) {
+        var cursor = document.getElementById("cursor");
+        var worldPos = new THREE.Vector3();
+        worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
+        worldPos.multiplyScalar(this.data.portalDistance);
+        var rot = document.getElementById("camera")
+          .getAttribute("rotation");
+        this.frames[this.frame].images.push({
+          position: worldPos,
+          rotation: rot,
+          src: "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fstamp_person1.png?v=1579396695751"  
+        });
+        this.imageMode = false;
+      }
+    });
   },
   tick: function() {
     if(!this.loaded) return;
@@ -102,7 +120,7 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("renderer").components.renderer
       .loadImage(this.frames[this.frame].base, this.frame);
     for(var i = 0; i < this.frames.length; i++) {
-      var { portals } = this.frames[i];
+      var { portals, images } = this.frames[i];
       portals.forEach(({ position, to }, nd) => {
         var portalId = `portal-${i}-${nd}`;
         var elem = document.getElementById(portalId);
@@ -117,6 +135,23 @@ AFRAME.registerComponent('frame-manager', {
               this.frame = to;
             };
             this.el.sceneEl.appendChild(portal);
+          }
+        } else if(!!elem) elem.remove();
+      });
+      images.forEach(({ position, rotation, src }, nd) => {
+        var stampId = `portal-${i}-${nd}`;
+        var elem = document.getElementById(stampId);
+        if(i == this.frame) {
+          if(!elem) {
+            var p = position;
+            var stampImg = document.createElement("a-image");
+            stampImg.id = stampId;
+            var p = position;
+            stampImg.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
+            stampImg.setAttribute("rotation", rotation);
+            stampImg.setAttribute("size", `200 200`);
+            stampImg.setAttribute("src", src);
+            this.el.sceneEl.appendChild(stampImg);
           }
         } else if(!!elem) elem.remove();
       });
