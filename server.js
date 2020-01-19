@@ -13,7 +13,8 @@ app.get("/", function(request, response) {
 });
 
 app.post("/store", function (req, res) {
-  var fileId = Math.random().toString(16)
+  var fileId = Math.random().toString(16);
+  console.log(fileId);
   var fileName = __dirname + "/.data/" + fileId + ".json";
   var body = '';
   req.on('data', function(data) {

@@ -45,7 +45,7 @@ AFRAME.registerComponent('frame-manager', {
         portals, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL()
       }));
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", prefix + "store", true);
+      xhr.open("POST", prefix + "/store/", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.send(JSON.stringify(json));
       xhr.onreadystatechange = function() {
