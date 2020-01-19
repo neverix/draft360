@@ -12,24 +12,9 @@ function getDialog() {
 }
 
 function showTextDialog(text) {
-  if(!isTouch()) {
-    document.getElementById("camera").components
-      .mylookcontrols.movementMode = true;
-  }
   var dialog = getDialog();
   dialog.showModal();
   document.getElementById("modal-text").innerHTML = text;
-  var buttonsElem = document.getElementById("modal-buttons");
-  buttonsElem.innerHTML = "";
-  buttons.push(["Close", closeDialog]);
-  buttons.forEach(([text, action]) => {
-    var button = document.createElement("button");
-    button.setAttribute("type", "button");
-    button.setAttribute("class", "mdl-button");
-    button.innerText = text;
-    button.onclick = action;
-    buttonsElem.appendChild(button);
-  });
 }
 
 function showDialog(text, buttons) {
