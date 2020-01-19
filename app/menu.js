@@ -37,10 +37,12 @@ function showQRDialog(url) {
   dialog.showModal();
   document.getElementById("modal-text").innerText = "QR Code";
   
+  /*
   var imageElem = document.getElementById("qr-code");
   var img = document.createElement('img'); 
   img.src = 'https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2FTeam009QRCode.png?v=1579278312151'; 
   imageElem.appendChild(img);
+  */
   
   var buttonsElem = document.getElementById("modal-buttons");
   

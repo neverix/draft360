@@ -8,3 +8,9 @@ var scenes = [
     "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fpuydesancy.jpg?v=1579277588433"
   ]
 ];
+var images = [
+  [
+    "Person",
+    "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fstamp_person1.png?v=1579396695751"  
+  ]
+]
