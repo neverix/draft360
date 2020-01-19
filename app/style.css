@@ -1,8 +1,18 @@
-#side-nav{
-     position: fixed;
-                right: 0;
-                z-index: 1337;
-                height: 50%;
-                overflow-y: scroll;
-  
+body::-webkit-scrollbar {
+  z-index: -1;
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 20px;
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: #ccc;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(100, 100, 100, 0.4);
 }

@@ -145,26 +145,28 @@ AFRAME.registerComponent('frame-manager', {
       //}
     }
     document.getElementById("text-mode").onclick = () => {
-        showDialog(`Write some text here:
-                    <br>
-                    <div class="mdl-textfield mdl-js-textfield">
-                      <input class="mdl-textfield__input" type="text" id="text-field">
-                    </div>`, [
-          ["Ok", () => {
-            var cursor = document.getElementById("cursor");
-            var worldPos = new THREE.Vector3();
-            worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
-            worldPos.multiplyScalar(this.data.portalDistance);
-            var rot = document.getElementById("camera")
-              .getAttribute("rotation");
-            this.frames[this.frame].texts.push({
-              position: worldPos,
-              rotation: rot,
-              text: document.getElementById("text-field").innerText
-            });
-            closeDialog();
-          }
-        ]]);
+      document.getElementById("camera").setAttribute("mylookcontrols", "useSpace", false);
+      showDialog(`Write some text here:
+                  <br>
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="text-field">
+                  </div>`, [
+        ["Ok", () => {
+          document.getElementById("camera").setAttribute("mylookcontrols", "useSpace", true);
+          var cursor = document.getElementById("cursor");
+          var worldPos = new THREE.Vector3();
+          worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
+          worldPos.multiplyScalar(this.data.portalDistance);
+          var rot = document.getElementById("camera")
+            .getAttribute("rotation");
+          this.frames[this.frame].texts.push({
+            position: worldPos,
+            rotation: rot,
+            text: document.getElementById("text-field").value
+          });
+          closeDialog();
+        }
+      ]]);
       //}
     }
   },
@@ -227,6 +229,23 @@ AFRAME.registerComponent('frame-manager', {
             //stampImg.setAttribute("size", `200 200`);
             stampImg.setAttribute("src", src);
             this.el.sceneEl.appendChild(stampImg);
+          }
+        } else if(!!elem) elem.remove();
+      });
+      texts.forEach(({ position, rotation, text }, nd) => {
+        var textId = `text-${i}-${nd}`;
+        var elem = document.getElementById(textId);
+        if(i == this.frame) {
+          if(!elem) {
+            var txt = document.createElement("a-entity");
+            txt.id = textId;
+            var p = position;
+            var p = position;
+            txt.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
+            var r = rotation;
+            txt.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
+            txt.setAttribute("text", `width: 3; wrapCount: 10; color: white; align: center; value: ${text}`);
+            this.el.sceneEl.appendChild(txt);
           }
         } else if(!!elem) elem.remove();
       });

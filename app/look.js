@@ -31,7 +31,8 @@ registerComponent('mylookcontrols', {
     reverseMouseDrag: {default: false},
     reverseTouchDrag: {default: true},
     touchEnabled: {default: true},
-    touchMult: {default: 0.3}
+    touchMult: {default: 0.3},
+    useSpace: {default: true}
   },
 
   init: function () {    
@@ -219,6 +220,7 @@ registerComponent('mylookcontrols', {
   },
   
   onKeyDown: function (e) {
+    if(!this.data.useSpace) return;
     if(e.keyCode == 32) {
       this.movementMode = !this.movementMode;
     }
