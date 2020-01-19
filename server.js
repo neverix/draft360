@@ -14,9 +14,13 @@ app.get("/", function(request, response) {
 });
 
 app.post("/store", function (req, res) {
+  var dirname = __dirname + "/.data/"
+  if (!fs.existsSync(dirname)){
+    fs.mkdirSync(dirname);
+  }
   var fileId = Math.random().toString(16);
   console.log(fileId);
-  var fileName = __dirname + "/.data/" + fileId + ".json";
+  var fileName = dirname + fileId + ".json";
   var body = '';
   req.on('data', function(data) {
       body += data;
