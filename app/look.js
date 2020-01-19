@@ -360,7 +360,12 @@ registerComponent('mylookcontrols', {
    */
   onMouseUp: function () {
     if (this.imageMode) {
-      
+    document
+      .getElementById("renderer")
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(this.stampImage, 0, 0);
+      this.imageMode = false;
     }
     this.mouseDown = false;
     this.hideGrabbingCursor();
