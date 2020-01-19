@@ -44,11 +44,12 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("export").onclick = () => {
       //console.log("export button clicked");
       var json = this.frames.map(({portals, images, texts}, index) => ({
-        portals, images, texts, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL()
+        portals, images, texts, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL("image/jpeg")
       }));
       var xhr = new XMLHttpRequest();
       xhr.open("POST", prefix + "/store/", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
+      console.log(JSON.stringify(json));
       xhr.send(JSON.stringify(json));
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -244,7 +245,7 @@ AFRAME.registerComponent('frame-manager', {
             txt.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             var r = rotation;
             txt.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
-            txt.setAttribute("text", `width: 3; wrapCount: 10; color: white; align: center; value: ${text}`);
+            txt.setAttribute("text", `width: 2; wrapCount: 10; color: white; align: center; value: ${text}`);
             this.el.sceneEl.appendChild(txt);
           }
         } else if(!!elem) elem.remove();
