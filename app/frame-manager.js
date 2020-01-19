@@ -32,7 +32,7 @@ AFRAME.registerComponent('frame-manager', {
       }
     ];
     this.frame = 0;
-        document.getElementById("frames").onclick =   () => {
+        document.getElementById("frames").onclick = () => {
       var buttons = this.frames.map((frame, index) => [
         index + 1, () => {
           this.frame = index;
@@ -58,7 +58,7 @@ AFRAME.registerComponent('frame-manager', {
       }
     }
     document.getElementById("new-frame").onclick = () => {
-      showDialog("Choose backdrop:", scenes.map(([name, url]) => [
+      showDialog("Choose 360 backdrop for your scene:", scenes.map(([name, url]) => [
         name, () => {
           closeDialog();
           this.frame = this.frames.length;
@@ -86,7 +86,7 @@ AFRAME.registerComponent('frame-manager', {
       var buttons = this.frames.map((frame, index) => [
         index + 1, () => {
           closeDialog();
-          showDialog("Choose image:", images.map(([name, image]) => [
+          showDialog("Choose image for your Portal:", images.map(([name, image]) => [
             name, () => {
               var cursor = document.getElementById("cursor");
               var worldPos = new THREE.Vector3();
@@ -116,7 +116,7 @@ AFRAME.registerComponent('frame-manager', {
           */
         }
       ]);
-      showDialog("Make portal to:", buttons);
+      showDialog("Link portal to:", buttons);
     };
     this.imageMode = false;
     document.getElementById("image-mode").onclick = () => {
@@ -194,13 +194,8 @@ AFRAME.registerComponent('frame-manager', {
             };
             this.el.sceneEl.appendChild(portal);
             */
-            var p = position;
             var portal = document.createElement("a-image");
             portal.id = portalId;
-            var p = position;
-            portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
-            var r = rotation;
-            portal.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
             //portal.setAttribute("size", `200 200`);
             portal.setAttribute("src", src);
             // portal.setAttribute("particle-system", "color: #44CC00; maxAge: 0.1; particleCount: 10; velocityValue: 0 0 0; velocitySpread: 1 1 1");
@@ -212,6 +207,10 @@ AFRAME.registerComponent('frame-manager', {
             var text = document.createElement("a-entity");
             text.setAttribute("text", `width: 4; color: white; align: center; value: Portal to ${to + 1}`);
             portal.appendChild(text);
+            var p = position;
+            portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
+            var r = rotation;
+            portal.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
           }
         } else if(!!elem) elem.remove();
       });
@@ -220,16 +219,15 @@ AFRAME.registerComponent('frame-manager', {
         var elem = document.getElementById(stampId);
         if(i == this.frame) {
           if(!elem) {
-            var p = position;
             var stampImg = document.createElement("a-image");
             stampImg.id = stampId;
+            //stampImg.setAttribute("size", `200 200`);
+            stampImg.setAttribute("src", src);
+            this.el.sceneEl.appendChild(stampImg);
             var p = position;
             stampImg.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             var r = rotation;
             stampImg.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
-            //stampImg.setAttribute("size", `200 200`);
-            stampImg.setAttribute("src", src);
-            this.el.sceneEl.appendChild(stampImg);
           }
         } else if(!!elem) elem.remove();
       });
@@ -240,13 +238,12 @@ AFRAME.registerComponent('frame-manager', {
           if(!elem) {
             var txt = document.createElement("a-entity");
             txt.id = textId;
-            var p = position;
-            var p = position;
+            txt.setAttribute("text", `width: 2; wrapCount: 10; color: white; align: center; value: ${text}`);
+            this.el.sceneEl.appendChild(txt);
+              var p = position;
             txt.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             var r = rotation;
             txt.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
-            txt.setAttribute("text", `width: 2; wrapCount: 10; color: white; align: center; value: ${text}`);
-            this.el.sceneEl.appendChild(txt);
           }
         } else if(!!elem) elem.remove();
       });
