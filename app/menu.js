@@ -18,7 +18,7 @@ function showDialog(text, buttons) {
   }
   var dialog = getDialog();
   dialog.showModal();
-  document.getElementById("modal-text").innerText = text;
+  document.getElementById("modal-text").innerHTML = text;
   var buttonsElem = document.getElementById("modal-buttons");
   buttonsElem.innerHTML = "";
   buttons.push(["Close", closeDialog]);

@@ -17,6 +17,10 @@ var images = [
     // temp image for multiple-images testing
     "Pigeon",
     "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fpigeon-transparent.png?v=1579407367303"
+  ],
+  [
+    "Portal",
+    "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2FPortal.png?v=1579443744370"
   ]
 ];
 

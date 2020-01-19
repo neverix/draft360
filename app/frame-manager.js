@@ -27,6 +27,7 @@ AFRAME.registerComponent('frame-manager', {
         //needs to change with upload functionality // of course
         portals: [],
         images: [],
+        texts: [],
         base: scenes[0][1]
       }
     ];
@@ -42,8 +43,8 @@ AFRAME.registerComponent('frame-manager', {
     };
     document.getElementById("export").onclick = () => {
       //console.log("export button clicked");
-      var json = this.frames.map(({portals, images}, index) => ({
-        portals, images, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL()
+      var json = this.frames.map(({portals, images, texts}, index) => ({
+        portals, images, texts, base: document.getElementById("renderer").components.renderer.canvases[index].toDataURL()
       }));
       var xhr = new XMLHttpRequest();
       xhr.open("POST", prefix + "/store/", true);
@@ -63,7 +64,8 @@ AFRAME.registerComponent('frame-manager', {
           this.frames.push({
             base: url,
             portals: [],
-            images: []
+            images: [],
+            texts: []
           });
         }
       ]));
@@ -142,6 +144,29 @@ AFRAME.registerComponent('frame-manager', {
         ]));
       //}
     }
+    document.getElementById("text-mode").onclick = () => {
+        showDialog(`Write some text here:
+                    <br>
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input class="mdl-textfield__input" type="text" id="text-field">
+                    </div>`, [
+          ["Ok", () => {
+            var cursor = document.getElementById("cursor");
+            var worldPos = new THREE.Vector3();
+            worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
+            worldPos.multiplyScalar(this.data.portalDistance);
+            var rot = document.getElementById("camera")
+              .getAttribute("rotation");
+            this.frames[this.frame].texts.push({
+              position: worldPos,
+              rotation: rot,
+              text: document.getElementById("text-field").innerText
+            });
+            closeDialog();
+          }
+        ]]);
+      //}
+    }
   },
   tick: function() {
     if(!this.loaded) return;
@@ -149,7 +174,7 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("renderer").components.renderer
       .loadImage(this.frames[this.frame].base, this.frame);
     for(var i = 0; i < this.frames.length; i++) {
-      var { portals, images } = this.frames[i];
+      var { portals, images, texts } = this.frames[i];
       portals.forEach(({ position, rotation, src, to }, nd) => {
         var portalId = `portal-${i}-${nd}`;
         var elem = document.getElementById(portalId);
@@ -182,7 +207,7 @@ AFRAME.registerComponent('frame-manager', {
             };
             this.el.sceneEl.appendChild(portal);
             var text = document.createElement("a-entity");
-            text.setAttribute("text", `width: 4; color: rgb(113, 103, 248); align: center; value: Portal to ${to + 1}`);
+            text.setAttribute("text", `width: 4; color: white; align: center; value: Portal to ${to + 1}`);
             portal.appendChild(text);
           }
         } else if(!!elem) elem.remove();
