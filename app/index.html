@@ -1,15 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <title>Draft 360</title>
     <meta charset="utf-8">
-    <title>Team 009</title>
-  </head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-deep_purple.min.css" /> 
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    
+    <!-- import the webpage's javascript file -->
+    <script src="/script.js" defer></script>
+  </head>  
   <body>
-    Page to view 360 Image:
-    <a href="360-image.html">360 Image</a>
-    <br>
-    <br>
-    QR Code to share project: <br>
-    <img src="https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2FTeam009QRCode.png?v=1579278312151">
+    <video autoplay muted loop playsinline id="bgVideo">
+      <source src="https://cdn.glitch.com/e2f35428-2e35-4ff7-9874-6cc3433cfa0f%2Fsnape.mp4?v=1579444049886" type="video/mp4">
+    </video>
+    <div id="infoParent">
+      <div id="info" class="mdl-card mdl-shadow--2dp">
+        <div id="logo">
+          <img src="https://cdn.glitch.com/e2f35428-2e35-4ff7-9874-6cc3433cfa0f%2Fdraft360_logo_purple.png?v=1579448097013" width="320">
+        </div>
+        <p>
+          A WebXR Storyboarding Design Tool
+        </p>
+        <p>
+          <a href="https://team-009.glitch.me/360-image.html"><button type="button" id="buttonLeft">Start 360 VR Scene</button></a>
+          <a href="https://github.com/lossless/draft360/tree/master/draft360-nreal"><button type="button" id="buttonRight">Get nReal Demo</button></a>
+        </p>
+        <div id="devpostLink">
+          <a href="https://devpost.com/software/draft360">Devpost project page</a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
