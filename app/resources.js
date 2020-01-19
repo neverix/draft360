@@ -23,31 +23,28 @@ var images = [
 function pickFile() {
   var input = document.createElement("input");
   input.setAttribute("type", "file");
-  input.click();
   return new Promise((ok, err) => {
     input.onchange = () => { 
       var file = input.files[0];
       var reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = result => {
-        var content;
-        icontent = result.target.result;
-        }
-        ok(file.name, content);
+      reader.onload = () => {
+        var content = reader.result;
+        ok([file.name, content]);
       }
+      reader.readAsDataURL(file);
     }
+    input.click();
   });
 }
 
 window.addEventListener("load", () => {
   document.getElementById("360-open").addEventListener("click", () => {
-    pickFile().then((name, content) => {
+    pickFile().then(([name, content]) => {
       scenes.push([name, content]);
     });
   });
   document.getElementById("image-open").addEventListener("click", () => {
-    pickFile().then((name, content) => {
-      console.log(content);
+    pickFile().then(([name, content]) => {
       images.push([name, content]);
     });
   });
