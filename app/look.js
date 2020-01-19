@@ -73,6 +73,11 @@ registerComponent('mylookcontrols', {
     document.getElementById("move-mode").onclick = () => {
       this.movementMode = true;
     }
+    
+    this.mustAddImage = false;
+    document.getElementById("new-image").onclick = () => {
+      this.mustAddImage = true;
+    }
   },
 
   setupMagicWindowControls: function () {
