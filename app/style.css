@@ -16,3 +16,58 @@ body::-webkit-scrollbar {
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(100, 100, 100, 0.4);
 }
+
+#bgVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0.4;
+}
+
+#infoParent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 16px;
+}
+
+#info {
+  display: inline-block;
+}
+
+#logo {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#buttonLeft {
+  display:inline-block;
+  margin-left: 5px;
+  width: 36%;
+  border-radius: 8px;
+  color: #FFFFFF;
+  background-color: #7D4EFF;
+  font-size: 16px;
+}
+
+#buttonRight {
+  display:inline-block;
+  margin-right: 5px;
+  width: 36%;
+  border-radius: 8px;
+  color: #FFFFFF;
+  background-color: #7D4EFF;
+  font-size: 16px;
+}
+
+#devpostLink {
+  font-size: 12px;
+  margin-bottom: 20px;
+}}
