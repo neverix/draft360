@@ -31,11 +31,11 @@
     </div>
     <div style="position: fixed;
                 right: 0;
-                top: 0;
                 z-index: 1337;
-                overflow: hidden;
-                padding: 1em 1em 1em 1em;">
-      <button id="export" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                height: 100%;
+                overflow-y: scroll;">
+      <div style="padding: 1em 1em 1em 1em;">
+              <button id="export" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
         <i class="material-icons">share</i>
       </button>
       <br><br>
@@ -66,6 +66,7 @@
       <button id="move-mode" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
         <i class="material-icons">open_with</i>
       </button>
+      </div>
     </div>
     <dialog class="mdl-dialog" id="modal" style="z-index: 9001 !important;">
       <div class="mdl-dialog__content">
