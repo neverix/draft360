@@ -181,6 +181,9 @@ AFRAME.registerComponent('frame-manager', {
               this.frame = to;
             };
             this.el.sceneEl.appendChild(portal);
+            var text = document.createElement("a-entity");
+            text.setAttribute("text", `width: 4; color: rgb(113, 103, 248); align: center; value: Portal to ${to + 1}`);
+            portal.appendChild(text);
           }
         } else if(!!elem) elem.remove();
       });
