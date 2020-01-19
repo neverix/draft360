@@ -175,7 +175,7 @@ AFRAME.registerComponent('frame-manager', {
             portal.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
             //portal.setAttribute("size", `200 200`);
             portal.setAttribute("src", src);
-            portal.setAttribute("particle-system", "color: #44CC00; maxAge: 0.1; maxParticleCount: 10");
+            // portal.setAttribute("particle-system", "color: #44CC00; maxAge: 0.1; particleCount: 10; velocityValue: 0 0 0; velocitySpread: 1 1 1");
             //portal.setAttribute("animation", "property: scale; dur: 1000; from: 1 1 1; to: 0.8 0.8 0.8; loop: true; direction: alternate; easing: linear");
             portal.onclick = () => {
               this.frame = to;
