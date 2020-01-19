@@ -77,6 +77,25 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("new-portal").onclick = () => {
       var buttons = this.frames.map((frame, index) => [
         index + 1, () => {
+          closeDialog();
+          showDialog("Choose image:", images.map(([name, image]) => [
+            name, () => {
+              var cursor = document.getElementById("cursor");
+              var worldPos = new THREE.Vector3();
+              worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
+              worldPos.multiplyScalar(this.data.portalDistance);
+              var rot = document.getElementById("camera")
+                .getAttribute("rotation");
+              this.frames[this.frame].portals.push({
+                position: worldPos,
+                rotation: rot,
+                src: image,
+                to: index
+              });
+              closeDialog();
+            }
+          ]));
+          /*
           var cursor = document.getElementById("cursor");
           var worldPos = new THREE.Vector3();
           worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
@@ -86,9 +105,10 @@ AFRAME.registerComponent('frame-manager', {
             to: index
           });
           closeDialog();
+          */
         }
       ]);
-      showDialog("Choose frame to teleport to:", buttons);
+      showDialog("Make portal to:", buttons);
     };
     this.imageMode = false;
     document.getElementById("image-mode").onclick = () => {
@@ -114,7 +134,7 @@ AFRAME.registerComponent('frame-manager', {
             });
             closeDialog();
           }
-        ]))
+        ]));
       //}
     }
   },
@@ -125,16 +145,32 @@ AFRAME.registerComponent('frame-manager', {
       .loadImage(this.frames[this.frame].base, this.frame);
     for(var i = 0; i < this.frames.length; i++) {
       var { portals, images } = this.frames[i];
-      portals.forEach(({ position, to }, nd) => {
+      portals.forEach(({ position, rotation, src, to }, nd) => {
         var portalId = `portal-${i}-${nd}`;
         var elem = document.getElementById(portalId);
         if(i == this.frame) {
           if(!elem) {
+            /*
             var portal = document.createElement("a-sphere");
             var p = position;
             portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             portal.setAttribute("radius", this.data.portalRadius);
             portal.id = portalId;
+            portal.onclick = () => {
+              this.frame = to;
+            };
+            this.el.sceneEl.appendChild(portal);
+            */
+            var p = position;
+            var portal = document.createElement("a-image");
+            portal.id = portalId;
+            var p = position;
+            portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
+            var r = rotation;
+            portal.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
+            portal.setAttribute("size", `200 200`);
+            portal.setAttribute("src", src);
+            stampImg.setAttribute("glow", "scale:1.3; c: 1; p: 1.3; color: #FF00FF;");
             portal.onclick = () => {
               this.frame = to;
             };
