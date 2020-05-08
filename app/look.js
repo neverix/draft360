@@ -413,7 +413,6 @@ registerComponent('mylookcontrols', {
    * Save pose.
    */
   onEnterVR: function () {
-    console.log("y")
     this.cursor.setAttribute("cursor", "fuse", true);
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.checkHeadsetConnected()) { return; }
