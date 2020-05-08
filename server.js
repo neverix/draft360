@@ -1,11 +1,10 @@
-// server.js
-require('dotenv').load();
+require('dotenv').config();
 var fs = require('fs');
 var rimraf = require("rimraf");
 // init project
 var express = require('express');
 var app = express();
-var debug = process.env.DEBUG == "true";
+var debug = !!process.env.DEBUG;
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('app'));
@@ -13,9 +12,9 @@ app.use(express.static('app'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function(request, response) {
   if(debug) {
-    response.sendFile(__dirname + '/app/360-image.html');
+    response.redirect('/360');
   } else {
-    response.sendFile(__dirname + '/app/index.html');
+    response.sendFile(__dirname + '/app/main.html');
   }
 });
 
