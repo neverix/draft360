@@ -1,4 +1,5 @@
 // server.js
+require('dotenv').load();
 var fs = require('fs');
 var rimraf = require("rimraf");
 // init project
