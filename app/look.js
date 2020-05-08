@@ -62,10 +62,7 @@ registerComponent('mylookcontrols', {
     };
 
     // Call enter VR handler if the scene has entered VR before the event listeners attached.
-    this.vr = false;
-    if (this.el.sceneEl.is('vr-mode')) {
-      this.onEnterVR();
-    }
+    if (this.el.sceneEl.is('vr-mode')) this.onEnterVR();
     this.movementMode = true;
     
     // keyboard
@@ -80,6 +77,14 @@ registerComponent('mylookcontrols', {
     }
     
     this.cursor.setAttribute("cursor", "fuse", isTouch());
+    
+    document.querySelector('a-scene').addEventListener('enter-vr', function () {
+      console.log("hmm")
+      this.onEnterVR();
+    });
+    document.querySelector('a-scene').addEventListener('exit-vr', function () {
+      this.onExitVR();
+    });
   },
 
   setupMagicWindowControls: function () {
@@ -114,17 +119,11 @@ registerComponent('mylookcontrols', {
       this.pitchObject.rotation.set(0, 0, 0);
       this.yawObject.rotation.set(0, 0, 0);
     }
-
+    
     if (oldData && !data.pointerLockEnabled !== oldData.pointerLockEnabled) {
       this.removeEventListeners();
       this.addEventListeners();
       if (this.pointerLocked) { this.exitPointerLock(); }
-    }
-    if (this.el.sceneEl.is('vr-mode') && !this.vr) {
-      this.onEnterVR();
-    }
-    if (!this.el.sceneEl.is('vr-mode') && this.vr) {
-      this.onExitVR();
     }
   },
 
@@ -432,8 +431,6 @@ registerComponent('mylookcontrols', {
       this.el.object3D.updateMatrix();
     }
     this.cursor.setAttribute("cursor", "fuse", true);
-    console.log("...")
-    this.vr = true;
   },
 
   /**
@@ -445,7 +442,6 @@ registerComponent('mylookcontrols', {
     this.previousHMDPosition.set(0, 0, 0);
     this.el.object3D.matrixAutoUpdate = true;
     this.cursor.setAttribute("cursor", "fuse", isTouch());
-    this.vr = false;
   },
 
   /**
