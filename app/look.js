@@ -74,6 +74,7 @@ registerComponent('mylookcontrols', {
     document.getElementById("move-mode").onclick = () => {
       this.movementMode = true;
     }
+    document.getElementById("cursor")
   },
 
   setupMagicWindowControls: function () {
