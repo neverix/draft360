@@ -195,6 +195,7 @@ AFRAME.registerComponent('frame-manager', {
             this.el.sceneEl.appendChild(portal);
             */
             var portal = document.createElement("a-image");
+            portal.setAttribute("class", "clickable");
             portal.id = portalId;
             //portal.setAttribute("size", `200 200`);
             portal.setAttribute("src", src);
