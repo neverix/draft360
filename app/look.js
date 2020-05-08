@@ -77,14 +77,6 @@ registerComponent('mylookcontrols', {
     }
     
     this.cursor.setAttribute("cursor", "fuse", isTouch());
-    
-    document.querySelector('a-scene').addEventListener('enter-vr', function () {
-      console.log("hmm")
-      this.onEnterVR();
-    });
-    document.querySelector('a-scene').addEventListener('exit-vr', function () {
-      this.onExitVR();
-    });
   },
 
   setupMagicWindowControls: function () {
@@ -421,6 +413,8 @@ registerComponent('mylookcontrols', {
    * Save pose.
    */
   onEnterVR: function () {
+    console.log("y")
+    this.cursor.setAttribute("cursor", "fuse", true);
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.checkHeadsetConnected()) { return; }
     this.saveCameraPose();
@@ -430,18 +424,17 @@ registerComponent('mylookcontrols', {
       this.el.object3D.matrixAutoUpdate = false;
       this.el.object3D.updateMatrix();
     }
-    this.cursor.setAttribute("cursor", "fuse", true);
   },
 
   /**
    * Restore the pose.
    */
   onExitVR: function () {
+    this.cursor.setAttribute("cursor", "fuse", isTouch());
     if (!this.el.sceneEl.checkHeadsetConnected()) { return; }
     this.restoreCameraPose();
     this.previousHMDPosition.set(0, 0, 0);
     this.el.object3D.matrixAutoUpdate = true;
-    this.cursor.setAttribute("cursor", "fuse", isTouch());
   },
 
   /**
