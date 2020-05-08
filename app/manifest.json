@@ -1,0 +1,10 @@
+{
+  "name": "draft360",
+  "short_name": "draft360",
+  "description": "A 3D XR storyboarding tool",
+  "icons": [],
+  "display": "standalone",
+  "background_color": "white",
+  "theme_color": "purple",
+  "start_url": "/"
+}

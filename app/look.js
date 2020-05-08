@@ -199,9 +199,11 @@ registerComponent('mylookcontrols', {
   },
   
   onMouseMove: function (event) {
-    // Not dragging and in movement mode
-    if(this.movementMode && !this.mouseDown) return;
-
+    
+    
+    // Not dragging <s>and in movement mode</s>
+    if(!this.mouseDown) return;
+    
     var direction;
     var movementX;
     var movementY;
