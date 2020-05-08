@@ -9,11 +9,11 @@ AFRAME.registerComponent('frame-manager', {
   init: function() {
     this.loaded = true;
     var href = window.location.href;
+    var prefix = "https://" + href.split("https://")[1].split("/")[0];
     if(href.includes("/draft/")) {
       this.loaded = false;
       var parts = href.split('/');
       var lastSegment = parts.pop() || parts.pop();
-        var prefix = href.split("/draft/")[0];
       var url = prefix + "/file/" + lastSegment;
       fetch(url).then(res => res.json()).then(res => {
         this.frames = res;

@@ -7,15 +7,15 @@ var bind = utils.bind;
 var PI_2 = Math.PI / 2;
 
 function isTouch() {
-    var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
-    var mq = function (query) {
-        return window.matchMedia(query).matches;
-    }
-    if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
-        return true;
-    }
-    var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
-    return mq(query);
+  var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+  var mq = function (query) {
+      return window.matchMedia(query).matches;
+  }
+  if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+      return true;
+  }
+  var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+  return mq(query);
 }
 
 /**
@@ -36,6 +36,7 @@ registerComponent('mylookcontrols', {
   },
 
   init: function () {    
+    this.cursor = document.getElementById("cursor");
     this.deltaYaw = 0;
     this.previousHMDPosition = new THREE.Vector3();
     this.hmdQuaternion = new THREE.Quaternion();
@@ -62,7 +63,7 @@ registerComponent('mylookcontrols', {
 
     // Call enter VR handler if the scene has entered VR before the event listeners attached.
     if (this.el.sceneEl.is('vr-mode')) { this.onEnterVR(); }
-    this.movementMode = !isTouch();
+    this.movementMode = true;
     
     // keyboard
     window.addEventListener('keyup', this.onKeyDown.bind(this));
@@ -74,7 +75,12 @@ registerComponent('mylookcontrols', {
     document.getElementById("move-mode").onclick = () => {
       this.movementMode = true;
     }
-    this.cursor = document.getElementById("cursor");
+    
+    console.log(this.cursor.components)
+    this.cursor.components.cursor.fuse = true;
+    if(isTouch()) {
+      this.cursor.components.cursor.fuse = true;
+    }
   },
 
   setupMagicWindowControls: function () {
@@ -420,7 +426,7 @@ registerComponent('mylookcontrols', {
       this.el.object3D.matrixAutoUpdate = false;
       this.el.object3D.updateMatrix();
     }
-    this.cursor.setAttribute("cursor", "fuse", true);
+    this.cursor.components.cursor.fuse = true;
   },
 
   /**
@@ -431,7 +437,7 @@ registerComponent('mylookcontrols', {
     this.restoreCameraPose();
     this.previousHMDPosition.set(0, 0, 0);
     this.el.object3D.matrixAutoUpdate = true;
-    this.cursor.setAttribute("cursor", "fuse", false);
+    this.cursor.components.cursor.fuse = isTouch();
   },
 
   /**
