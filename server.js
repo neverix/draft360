@@ -4,6 +4,7 @@ var rimraf = require("rimraf");
 // init project
 var express = require('express');
 var app = express();
+var debug = true;
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('app'));
@@ -11,6 +12,10 @@ app.use(express.static('app'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function(request, response) {
   response.sendFile(__dirname + '/app/index.html');
+});
+
+app.get("/360", function(request, response) {
+  response.sendFile(__dirname + '/app/360-image.html');
 });
 
 app.post("/store", function (req, res) {
@@ -32,9 +37,11 @@ app.post("/store", function (req, res) {
   });
 })
 
-app.get("/clean", function(req, res) {
-  rimraf(".data", () => res("ok"));
-})
+if(debug) {
+  app.get("/clean", function(req, res) {
+    rimraf(".data", () => res("ok"));
+  });
+}
 
 app.get("/draft/:draftId", function (req, res) {
   res.sendFile(__dirname + '/app/360-image.html');
