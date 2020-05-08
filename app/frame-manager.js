@@ -34,7 +34,7 @@ AFRAME.registerComponent('frame-manager', {
       }
     ];
     this.frame = 0;
-        document.getElementById("frames").onclick = () => {
+    document.getElementById("frames").onclick = () => {
       var buttons = this.frames.map((frame, index) => [
         index + 1, () => {
           this.frame = index;
