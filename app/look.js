@@ -74,7 +74,7 @@ registerComponent('mylookcontrols', {
     document.getElementById("move-mode").onclick = () => {
       this.movementMode = true;
     }
-    document.getElementById("cursor")
+    this.cursor = document.getElementById("cursor");
   },
 
   setupMagicWindowControls: function () {
@@ -420,6 +420,7 @@ registerComponent('mylookcontrols', {
       this.el.object3D.matrixAutoUpdate = false;
       this.el.object3D.updateMatrix();
     }
+    this.cursor.setAttribute("cursor", "fuse", true);
   },
 
   /**
@@ -430,6 +431,7 @@ registerComponent('mylookcontrols', {
     this.restoreCameraPose();
     this.previousHMDPosition.set(0, 0, 0);
     this.el.object3D.matrixAutoUpdate = true;
+    this.cursor.setAttribute("cursor", "fuse", false);
   },
 
   /**
