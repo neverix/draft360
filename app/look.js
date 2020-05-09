@@ -201,10 +201,8 @@ registerComponent('mylookcontrols', {
   },
   
   onMouseMove: function (event) {
-    
-    
     // Not dragging <s>and in movement mode</s>
-    if(!this.mouseDown) return;
+    if(this.movementMode ? !this.mouseDown : true) return;
     
     var direction;
     var movementX;
@@ -222,6 +220,8 @@ registerComponent('mylookcontrols', {
     yawObject.rotation.y += movementX * 0.002 * direction;
     pitchObject.rotation.x += movementY * 0.002 * direction;
     pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
+    
+    this.cursor.components.raycaster;
   },
   
   onKeyDown: function (e) {
