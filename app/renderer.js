@@ -71,7 +71,7 @@ AFRAME.registerComponent('renderer', {
     this.ctxs = [];
     this.line = [];
     this.lines = [];
-    this.camera = document.getElementById("camera");
+    this.cursor = document.getElementById("cursor");
     this.prevEnabled = false;
   },
   tick: function(t) {
@@ -86,8 +86,7 @@ AFRAME.registerComponent('renderer', {
       this.lines.push(this.line);
     }
     this.prevEnabled = true;
-    this
-    var rot = this.camera.getAttribute("rotation");
+    var ray = this.cursor.components.ray.
     var x = (rot.y + 90) / 360 + 0.5;
     var y = rot.x / -180 + 0.5;
     x -= Math.floor(x);
