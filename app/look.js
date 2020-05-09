@@ -227,7 +227,7 @@ registerComponent('mylookcontrols', {
     
     if(updateCursor) {
       var p = this.cursor.components.raycaster.raycaster.ray.direction;
-      portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
+      document.getElementById("circle").setAttribute("position", `${p.x} ${p.y} ${p.z}`);
     }
   },
   
