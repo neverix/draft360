@@ -226,6 +226,7 @@ registerComponent('mylookcontrols', {
     }
     
     if(updateCursor) {
+      console.log(this.el.components)
       var p = this.cursor.components.raycaster.raycaster.ray.direction;
       document.getElementById("circle").setAttribute("position", `${p.x} ${p.y} ${p.z}`);
     }
