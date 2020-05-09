@@ -1,7 +1,7 @@
 /* global AFRAME, THREE */
 AFRAME.registerComponent('renderer', {
   schema: {
-    radius: {default: 100},
+    radius: {default: 1},
     subdiv: {default: 64},
     strokeColor: {default: "red"},
     strokeSize: {default: 3},
@@ -86,6 +86,7 @@ AFRAME.registerComponent('renderer', {
       this.lines.push(this.line);
     }
     this.prevEnabled = true;
+    this
     var rot = this.camera.getAttribute("rotation");
     var x = (rot.y + 90) / 360 + 0.5;
     var y = rot.x / -180 + 0.5;
