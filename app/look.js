@@ -201,25 +201,34 @@ registerComponent('mylookcontrols', {
   },
   
   onMouseMove: function (event) {
-    // Not dragging <s>and in movement mode</s>
-    if(this.movementMode ? !this.mouseDown : true) return;
+    var updateCursor = false;
     
-    var direction;
-    var movementX;
-    var movementY;
-    var pitchObject = this.pitchObject;
-    var previousMouseEvent = this.previousMouseEvent;
-    var yawObject = this.yawObject;
+    // Not dragging <s>and in movement mode</s>
+    if(this.movementMode ? this.mouseDown : false) { // TODO
+      var direction;
+      var movementX;
+      var movementY;
+      var pitchObject = this.pitchObject;
+      var previousMouseEvent = this.previousMouseEvent;
+      var yawObject = this.yawObject;
 
-    // Calculate delta.
-    movementX = event.movementX || event.mozMovementX || 0;
-    movementY = event.movementY || event.mozMovementY || 0;
+      // Calculate delta.
+      movementX = event.movementX || event.mozMovementX || 0;
+      movementY = event.movementY || event.mozMovementY || 0;
 
-    // Calculate rotation.
-    direction = this.data.reverseMouseDrag ? 1 : -1;
-    yawObject.rotation.y += movementX * 0.002 * direction;
-    pitchObject.rotation.x += movementY * 0.002 * direction;
-    pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
+      // Calculate rotation.
+      direction = this.data.reverseMouseDrag ? 1 : -1;
+      yawObject.rotation.y += movementX * 0.002 * direction;
+      pitchObject.rotation.x += movementY * 0.002 * direction;
+      pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
+      
+      updateCursor = true;
+    }
+    
+    if(updateCursor) {
+      var p = this.cursor.components.raycaster.raycaster.ray.direction;
+      portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
+    }
   },
   
   onKeyDown: function (e) {
@@ -413,7 +422,6 @@ registerComponent('mylookcontrols', {
   onEnterVR: function () {
     this.cursor.setAttribute("cursor", "rayOrigin", "entity");
     this.cursor.setAttribute("cursor", "fuse", true);
-    this.cursor.setAttribute("material", "visible", true);
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.checkHeadsetConnected()) { return; }
     this.saveCameraPose();
@@ -431,7 +439,6 @@ registerComponent('mylookcontrols', {
   onExitVR: function () {
     this.cursor.setAttribute("cursor", "fuse", false);
     this.cursor.setAttribute("cursor", "rayOrigin", "mouse");
-    this.cursor.setAttribute("material", "visible", false);
     if (!this.el.sceneEl.checkHeadsetConnected()) { return; }
     this.restoreCameraPose();
     this.previousHMDPosition.set(0, 0, 0);

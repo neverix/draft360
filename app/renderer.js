@@ -1,7 +1,7 @@
 /* global AFRAME, THREE */
 AFRAME.registerComponent('renderer', {
   schema: {
-    radius: {default: 1},
+    radius: {default: 5},
     subdiv: {default: 64},
     strokeColor: {default: "red"},
     strokeSize: {default: 3},
