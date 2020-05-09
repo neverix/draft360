@@ -76,7 +76,7 @@ registerComponent('mylookcontrols', {
       this.movementMode = true;
     }
     
-    this.cursor.setAttribute("cursor", "fuse", isTouch());
+    //this.cursor.setAttribute("cursor", "fuse", isTouch());
   },
 
   setupMagicWindowControls: function () {
@@ -414,6 +414,7 @@ registerComponent('mylookcontrols', {
    */
   onEnterVR: function () {
     this.cursor.setAttribute("cursor", "fuse", true);
+    this.cursor.setAttribute("cursor", "rayOrigin", "entity");
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.checkHeadsetConnected()) { return; }
     this.saveCameraPose();
@@ -429,7 +430,8 @@ registerComponent('mylookcontrols', {
    * Restore the pose.
    */
   onExitVR: function () {
-    this.cursor.setAttribute("cursor", "fuse", isTouch());
+    this.cursor.setAttribute("cursor", "fuse", false);
+    this.cursor.setAttribute("cursor", "rayOrigin", "mouse");
     if (!this.el.sceneEl.checkHeadsetConnected()) { return; }
     this.restoreCameraPose();
     this.previousHMDPosition.set(0, 0, 0);
