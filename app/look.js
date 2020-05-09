@@ -411,9 +411,9 @@ registerComponent('mylookcontrols', {
    * Save pose.
    */
   onEnterVR: function () {
-    this.cursor.setAttribute("")
     this.cursor.setAttribute("cursor", "rayOrigin", "entity");
     this.cursor.setAttribute("cursor", "fuse", true);
+    this.cursor.setAttribute("material", "visible", true);
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.checkHeadsetConnected()) { return; }
     this.saveCameraPose();
@@ -431,6 +431,7 @@ registerComponent('mylookcontrols', {
   onExitVR: function () {
     this.cursor.setAttribute("cursor", "fuse", false);
     this.cursor.setAttribute("cursor", "rayOrigin", "mouse");
+    this.cursor.setAttribute("material", "visible", false);
     if (!this.el.sceneEl.checkHeadsetConnected()) { return; }
     this.restoreCameraPose();
     this.previousHMDPosition.set(0, 0, 0);
