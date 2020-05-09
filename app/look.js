@@ -220,8 +220,6 @@ registerComponent('mylookcontrols', {
     yawObject.rotation.y += movementX * 0.002 * direction;
     pitchObject.rotation.x += movementY * 0.002 * direction;
     pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
-    
-    this.cursor.components.raycaster;
   },
   
   onKeyDown: function (e) {
@@ -413,6 +411,7 @@ registerComponent('mylookcontrols', {
    * Save pose.
    */
   onEnterVR: function () {
+    this.cursor.setAttribute("")
     this.cursor.setAttribute("cursor", "rayOrigin", "entity");
     this.cursor.setAttribute("cursor", "fuse", true);
     var sceneEl = this.el.sceneEl;
