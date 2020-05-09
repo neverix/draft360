@@ -17,12 +17,10 @@ AFRAME.registerComponent('renderer', {
   },
   loadImage: function(img, scene) {
     if(this.images[scene]) {
-    this.image = this.images[scene];                    
-      this.canvas = this.canvases[scene];
-      if(this.canvases[scene]) {
+      this.image = this.images[scene];
+      if(this.meshes[scene]) {
         this.loaded = true;
         this.el.setObject3D("mesh", this.meshes[scene]);
-        this.ctx = this.ctxs[scene];
         this.texture = this.textures[scene];
       }
       return;
@@ -33,19 +31,7 @@ AFRAME.registerComponent('renderer', {
     this.loaded = false;
     this.images[scene] = this.image;
     this.image.onload = (() => {
-      var canvas = document.createElement("canvas");
-      canvas.width = this.image.width;
-      canvas.height = this.image.height;
-      var ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = this.data.strokeColor;
-      ctx.lineWidth = this.data.strokeSize;
-      this.ctx = ctx;
-      this.ctx.drawImage(this.image, 0, 0);
-      this.canvases[scene] = canvas;
-      this.ctxs[scene] = ctx;
-      this.canvas = canvas;
-      this.texture = new THREE.Texture(this.canvas);
+      this.texture = new THREE.Texture(this.image);
       this.textures[scene] = this.texture;
       var material = new THREE.MeshBasicMaterial({
         map: this.texture,
@@ -64,14 +50,12 @@ AFRAME.registerComponent('renderer', {
   },
   init: function() {
     this.loaded = false;
-    this.canvases = [];
     this.images = [];
     this.meshes = [];
     this.textures = [];
-    this.ctxs = [];
     this.line = [];
     this.lines = [];
-    this.cursor = document.getElementById("cursor");
+    this.cursor = document.getElementById("");
     this.prevEnabled = false;
   },
   tick: function(t) {
@@ -86,7 +70,9 @@ AFRAME.registerComponent('renderer', {
       this.lines.push(this.line);
     }
     this.prevEnabled = true;
-    var ray = this.cursor.components.ray.
+    
+    /*
+    var rot = this.camera.getAttribute("rotation");
     var x = (rot.y + 90) / 360 + 0.5;
     var y = rot.x / -180 + 0.5;
     x -= Math.floor(x);
@@ -105,5 +91,6 @@ AFRAME.registerComponent('renderer', {
       this.ctx.stroke();
       this.texture.needsUpdate = true;
     }
+    */
   }
 });
