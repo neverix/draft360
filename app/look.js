@@ -413,8 +413,8 @@ registerComponent('mylookcontrols', {
    * Save pose.
    */
   onEnterVR: function () {
-    this.cursor.setAttribute("cursor", "fuse", true);
     this.cursor.setAttribute("cursor", "rayOrigin", "entity");
+    this.cursor.setAttribute("cursor", "fuse", true);
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.checkHeadsetConnected()) { return; }
     this.saveCameraPose();
