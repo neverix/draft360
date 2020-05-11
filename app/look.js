@@ -226,10 +226,14 @@ registerComponent('mylookcontrols', {
     }
     
     if(updateCursor) {
+      var pi = Math.PI
       var rot = this.el.getAttribute("rotation");
+      rot.x /= 180; rot.y /= 180; rot.z /= 180;
+      rot.x *= pi; rot.y *= pi; rot.z *= pi;
+      rot.x %= pi; rot.y %= pi; rot.z %= pi;
       console.log(rot)
       var p = this.cursor.components.raycaster.raycaster.ray.direction;
-      var r = {y: Math.atan2(p.x, p.z)};
+      var r = {y: Math.atan2(-p.z, p.x)};
       console.log(r)
       document.getElementById("circle").setAttribute("position", `${p.x} ${p.y} ${p.z}`);
     }
