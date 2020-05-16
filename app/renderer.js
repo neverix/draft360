@@ -17,7 +17,8 @@ AFRAME.registerComponent('renderer', {
   },
   loadImage: function(img, scene) {
     var mat = new THREE.LineBasicMaterial({
-      color: 0x7167f8
+      color: this.data.strokeColor,
+      linewidth: this.data.strokeSize
     });
     if(this.images[scene]) {
       this.image = this.images[scene];
@@ -30,7 +31,7 @@ AFRAME.registerComponent('renderer', {
         geo.verticesNeedUpdate = true;
         this.geo = new THREE.LineSegments(geo, mat);
         this.geos[scene] = this.geo;
-        document.getElementById("lines").setObject3D("mesh", this.geo);
+        this.el.setObject3D("lines", this.geo);
       }
       return;
     }
@@ -58,7 +59,7 @@ AFRAME.registerComponent('renderer', {
       this.lines[scene] = this.line;
       this.geo = new THREE.LineSegments(geo, mat);
       this.geos[scene] = this.geo;
-      document.getElementById("lines").setObject3D("mesh", this.geo);
+      this.el.setObject3D("lines", this.geo);
       this.loaded = true;
       this.texture.needsUpdate = true;
     }).bind(this);
@@ -77,10 +78,10 @@ AFRAME.registerComponent('renderer', {
   },
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
+    pos = new THREE.Vector3(pos.x, pos.y, pos.z);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled) {
-      this.line.push(this.prevPos);
-      this.line.push(pos);
+      this.line.push(this.prevPos, pos);
       this.geo.geometry.verticesNeedUpdate = true;
     }
     this.prevPos = pos;

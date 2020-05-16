@@ -29,7 +29,8 @@ AFRAME.registerComponent('frame-manager', {
         portals: [],
         images: [],
         texts: [],
-        base: scenes[0][1]
+        base: scenes[0][1],
+        lines: []
       }
     ];
     this.frame = 0;
@@ -44,13 +45,10 @@ AFRAME.registerComponent('frame-manager', {
     };
     document.getElementById("export").onclick = () => {
       //console.log("export button clicked");
-      var json = this.frames.map(({portals, images, texts}, index) => ({
-        portals, images, texts, base: document.getElementById("renderer").components.renderer.images[index].src
-      }));
+      var json = this.frames;
       var xhr = new XMLHttpRequest();
       xhr.open("POST", prefix + "/store/", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
-      console.log(JSON.stringify(json));
       xhr.send(JSON.stringify(json));
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
