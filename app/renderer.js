@@ -28,7 +28,8 @@ AFRAME.registerComponent('renderer', {
         this.line = this.lines[scene];
         geo.vertices = this.line;
         this.geo = new THREE.LineSegments(geo, mat);
-        this.el.setObject3D("line", this.geo)
+        this.ge
+        this.el.setObject3D("line", this.geo);
       }
       return;
     }
@@ -71,13 +72,16 @@ AFRAME.registerComponent('renderer', {
     this.geos = [];
     this.circle = document.getElementById("circle");
     this.enabled = false;
+    this.prevPos = null;
   },
   tick: function(t) {
-    document.getElementById("cover").style.display = this.loaded ? "none" : "block";
-    if(!this.loaded) return;
-    if(!this.enabled) return;
     var pos = this.circle.getAttribute("position");
-    this.line.push(pos);
-    this.geo.needsUpdate = true;
+    document.getElementById("cover").style.display = this.loaded ? "none" : "block";
+    if(this.loaded && this.enabled) {
+      this.line.push(this.prevPos);
+      this.line.push(pos);
+      this.geo.geometry.verticesNeedUpdate = true;
+    }
+    this.prevPos = pos;
   }
 });
