@@ -14,12 +14,12 @@ AFRAME.registerComponent('frame-manager', {
       var parts = href.split('/');
       var lastSegment = parts.pop() || parts.pop();
       var url = prefix + "/file/" + lastSegment;
-      fetch(url).then(res => res.text()).then(res => {
-        console.log(res)
-        res = JSON.parse(res);
-        console.log(res)
-        this.frames = res.frames;
-        document.getElementById("renderer").components.renderer.lines = res.lines;
+      fetch(url).then(res => res.text()).then(txt => {
+        console.log(txt)
+        var json = JSON.parse(txt);
+        console.log(json);
+        this.frames = json.frames;
+        document.getElementById("renderer").components.renderer.lines = json.lines;
         this.loaded = true;
       }).then(response => {
         // handle response data
