@@ -24,9 +24,11 @@ AFRAME.registerComponent('renderer', {
       if(!!this.meshes[scene] && !!this.lines[scene]) {
         this.loaded = true;
         this.el.setObject3D("mesh", this.meshes[scene]);
-        this.geo = this.geos[scene];
-        this.el.setObject3D("line", this.geo)
+        var geo = new THREE.Geometry();
         this.line = this.lines[scene];
+        geo.vertices = this.line;
+        this.geo = new THREE.LineSegments(geo, mat);
+        this.el.setObject3D("line", this.geo)
       }
       return;
     }
@@ -52,7 +54,7 @@ AFRAME.registerComponent('renderer', {
       var geo = new THREE.Geometry();
       this.line = geo.vertices;
       this.lines[scene] = this.line;
-      this.geo = new THREE.Line(geo, mat);
+      this.geo = new THREE.LineSegments(geo, mat);
       this.geos[scene] = this.geo;
       this.el.setObject3D("line", this.geo);
       this.loaded = true;
