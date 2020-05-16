@@ -14,7 +14,10 @@ AFRAME.registerComponent('frame-manager', {
       var parts = href.split('/');
       var lastSegment = parts.pop() || parts.pop();
       var url = prefix + "/file/" + lastSegment;
-      fetch(url).then(res => {console.log(res); res.json()).then(res => {
+      fetch(url).then(res => res.text()).then(res => {
+        console.log(res)
+        res = JSON.parse(res);
+        console.log(res)
         this.frames = res.frames;
         document.getElementById("renderer").components.renderer.lines = res.lines;
         this.loaded = true;
