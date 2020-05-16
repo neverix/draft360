@@ -14,8 +14,9 @@ AFRAME.registerComponent('frame-manager', {
       var parts = href.split('/');
       var lastSegment = parts.pop() || parts.pop();
       var url = prefix + "/file/" + lastSegment;
-      fetch(url).then(res => res.json()).then(res => {
-        this.frames = res;
+      fetch(url).then(res => {console.log(res); res.json()).then(res => {
+        this.frames = res.frames;
+        document.getElementById("renderer").components.renderer.lines = res.lines;
         this.loaded = true;
       }).then(response => {
         // handle response data
@@ -43,14 +44,10 @@ AFRAME.registerComponent('frame-manager', {
     };
     document.getElementById("export").onclick = () => {
       //console.log("export button clicked");
-      var json = this.frames.map(({base, portals, images, texts}, index) => ({
-        base, portals, images, texts,
-        lines: document.getElementById("renderer").components.renderer.lines[index]
-      }));
+      var json = { frames: this.frames, lines: document.getElementById("renderer").components.renderer.lines };
       var xhr = new XMLHttpRequest();
       xhr.open("POST", prefix + "/store/", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
-      console.log(JSON.stringify(json));
       xhr.send(JSON.stringify(json));
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
