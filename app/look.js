@@ -120,9 +120,7 @@ registerComponent('mylookcontrols', {
 
   tick: function (t) {
     var enabled = (this.mouseDown || this.touchStarted) && !this.movementMode;
-    document
-      .getElementById("renderer")
-      .setAttribute("renderer", "enabled", enabled);
+    document.getElementById("renderer").components.renderer.enabled = enabled;
     this.updateOrientation();
     if(this.mouseDown || this.touchStarted) {
       var p = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
