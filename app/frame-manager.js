@@ -1,5 +1,4 @@
 /* global AFRAME THREE closeDialog showDialog showQRDialog scenes images */
-var prefix = "https://draft360x.glitch.me"
 
 AFRAME.registerComponent('frame-manager', {
   schema: {
