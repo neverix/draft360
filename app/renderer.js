@@ -27,9 +27,10 @@ AFRAME.registerComponent('renderer', {
         var geo = new THREE.Geometry();
         this.line = this.lines[scene];
         geo.vertices = this.line;
+        geo.verticesNeedUpdate = true;
         this.geo = new THREE.LineSegments(geo, mat);
-        this.ge
-        this.el.setObject3D("line", this.geo);
+        this.geos[scene] = this.geo;
+        document.getElementById("lines").setObject3D("mesh", this.geo);
       }
       return;
     }
@@ -57,7 +58,7 @@ AFRAME.registerComponent('renderer', {
       this.lines[scene] = this.line;
       this.geo = new THREE.LineSegments(geo, mat);
       this.geos[scene] = this.geo;
-      this.el.setObject3D("line", this.geo);
+      document.getElementById("lines").setObject3D("mesh", this.geo);
       this.loaded = true;
       this.texture.needsUpdate = true;
     }).bind(this);
@@ -75,7 +76,7 @@ AFRAME.registerComponent('renderer', {
     this.prevPos = null;
   },
   tick: function(t) {
-    var pos = this.circle.getAttribute("position");
+    var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled) {
       this.line.push(this.prevPos);
