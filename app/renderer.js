@@ -75,15 +75,20 @@ AFRAME.registerComponent('renderer', {
     this.circle = document.getElementById("circle");
     this.enabled = false;
     this.prevPos = null;
+    this.prevEnabled = false;
   },
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
     pos = new THREE.Vector3(pos.x, pos.y, pos.z);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
+    if(this.prevEnabled && !this.enabled) {
+      
+    }
     if(this.loaded && this.enabled) {
       this.line.push(this.prevPos, pos);
       this.geo.geometry.verticesNeedUpdate = true;
     }
     this.prevPos = pos;
+    this.prevEnabled = this.enabled;
   }
 });

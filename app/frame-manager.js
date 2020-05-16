@@ -18,10 +18,10 @@ AFRAME.registerComponent('frame-manager', {
       fetch(url).then(res => res.json()).then(res => {
         this.frames = res;
         this.loaded = true;
-      })
-    .then(response => {
+      }).then(response => {
         // handle response data
-    })
+      });
+      
     }
     this.frames = [
       {
@@ -29,8 +29,7 @@ AFRAME.registerComponent('frame-manager', {
         portals: [],
         images: [],
         texts: [],
-        base: scenes[0][1],
-        lines: []
+        base: scenes[0][1]
       }
     ];
     this.frame = 0;
@@ -45,10 +44,14 @@ AFRAME.registerComponent('frame-manager', {
     };
     document.getElementById("export").onclick = () => {
       //console.log("export button clicked");
-      var json = this.frames;
+      var json = this.frames.map(({base, portals, images, texts}, index) => ({
+        base, portals, images, texts,
+        lines: document.getElementById("renderer").components.renderer.lines[index]
+      }));
       var xhr = new XMLHttpRequest();
       xhr.open("POST", prefix + "/store/", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
+      console.log(JSON.stringify(json));
       xhr.send(JSON.stringify(json));
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
