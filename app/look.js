@@ -36,7 +36,6 @@ registerComponent('mylookcontrols', {
   },
 
   init: function () {    
-    this.cursor = document.getElementById("cursor");
     this.deltaYaw = 0;
     this.previousHMDPosition = new THREE.Vector3();
     this.hmdQuaternion = new THREE.Quaternion();
@@ -226,16 +225,15 @@ registerComponent('mylookcontrols', {
     }
     
     if(updateCursor) {
-      var pi = Math.PI
-      var rot = this.el.getAttribute("rotation");
-      rot.x /= 180; rot.y /= 180; rot.z /= 180;
-      rot.x *= pi; rot.y *= pi; rot.z *= pi;
-      rot.x %= pi; rot.y %= pi; rot.z %= pi;
-      console.log(rot)
-      var p = this.cursor.components.raycaster.raycaster.ray.direction;
-      var r = {y: Math.atan2(-p.z, p.x)};
-      console.log(r)
-      document.getElementById("circle").setAttribute("position", `${p.x} ${p.y} ${p.z}`);
+      function dir2rot(d) {
+        return {y: Math.atan2(-d.z, d.x)}
+      }
+      
+      var b = new THREE.Vector3();
+      this.el.sceneEl.camera.getWorldDirection(b);
+      var m = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
+      console.log([dir2rot(m), dir2rot(b)]);
+      //document.getElementById("circle").setAttribute("position", `${p.x} ${p.y} ${p.z}`);
     }
   },
   
