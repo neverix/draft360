@@ -124,6 +124,10 @@ registerComponent('mylookcontrols', {
       .getElementById("renderer")
       .setAttribute("renderer", "enabled", enabled);
     this.updateOrientation();
+    if(this.mouseDown || this.touchStarted) {
+      var p = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
+      document.getElementById("circle").setAttribute("position", `${p.x} ${p.y} ${p.z}`);
+    }
   },
 
   play: function () {
@@ -200,8 +204,6 @@ registerComponent('mylookcontrols', {
   },
   
   onMouseMove: function (event) {
-    var updateCursor = false;
-    
     // Not dragging <s>and in movement mode</s>
     if(this.movementMode ? this.mouseDown : false) { // TODO
       var direction;
@@ -220,20 +222,6 @@ registerComponent('mylookcontrols', {
       yawObject.rotation.y += movementX * 0.002 * direction;
       pitchObject.rotation.x += movementY * 0.002 * direction;
       pitchObject.rotation.x = Math.max(-PI_2, Math.min(PI_2, pitchObject.rotation.x));
-      
-      updateCursor = true;
-    }
-    
-    if(updateCursor) {
-      function dir2rot(d) {
-        return {y: Math.atan2(-d.z, d.x)}
-      }
-      
-      var b = new THREE.Vector3();
-      this.el.sceneEl.camera.getWorldDirection(b);
-      var m = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
-      console.log([dir2rot(m), dir2rot(b)]);
-      //document.getElementById("circle").setAttribute("position", `${p.x} ${p.y} ${p.z}`);
     }
   },
   

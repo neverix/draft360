@@ -73,7 +73,7 @@ AFRAME.registerComponent('frame-manager', {
       ]));
     };
     document.getElementById("delete-frame").onclick = () => {
-      showDialog("Are you sure you want to delete this frame? There's no way to undo this action", [
+      showDialog("Are you sure you want to delete this frame? There's no way to undo this action.", [
         ["Yes", () => {
           closeDialog();
           if(this.frames.length < 2) return;
@@ -89,7 +89,7 @@ AFRAME.registerComponent('frame-manager', {
           closeDialog();
           showDialog("Choose image for your Portal:", images.map(([name, image]) => [
             name, () => {
-              var cursor = document.getElementById("cursor");
+              var cursor = document.getElementById("circle");
               var worldPos = new THREE.Vector3();
               worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
               worldPos.multiplyScalar(this.data.portalDistance);
@@ -129,16 +129,17 @@ AFRAME.registerComponent('frame-manager', {
           name, () => {
             this.imageMode = true;
             //document.getElementById("image-mode-icon").innerText = "done";
-            var cursor = document.getElementById("cursor");
+            var cursor = document.getElementById("circle");
             var worldPos = new THREE.Vector3();
             worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
             worldPos.multiplyScalar(this.data.portalDistance);
-            var rot = document.getElementById("camera").object3D.rotation;
+            var rot = document.getElementById("circle").object3D.rotation;
             this.frames[this.frame].images.push({
               position: worldPos,
               rotation: rot,
               src: image
             });
+            console.log(this.frames)
             closeDialog();
           }
         ]));
@@ -153,12 +154,11 @@ AFRAME.registerComponent('frame-manager', {
                   </div>`, [
         ["Ok", () => {
           document.getElementById("camera").setAttribute("mylookcontrols", "useSpace", true);
-          var cursor = document.getElementById("cursor");
+          var cursor = document.getElementById("circle");
           var worldPos = new THREE.Vector3();
           worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
           worldPos.multiplyScalar(this.data.portalDistance);
-          var rot = document.getElementById("camera").object3D.rotation;
-          console.log(rot);
+          var rot = document.getElementById("circle").object3D.rotation;
           this.frames[this.frame].texts.push({
             position: worldPos,
             rotation: rot,
