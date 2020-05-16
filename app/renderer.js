@@ -55,7 +55,7 @@ AFRAME.registerComponent('renderer', {
     this.textures = [];
     this.line = [];
     this.lines = [];
-    this.cursor = document.getElementById("");
+    this.circle = document.getElementById("circle");
     this.prevEnabled = false;
   },
   tick: function(t) {
@@ -71,26 +71,7 @@ AFRAME.registerComponent('renderer', {
     }
     this.prevEnabled = true;
     
-    /*
-    var rot = this.camera.getAttribute("rotation");
-    var x = (rot.y + 90) / 360 + 0.5;
-    var y = rot.x / -180 + 0.5;
-    x -= Math.floor(x);
-    x *= this.canvas.width;
-    y *= this.canvas.height;
-    x = Math.floor(x);
-    y = Math.floor(y);
-    this.line.push([x, y]);
-    if(this.line.length > 1) {
-      var i = this.line.length - 1;
-      if(Math.abs(this.line[i][0] - this.line[i - 1][0])
-         > this.canvas.width * this.data.hThreshold) return;
-      this.ctx.beginPath();
-      this.ctx.moveTo(this.line[i][0], this.line[i][1]);
-      this.ctx.lineTo(this.line[i - 1][0], this.line[i - 1][1]);
-      this.ctx.stroke();
-      this.texture.needsUpdate = true;
-    }
-    */
+    var pos = this.circle.getAttribute("position");
+    
   }
 });
