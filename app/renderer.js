@@ -70,7 +70,7 @@ AFRAME.registerComponent('renderer', {
     this.meshes = [];
     this.textures = [];
     this.line = [];
-    this.lines = [];
+    this.lines = {};
     this.geos = [];
     this.circle = document.getElementById("circle");
     this.enabled = false;
