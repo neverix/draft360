@@ -40,7 +40,7 @@ AFRAME.registerComponent('renderer', {
     this.image.src = img;
     this.loaded = false;
     this.images[scene] = this.image;
-    this.image.onload = (() => {
+    this.image.addEventListener("load", () => {
       this.texture = new THREE.Texture(this.image);
       this.textures[scene] = this.texture;
       var material = new THREE.MeshBasicMaterial({

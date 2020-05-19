@@ -14,16 +14,21 @@ AFRAME.registerComponent('frame-manager', {
       var parts = href.split('/');
       var lastSegment = parts.pop() || parts.pop();
       var url = prefix + "/file/" + lastSegment;
+      this.loaded = true;
       fetch(url).then(res => res.text()).then(txt => {
-        console.log(txt);
-        var json = JSON.parse(txt);
-        console.log(json);
+        var json = JSON.parse("[" + txt + "]")[0];
         this.frames = json.frames;
-        document.getElementById("renderer").components.renderer.lines = json.lines;
-        this.loaded = true;
-      }).then(response => {
-        // handle response data
-      });
+        var rend = document.getElementById("renderer").components.renderer;
+        var done = false;
+        rend.image.addEventListener("load", () => {
+          if(done) return;
+          rend.lines = json.lines;
+          rend.lines[0] = rend.line;
+          rend.line.push(json.lines[0]);
+          rend.geo.geometry.verticesNeedUpdate = true;
+          done = true;
+        });
+      })
       
     }
     this.frames = [
