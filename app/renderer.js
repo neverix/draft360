@@ -40,7 +40,7 @@ AFRAME.registerComponent('renderer', {
     this.image.src = img;
     this.loaded = false;
     this.images[scene] = this.image;
-    this.image.addEventListener("load", () => {
+    this.image.onload = (() => {
       this.texture = new THREE.Texture(this.image);
       this.textures[scene] = this.texture;
       var material = new THREE.MeshBasicMaterial({
@@ -55,8 +55,8 @@ AFRAME.registerComponent('renderer', {
       this.meshes[scene] = mesh;
       this.el.setObject3D("mesh", mesh);
       var geo = new THREE.Geometry();
-      this.line = geo.vertices;
-      this.lines[scene] = this.line;
+      this.line = this.lines[scene]
+      geo.vertices = this.line;
       this.geo = new THREE.LineSegments(geo, mat);
       this.geos[scene] = this.geo;
       this.el.setObject3D("lines", this.geo);
@@ -70,7 +70,7 @@ AFRAME.registerComponent('renderer', {
     this.meshes = [];
     this.textures = [];
     this.line = [];
-    this.lines = [];
+    this.lines = [[]];
     this.geos = [];
     this.circle = document.getElementById("circle");
     this.enabled = false;
