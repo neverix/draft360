@@ -137,7 +137,6 @@ AFRAME.registerComponent('frame-manager', {
               rotation: rot,
               src: image
             });
-            console.log(this.frames)
             closeDialog();
           }
         ]));
