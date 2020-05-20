@@ -196,12 +196,16 @@ AFRAME.registerComponent('frame-manager', {
             portal.id = portalId;
             //portal.setAttribute("size", `200 200`);
             portal.setAttribute("src", src);
+            var img = new Image();
+            img.src = src;
+            img.onload = () => {
+              portal.setAttribute("width", img.width / img.height);
+            }
             // portal.setAttribute("particle-system", "color: #44CC00; maxAge: 0.1; particleCount: 10; velocityValue: 0 0 0; velocitySpread: 1 1 1");
             //portal.setAttribute("animation", "property: scale; dur: 1000; from: 1 1 1; to: 0.8 0.8 0.8; loop: true; direction: alternate; easing: linear");
             portal.onclick = () => {
               this.frame = to;
             };
-            this.el.sceneEl.appendChild(portal);
             var text = document.createElement("a-entity");
             text.setAttribute("text", `width: 4; color: white; align: center; value: Portal to ${to + 1}`);
             portal.appendChild(text);
@@ -209,6 +213,7 @@ AFRAME.registerComponent('frame-manager', {
             portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             var r = rotation;
             portal.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
+            this.el.sceneEl.appendChild(portal);
           } else {
             elem.setAttribute("look-at", "[camera]");
           }
@@ -223,11 +228,16 @@ AFRAME.registerComponent('frame-manager', {
             stampImg.id = stampId;
             //stampImg.setAttribute("size", `200 200`);
             stampImg.setAttribute("src", src);
-            this.el.sceneEl.appendChild(stampImg);
+            var img = new Image();
+            img.src = src;
+            img.onload = () => {
+              stampImg.setAttribute("width", img.width / img.height);
+            }
             var p = position;
             stampImg.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
             var r = rotation;
             stampImg.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
+            this.el.sceneEl.appendChild(stampImg);
           } else {
             elem.setAttribute("look-at", "[camera]");
           }
