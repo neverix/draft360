@@ -25,6 +25,7 @@ AFRAME.registerComponent('renderer', {
       geo.vertices = this.line;
       this.geo = new THREE.LineSegments(geo, mat);
       this.geos[scene] = this.geo;
+      geo.verticesNeedUpdate = true;
       this.el.setObject3D("mesh", this.geo);
     }
     this.geo = this.geos[scene];
@@ -52,12 +53,13 @@ AFRAME.registerComponent('renderer', {
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
     pos = new THREE.Vector3(pos.x, pos.y, pos.z);
+    pos.multiplyScalar(3);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled && !!this.prevPos) {
       var prev = new THREE.Vector3();
       prev.copy(this.prevPos);
-      prev.multiplyScalar(3);
       this.line.push(prev, pos);
+      this.geo.geometry.verticesNeedUpdate = true;
     }
     this.prevPos = pos;
   }
