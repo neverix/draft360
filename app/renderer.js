@@ -59,7 +59,7 @@ AFRAME.registerComponent('renderer', {
       this.line.push(this.prevPos, pos);
       this.geo.geometry.verticesNeedUpdate = true;
       this.geo.geometry.elementsNeedUpdate = true;
-      console.log(this.geo.geometry);
+      this.geo.geometry.computeBoundingBox();
     }
     this.prevPos = pos;
   }
