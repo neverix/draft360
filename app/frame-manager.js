@@ -75,6 +75,15 @@ AFRAME.registerComponent('frame-manager', {
         ["Yes", () => {
           closeDialog();
           if(this.frames.length < 2) return;
+          var objs = this.frames[this.frame];
+          var del = (list, name) => {
+            list.forEach((_o, i) => {
+              document.getElementById(``)
+            });
+          }
+          objs.portals.forEach(portal => {
+            document.
+          })
           this.frames.splice(this.frame, 1);
           document.getElementById("renderer").components.renderer.deleteFrame(this.frame);
           this.frame = 0;
