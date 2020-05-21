@@ -49,6 +49,7 @@ AFRAME.registerComponent('renderer', {
     }
     document.getElementById("eraser-mode").onclick = () => {
       this.eraserMode = true;
+      console.log("yes")
     }
   },
   tick: function(t) {
