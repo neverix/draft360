@@ -20,9 +20,9 @@ AFRAME.registerComponent('renderer', {
         linewidth: this.data.strokeSize
       });
       var geo = new THREE.Geometry();
-      this.line = geo.vertices;
-      this.lines[scene] = this.line;
+      this.line = [];
       geo.vertices = this.line;
+      this.lines[scene] = this.line;
       this.geo = new THREE.LineSegments(geo, mat);
       this.geos[scene] = this.geo;
       this.el.setObject3D("mesh", this.geo);
@@ -30,6 +30,7 @@ AFRAME.registerComponent('renderer', {
     }
     this.geo = this.geos[scene];
     this.line = this.lines[scene];
+    console.log(this.sky.components.material.material);
     this.sky.components.material.material.map.image.onload = () => { this.loaded = true };
   },
   init: function() {
