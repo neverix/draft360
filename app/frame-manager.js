@@ -71,19 +71,20 @@ AFRAME.registerComponent('frame-manager', {
       ]));
     };
     document.getElementById("delete-frame").onclick = () => {
+      if(this.frames.length < 2) return;
       showDialog("Are you sure you want to delete this frame? There's no way to undo this action.", [
         ["Yes", () => {
           closeDialog();
-          if(this.frames.length < 2) return;
-          var objs = this.frames[this.frame];
-          var del = (list, name) => {
+          var del = (scene, list, name) => {
+            console.log(list);
             list.forEach((_o, i) => {
-              document.getElementById(``)
+              document.getElementById(`${name}-${scene}-${i}`).remove();
             });
           }
-          objs.portals.forEach(portal => {
-            document.
-          })
+          var { portals, images, texts } = this.frames[this.frame];
+          del(this.frame, portals, "portal");
+          del(this.frame, images, "image");
+          del(this.frame, texts, "text");
           this.frames.splice(this.frame, 1);
           document.getElementById("renderer").components.renderer.deleteFrame(this.frame);
           this.frame = 0;
