@@ -74,7 +74,9 @@ registerComponent('mylookcontrols', {
     document.getElementById("move-mode").onclick = () => {
       this.movementMode = true;
     }
-    
+    document.getElementById("eraser-mode").onclick = () => {
+      this.movementMode = false;
+    }
     //this.cursor.setAttribute("cursor", "fuse", isTouch());
   },
 
