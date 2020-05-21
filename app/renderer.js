@@ -61,7 +61,7 @@ AFRAME.registerComponent('renderer', {
         this.filterPairs(this.line, pos);
         var man = document.getElementById("frame-manager").components["frame-manager"];
         var scene = man.frames[man.frame];
-        if(this.filterObjects(scene.images, man.frame)) {
+        if(this.filterObjects(scene.images, pos)) {
           man.gc();
         };
       } else {
@@ -74,7 +74,7 @@ AFRAME.registerComponent('renderer', {
   },
   filterObjects: function(arr, c) {
     var len = arr.length;
-    arr.splice(0, arr.length, ...arr.filter((x, i) => {
+    arr.splice(0, arr.length, ...arr.filter(x => {
       return this.keep(x.position, c);
     }));
     return arr.length < len;
@@ -91,6 +91,7 @@ AFRAME.registerComponent('renderer', {
     arr.splice(0, arr.length, ...newArr);
   },
   keep: function(a, c) {
+    var a = new THREE.Vector3(a.x, a.y, a.z);
     return a.normalize().distanceTo(c) > this.data.maxDistance;
   }
 });
