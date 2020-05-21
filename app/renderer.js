@@ -21,13 +21,17 @@ AFRAME.registerComponent('renderer', {
     if(!this.lines[scene]) {
       this.lines[scene] = [];
     }
-    var geo = new THREE.Geometry();
-    this.line = this.lines[scene]
-    geo.vertices = this.line;
-    this.geo = new THREE.LineSegments(geo, mat);
-    this.geos[scene] = this.geo;
-    this.el.setObject3D("mesh", this.geo);
+    // if(scene != this.prevEnabled) {
+      this.loaded = false;
+      var geo = new THREE.Geometry();
+      this.line = this.lines[scene];
+      geo.vertices = this.line;
+      this.geo = new THREE.LineSegments(geo, mat);
+      this.geos[scene] = this.geo;
+      this.el.setObject3D("mesh", this.geo);
+    // }
     this.loaded = true;
+    this.prevEnabled = scene;
   },
   init: function() {
     this.loaded = false;
@@ -37,7 +41,7 @@ AFRAME.registerComponent('renderer', {
     this.circle = document.getElementById("circle");
     this.enabled = false;
     this.prevPos = null;
-    this.prevEnabled = false;
+    this.prevEnabled = -1;
     this.sky = document.getElementById("sky");
     this.eraserMode = false;
     document.getElementById("edit-mode").onclick = () => {
@@ -51,9 +55,6 @@ AFRAME.registerComponent('renderer', {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
     pos = new THREE.Vector3(pos.x, pos.y, pos.z);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
-    if(this.prevEnabled && !this.enabled) {
-      
-    }
     if(this.loaded && this.enabled) {
       this.line.push(this.prevPos, pos);
       this.geo.geometry.verticesNeedUpdate = true;
