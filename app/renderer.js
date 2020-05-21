@@ -30,7 +30,7 @@ AFRAME.registerComponent('renderer', {
     }
     this.geo = this.geos[scene];
     this.line = this.lines[scene];
-    this.loaded = true;
+    this.sky.components.material.material.map.image.onload = () => { this.loaded = true };
   },
   init: function() {
     this.loaded = false;
@@ -52,13 +52,9 @@ AFRAME.registerComponent('renderer', {
   },
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
-    pos = new THREE.Vector3(pos.x, pos.y, pos.z);
-    pos.multiplyScalar(3);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled && !!this.prevPos) {
-      var prev = new THREE.Vector3();
-      prev.copy(this.prevPos);
-      this.line.push(prev, pos);
+      this.line.push(this.prevPos, pos);
       this.geo.geometry.verticesNeedUpdate = true;
     }
     this.prevPos = pos;
