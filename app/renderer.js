@@ -58,9 +58,11 @@ AFRAME.registerComponent('renderer', {
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled && this.on) {
       if(this.eraserMode) {
-        this.line.splice(0, this.line.length, ...this.line.filter(x => {
-          return this.keep(x, pos);
-        }));
+        this.filterPairs(this.line, pos);
+        var man = document.getElementById("frame-manager").components["frame-manager"];
+        var scene = man.frames[man.frame];
+        this.filterObjects(scene.images, pos);
+        console.log(scene.images);
       } else {
         this.line.push(this.prevPos, pos);
       }
@@ -69,24 +71,23 @@ AFRAME.registerComponent('renderer', {
     this.prevPos = pos;
     this.prevEnabled = this.enabled;
   },
+  filterObjects: function(arr, c) {
+    arr.splice(0, arr.length, ...arr.filter(x => {
+      return this.keep(x.position, c);
+    }));
+  },
+  filterPairs: function(arr, c) {
+    var newArr = [];
+    for(var i = 0; i < arr.length; i += 2) {
+      var a = arr[i];
+      var b = arr[i + 1];
+      if(this.keep(a, c) && this.keep(b, c)) {
+        newArr.push(a, b)
+      }
+    }
+    arr.splice(0, arr.length, ...newArr);
+  },
   keep: function(a, c) {
     return a.normalize().distanceTo(c) > this.data.maxDistance;
   }
 });
-
-function filter(arr) {
-  var newArr = [];
-  for(var i = 0; i < arr.length; i++) {
-
-  }
-}
-function(arr) {
-  var newArr = [];
-  for(var i = 0; i < arr.length; i += 2) {
-    var a = arr[i];
-    var b = arr[i + 1];
-    if(this.keep(a, b)) {
-      newArr.push(a, b);
-    }
-  }
-}
