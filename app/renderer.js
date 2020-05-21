@@ -59,18 +59,34 @@ AFRAME.registerComponent('renderer', {
     if(this.loaded && this.enabled && this.on) {
       if(this.eraserMode) {
         this.line.splice(0, this.line.length, ...this.line.filter(x => {
-          
-          return true;
+          return this.keep(x, pos);
         }));
       } else {
         this.line.push(this.prevPos, pos);
-        this.geo.geometry.verticesNeedUpdate = true;
       }
+      this.geo.geometry.verticesNeedUpdate = true;
     }
     this.prevPos = pos;
     this.prevEnabled = this.enabled;
   },
-  doDelete: function(a, b) {
-    console.log(a.normalize());
+  keep: function(a, c) {
+    return a.normalize().distanceTo(c) > this.data.maxDistance;
   }
 });
+
+function filter(arr) {
+  var newArr = [];
+  for(var i = 0; i < arr.length; i++) {
+
+  }
+}
+function(arr) {
+  var newArr = [];
+  for(var i = 0; i < arr.length; i += 2) {
+    var a = arr[i];
+    var b = arr[i + 1];
+    if(this.keep(a, b)) {
+      newArr.push(a, b);
+    }
+  }
+}
