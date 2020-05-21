@@ -13,6 +13,7 @@ AFRAME.registerComponent('renderer', {
     this.geos.splice(scene, 1);
   },
   loadImage: function(img, scene) {
+    this.loaded = false;
     this.sky.setAttribute("src", img);
     if(!this.geos[scene]) {
       var mat = new THREE.LineBasicMaterial({
