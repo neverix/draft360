@@ -61,8 +61,7 @@ AFRAME.registerComponent('renderer', {
         this.filterPairs(this.line, pos);
         var man = document.getElementById("frame-manager").components["frame-manager"];
         var scene = man.frames[man.frame];
-        this.filterObjects(scene.images, pos);
-        console.log(scene.images);
+        this.filterObjects(scene.images, man.frame);
       } else {
         this.line.push(this.prevPos, pos);
       }
@@ -72,7 +71,8 @@ AFRAME.registerComponent('renderer', {
     this.prevEnabled = this.enabled;
   },
   filterObjects: function(arr, c) {
-    arr.splice(0, arr.length, ...arr.filter(x => {
+    var len = 
+    arr.splice(0, arr.length, ...arr.filter((x, i) => {
       return this.keep(x.position, c);
     }));
   },
