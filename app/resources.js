@@ -10,6 +10,10 @@ var scenes = [
   [
     "Team 009",
     "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2F8b4718d5-af4e-4720-b09b-9c4f4a59768f.image.png?v=1579359942179"
+  ],
+  [
+    "Field",
+    "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fpuydesancy.jpg?v=1579277588433"
   ]
 ];
 var images = [

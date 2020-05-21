@@ -76,6 +76,7 @@ AFRAME.registerComponent('renderer', {
     this.enabled = false;
     this.prevPos = null;
     this.prevEnabled = false;
+    this.sphere = document.getElementById("sphere")
   },
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
