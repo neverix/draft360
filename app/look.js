@@ -35,7 +35,8 @@ registerComponent('mylookcontrols', {
     useSpace: {default: true}
   },
 
-  init: function () {    
+  init: function () {
+    this.cursor = document.getElementById("cursor");
     this.deltaYaw = 0;
     this.previousHMDPosition = new THREE.Vector3();
     this.hmdQuaternion = new THREE.Quaternion();
