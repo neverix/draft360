@@ -20,18 +20,17 @@ AFRAME.registerComponent('renderer', {
         linewidth: this.data.strokeSize
       });
       var geo = new THREE.Geometry();
-      this.line = [];
       geo.vertices = this.line;
       this.lines[scene] = this.line;
       this.geo = new THREE.LineSegments(geo, mat);
+      this.geo.frustumCulled = false;
       this.geos[scene] = this.geo;
-      this.el.setObject3D("mesh", this.geo);
+      this.el.setObject3D("line", this.geo);
       geo.verticesNeedUpdate = true;
     }
     this.geo = this.geos[scene];
     this.line = this.lines[scene];
-    console.log(this.sky.components.material.material);
-    this.sky.components.material.material.map.image.onload = () => { this.loaded = true };
+    this.loaded = true;
   },
   init: function() {
     this.loaded = false;
@@ -53,10 +52,13 @@ AFRAME.registerComponent('renderer', {
   },
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
+    pos = new THREE.Vector3(pos.x, pos.y, pos.z);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled && !!this.prevPos) {
       this.line.push(this.prevPos, pos);
       this.geo.geometry.verticesNeedUpdate = true;
+      this.geo.geometry.elementsNeedUpdate = true;
+      console.log(this.geo);
     }
     this.prevPos = pos;
   }
