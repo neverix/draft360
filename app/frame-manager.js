@@ -213,7 +213,7 @@ AFRAME.registerComponent('frame-manager', {
             // portal.setAttribute("particle-system", "color: #44CC00; maxAge: 0.1; particleCount: 10; velocityValue: 0 0 0; velocitySpread: 1 1 1");
             //portal.setAttribute("animation", "property: scale; dur: 1000; from: 1 1 1; to: 0.8 0.8 0.8; loop: true; direction: alternate; easing: linear");
             portal.onclick = () => {
-              this.frame = to;
+              if(this.frames.length > to) this.frame = to;
             };
             var text = document.createElement("a-entity");
             text.setAttribute("text", `width: 4; color: white; align: center; value: Portal to ${to + 1}`);

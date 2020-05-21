@@ -56,8 +56,12 @@ AFRAME.registerComponent('renderer', {
     pos = new THREE.Vector3(pos.x, pos.y, pos.z);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled) {
-      this.line.push(this.prevPos, pos);
-      this.geo.geometry.verticesNeedUpdate = true;
+      if(this.eraserMode) {
+        
+      } else {
+        this.line.push(this.prevPos, pos);
+        this.geo.geometry.verticesNeedUpdate = true;
+      }
     }
     this.prevPos = pos;
     this.prevEnabled = this.enabled;
