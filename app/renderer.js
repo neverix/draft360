@@ -27,10 +27,9 @@ AFRAME.registerComponent('renderer', {
       this.geos[scene] = this.geo;
       this.el.setObject3D("line", this.geo);
       geo.verticesNeedUpdate = true;
-    } else if(!!this.geos[scene]) {
-      this.geo = this.geos[scene];
-      this.line = this.lines[scene];
     }
+    this.geo = this.geos[scene];
+    this.line = this.lines[scene];
     this.loaded = true;
   },
   init: function() {
