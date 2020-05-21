@@ -25,7 +25,7 @@ AFRAME.registerComponent('renderer', {
       geo.vertices = this.line;
       this.geo = new THREE.LineSegments(geo, mat);
       this.geos[scene] = this.geo;
-      this.el.setObject3D("mesh", this.geo);
+      this.el.setObject3D("line", this.geo);
     }
     this.geo = this.geos[scene];
     this.line = this.lines[scene];
