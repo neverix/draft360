@@ -61,7 +61,9 @@ AFRAME.registerComponent('renderer', {
         this.filterPairs(this.line, pos);
         var man = document.getElementById("frame-manager").components["frame-manager"];
         var scene = man.frames[man.frame];
-        if(this.filterObjects(scene.images, pos)) {
+        if(this.filterObjects(scene.images, pos)
+        || this.filterObjects(scene.portals, pos)
+        || this.filterObjects(scene.texts, pos)) {
           man.gc();
         };
       } else {

@@ -169,10 +169,8 @@ AFRAME.registerComponent('frame-manager', {
     }
   },
   gc: function() {
-    var els = document.getElementsByClassName("obj");
-    for(var el of els) {
-      el.remove();
-    }
+    var els = document.querySelectorAll(".obj");
+    els.forEach(el => el.parentNode.removeChild(el));
   },
   tick: function() {
     if(!this.loaded) return;
@@ -250,7 +248,6 @@ AFRAME.registerComponent('frame-manager', {
             stampImg.setAttribute("rotation", `${r.x} ${r.y} ${r.z}`);
             this.el.sceneEl.appendChild(stampImg);
           } else {
-            console.log("hmm");
             elem.setAttribute("look-at", "[camera]");
           }
         } else if(!!elem) elem.remove();
