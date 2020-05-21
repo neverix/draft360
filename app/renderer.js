@@ -61,7 +61,9 @@ AFRAME.registerComponent('renderer', {
         this.filterPairs(this.line, pos);
         var man = document.getElementById("frame-manager").components["frame-manager"];
         var scene = man.frames[man.frame];
-        this.filterObjects(scene.images, man.frame);
+        if(this.filterObjects(scene.images, man.frame)) {
+          man.gc();
+        };
       } else {
         this.line.push(this.prevPos, pos);
       }
@@ -75,9 +77,7 @@ AFRAME.registerComponent('renderer', {
     arr.splice(0, arr.length, ...arr.filter((x, i) => {
       return this.keep(x.position, c);
     }));
-    if(arr.length < len) {
-      document.getElementById("frame-manager").components["frame-manager"].gc();
-    }
+    return arr.length < len;
   },
   filterPairs: function(arr, c) {
     var newArr = [];

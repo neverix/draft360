@@ -169,17 +169,9 @@ AFRAME.registerComponent('frame-manager', {
     }
   },
   gc: function() {
-    var del = (scene, list, name) => {
-      list.forEach((_o, i) => {
-        var el = document.getElementById(`${name}-${scene}-${i}`);
-        el.parentNode.removeChild(el);
-      });
-    }
-    for(var i = 0; i < this.frames.length; i++) {
-      var { portals, images, texts } = this.frames[i];
-      del(i, portals, "portal");
-      del(i, images, "image");
-      del(i, texts, "text");
+    var els = document.getElementsByClassName("obj");
+    for(var el of els) {
+      console.log(el);
     }
   },
   tick: function() {
@@ -206,7 +198,8 @@ AFRAME.registerComponent('frame-manager', {
             this.el.sceneEl.appendChild(portal);
             */
             var portal = document.createElement("a-image");
-            portal.setAttribute("class", "clickable");
+            portal.setAttribute("visible", false);
+            portal.setAttribute("class", "clickable obj");
             portal.id = portalId;
             //portal.setAttribute("size", `200 200`);
             portal.setAttribute("src", src);
@@ -214,6 +207,7 @@ AFRAME.registerComponent('frame-manager', {
             img.src = src;
             img.onload = () => {
               portal.setAttribute("width", img.width / img.height);
+              portal.setAttribute("visible", true);
             }
             // portal.setAttribute("particle-system", "color: #44CC00; maxAge: 0.1; particleCount: 10; velocityValue: 0 0 0; velocitySpread: 1 1 1");
             //portal.setAttribute("animation", "property: scale; dur: 1000; from: 1 1 1; to: 0.8 0.8 0.8; loop: true; direction: alternate; easing: linear");
@@ -239,6 +233,8 @@ AFRAME.registerComponent('frame-manager', {
         if(i == this.frame) {
           if(!elem) {
             var stampImg = document.createElement("a-image");
+            stampImg.setAttribute("visible", false);
+            stampImg.setAttribute("class", "obj");
             stampImg.id = stampId;
             //stampImg.setAttribute("size", `200 200`);
             stampImg.setAttribute("src", src);
@@ -246,6 +242,7 @@ AFRAME.registerComponent('frame-manager', {
             img.src = src;
             img.onload = () => {
               stampImg.setAttribute("width", img.width / img.height);
+              stampImg.setAttribute("visible", true);
             }
             var p = position;
             stampImg.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
@@ -263,6 +260,7 @@ AFRAME.registerComponent('frame-manager', {
         if(i == this.frame) {
           if(!elem) {
             var txt = document.createElement("a-entity");
+            txt.setAttribute("class", "obj");
             txt.id = textId;
             txt.setAttribute("text", `width: 2; wrapCount: 10; color: white; align: center; value: ${text}`);
             this.el.sceneEl.appendChild(txt);
