@@ -15,7 +15,7 @@ AFRAME.registerComponent('renderer', {
   loadImage: function(img, scene) {
     this.sky.setAttribute("src", img);
     if(!this.geos[scene]) {
-      this.line = [];
+      this.line = [new THREE.Vector3(0, 0, -1), new THREE.Vector3(1, 0, -1)];
       this.lines[scene] = this.line;
       var mat = new THREE.LineBasicMaterial({
         color: this.data.strokeColor,
@@ -34,12 +34,20 @@ AFRAME.registerComponent('renderer', {
   init: function() {
     this.loaded = false;
     this.line = [];
-    this.lines = [[]];
+    this.lines = [];
+    this.geo = null;
     this.geos = [];
     this.circle = document.getElementById("circle");
     this.enabled = false;
     this.prevPos = null;
-    this.sky = document.getElementById("sky")
+    this.sky = document.getElementById("sky");
+    this.eraserMode = false;
+    document.getElementById("edit-mode").onclick = () => {
+      this.eraserMode = false;
+    }
+    document.getElementById("eraser-mode").onclick = () => {
+      this.eraserMode = true;
+    }
   },
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
