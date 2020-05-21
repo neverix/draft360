@@ -36,7 +36,7 @@ AFRAME.registerComponent('renderer', {
   init: function() {
     this.loaded = false;
     this.line = [];
-    this.lines = [];
+    this.lines = [[]];
     this.geo = null;
     this.geos = [];
     this.circle = document.getElementById("circle");
@@ -59,6 +59,7 @@ AFRAME.registerComponent('renderer', {
       this.line.push(this.prevPos, pos);
       this.geo.geometry.verticesNeedUpdate = true;
       this.geo.geometry.elementsNeedUpdate = true;
+      console.log(this.geo.geometry);
     }
     this.prevPos = pos;
   }
