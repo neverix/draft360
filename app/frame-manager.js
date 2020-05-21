@@ -75,16 +75,7 @@ AFRAME.registerComponent('frame-manager', {
       showDialog("Are you sure you want to delete this frame? There's no way to undo this action.", [
         ["Yes", () => {
           closeDialog();
-          var del = (scene, list, name) => {
-            console.log(list);
-            list.forEach((_o, i) => {
-              document.getElementById(`${name}-${scene}-${i}`).remove();
-            });
-          }
-          var { portals, images, texts } = this.frames[this.frame];
-          del(this.frame, portals, "portal");
-          del(this.frame, images, "image");
-          del(this.frame, texts, "text");
+          this.gc();
           this.frames.splice(this.frame, 1);
           document.getElementById("renderer").components.renderer.deleteFrame(this.frame);
           this.frame = 0;
@@ -175,6 +166,20 @@ AFRAME.registerComponent('frame-manager', {
         }
       ]]);
       //}
+    }
+  },
+  gc: function() {
+    var del = (scene, list, name) => {
+      list.forEach((_o, i) => {
+        var el = document.getElementById(`${name}-${scene}-${i}`);
+        el.parentNode.removeChild(el);
+      });
+    }
+    for(var i = 0; i < this.frames.length; i++) {
+      var { portals, images, texts } = this.frames[i];
+      del(i, portals, "portal");
+      del(i, images, "image");
+      del(i, texts, "text");
     }
   },
   tick: function() {

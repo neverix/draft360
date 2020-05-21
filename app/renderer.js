@@ -71,10 +71,13 @@ AFRAME.registerComponent('renderer', {
     this.prevEnabled = this.enabled;
   },
   filterObjects: function(arr, c) {
-    var len = 
+    var len = arr.length;
     arr.splice(0, arr.length, ...arr.filter((x, i) => {
       return this.keep(x.position, c);
     }));
+    if(arr.length < len) {
+      document.getElementById("frame-manager").components["frame-manager"].gc();
+    }
   },
   filterPairs: function(arr, c) {
     var newArr = [];
