@@ -68,15 +68,15 @@ registerComponent('mylookcontrols', {
     window.addEventListener('keyup', this.onKeyDown.bind(this));
     this.touchStarted = false;
     
-    document.getElementById("edit-mode").onclick = () => {
+    document.getElementById("edit-mode").addEventListener("click", () => {
       this.movementMode = false;
-    }
-    document.getElementById("move-mode").onclick = () => {
+    });
+    document.getElementById("move-mode").addEventListener("click", () => {
       this.movementMode = true;
-    }
-    document.getElementById("eraser-mode").onclick = () => {
+    });
+    document.getElementById("eraser-mode").addEventListener("click", () => {
       this.movementMode = false;
-    }
+    });
     //this.cursor.setAttribute("cursor", "fuse", isTouch());
   },
 
@@ -121,8 +121,9 @@ registerComponent('mylookcontrols', {
   },
 
   tick: function (t) {
-    var enabled = (this.mouseDown || this.touchStarted) && !this.movementMode;
-    document.getElementById("renderer").components.renderer.enabled = enabled;
+    var on = this.mouseDown || this.touchStarted;
+    document.getElementById("renderer").components.renderer.on = on;
+    document.getElementById("renderer").components.renderer.enabled = !this.movementMode;
     this.updateOrientation();
     if(this.mouseDown || this.touchStarted) {
       var p = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;

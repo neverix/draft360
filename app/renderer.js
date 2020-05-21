@@ -6,7 +6,8 @@ AFRAME.registerComponent('renderer', {
     strokeColor: {default: "red"},
     strokeSize: {default: 3},
     hThreshold: {default: 0.8},
-    enabled: {default: true}
+    enabled: {default: true},
+    maxDistance: {default: 0.1}
   },
   deleteFrame: function(scene) {
     this.lines.splice(scene, 1);
@@ -38,27 +39,29 @@ AFRAME.registerComponent('renderer', {
     this.line = [];
     this.lines = [[]];
     this.geos = [];
+    this.sky = document.getElementById("sky");
     this.circle = document.getElementById("circle");
     this.enabled = false;
     this.prevPos = null;
-    this.prevEnabled = -1;
-    this.sky = document.getElementById("sky");
     this.eraserMode = false;
-    document.getElementById("edit-mode").onclick = () => {
+    document.getElementById("edit-mode").addEventListener("click", () => {
       this.eraserMode = false;
-    }
-    document.getElementById("eraser-mode").onclick = () => {
+    });
+    document.getElementById("eraser-mode").addEventListener("click", () => {
       this.eraserMode = true;
-      console.log("yes")
-    }
+    });
+    this.on = false;
   },
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
     pos = new THREE.Vector3(pos.x, pos.y, pos.z);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
-    if(this.loaded && this.enabled) {
+    if(this.loaded && this.enabled && this.on) {
       if(this.eraserMode) {
-        
+        this.line.splice(0, this.line.length, ...this.line.filter(x => {
+          
+          return true;
+        }));
       } else {
         this.line.push(this.prevPos, pos);
         this.geo.geometry.verticesNeedUpdate = true;
@@ -66,5 +69,8 @@ AFRAME.registerComponent('renderer', {
     }
     this.prevPos = pos;
     this.prevEnabled = this.enabled;
+  },
+  doDelete: function(a, b) {
+    console.log(a.normalize());
   }
 });
