@@ -15,13 +15,13 @@ AFRAME.registerComponent('renderer', {
   loadImage: function(img, scene) {
     this.sky.setAttribute("src", img);
     if(!this.geos[scene]) {
-      this.line = [new THREE.Vector3(0, 0, -1), new THREE.Vector3(1, 0, -1)];
-      this.lines[scene] = this.line;
       var mat = new THREE.LineBasicMaterial({
         color: this.data.strokeColor,
         linewidth: this.data.strokeSize
       });
       var geo = new THREE.Geometry();
+      this.line = geo.vertices;
+      this.lines[scene] = this.line;
       geo.vertices = this.line;
       this.geo = new THREE.LineSegments(geo, mat);
       this.geos[scene] = this.geo;
@@ -54,8 +54,8 @@ AFRAME.registerComponent('renderer', {
     pos = new THREE.Vector3(pos.x, pos.y, pos.z);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled) {
-      this.line.push(this.prevPos, pos);
-      this.geo.geometry.verticesNeedUpdate = true;
+      var prev = THREE.Vector3.copy(this.prevPos);
+      this.line.push(prev, pos);
     }
     this.prevPos = pos;
   }
