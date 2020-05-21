@@ -24,7 +24,6 @@ AFRAME.registerComponent('renderer', {
       this.line = geo.vertices;
       this.lines[scene] = this.line;
       this.geo = new THREE.LineSegments(geo, mat);
-      this.geo.frustumCulled = false;
       this.geos[scene] = this.geo;
       this.el.setObject3D("line", this.geo);
       geo.verticesNeedUpdate = true;
@@ -60,7 +59,6 @@ AFRAME.registerComponent('renderer', {
       this.line.push(this.prevPos, pos);
       this.geo.geometry.verticesNeedUpdate = true;
       this.geo.geometry.elementsNeedUpdate = true;
-      this.geo.geometry.computeBoundingBox();
     }
     this.prevPos = pos;
   }
