@@ -167,6 +167,9 @@ AFRAME.registerComponent('frame-manager', {
       ]]);
       //}
     }
+    document.getElementById("360-switch").onclick = () => {
+      this.frames
+    }
   },
   gc: function() {
     var els = document.querySelectorAll(".obj");
