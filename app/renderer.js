@@ -41,6 +41,7 @@ AFRAME.registerComponent('renderer', {
     this.geos = [];
     this.sky = document.getElementById("sky");
     this.circle = document.getElementById("circle");
+    this.prevOn = false;
     this.enabled = false;
     this.prevPos = null;
     this.eraserMode = false;
@@ -57,6 +58,9 @@ AFRAME.registerComponent('renderer', {
     pos = new THREE.Vector3(pos.x, pos.y, pos.z);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled && this.on) {
+      if(!this.prevOn) {
+        this.prevPos = pos;
+      }
       if(this.eraserMode) {
         this.filterPairs(this.line, pos);
         var man = document.getElementById("frame-manager").components["frame-manager"];
@@ -70,9 +74,11 @@ AFRAME.registerComponent('renderer', {
         this.line.push(this.prevPos, pos);
       }
       this.geo.geometry.verticesNeedUpdate = true;
+      this.prevOn = true;
+    } else {
+      this.prevOn = false;
     }
     this.prevPos = pos;
-    this.prevEnabled = this.enabled;
   },
   filterObjects: function(arr, c) {
     var len = arr.length;

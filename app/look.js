@@ -390,7 +390,7 @@ registerComponent('mylookcontrols', {
     var pitchObject = this.pitchObject;
 
 
-    if (!this.touchStarted || !this.data.touchEnabled) { return; }
+    if (!this.touchStarted || !this.data.touchEnabled || !this.movementMode) { return; }
 
     deltaY = 2 * Math.PI * (evt.touches[0].pageX - this.touchStart.x) / canvas.clientWidth;
     deltaX = 2 * Math.PI * (evt.touches[0].pageY - this.touchStart.y) / canvas.clientHeight;
@@ -416,8 +416,9 @@ registerComponent('mylookcontrols', {
    * Save pose.
    */
   onEnterVR: function () {
-    this.cursor.setAttribute("cursor", "rayOrigin", "entity");
-    this.cursor.setAttribute("cursor", "fuse", true);
+    console.log(this.cursor);
+    this.cursor.setAttribute("cursor", "rayOrigin: entity; fuse: true;");
+    console.log(this.cursor);
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.checkHeadsetConnected()) { return; }
     this.saveCameraPose();
