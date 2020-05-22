@@ -1,15 +1,19 @@
 var scenes = [
   [
     "Grid",
-    "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2F3c9ad69e-2641-4071-989a-13823b3d8c62.image.png?v=1579384471820"
+    "https://cdn.glitch.com/a8da06d9-f932-41a5-aaec-fae9a08ccb37%2F360BG_BasicBackground_4K.png?v=1590133236870"
+  ],
+  [
+    "Grid (Black&White)",
+    "https://cdn.glitch.com/a8da06d9-f932-41a5-aaec-fae9a08ccb37%2F360BG_DarkGrid_Square_4K.jpg?v=1590133237232"
+  ],
+  [
+    "Grid (White&Blue)",
+    "https://cdn.glitch.com/a8da06d9-f932-41a5-aaec-fae9a08ccb37%2F360BG_BlueGrid_Square_4K.jpg?v=1590133236030"
   ],
   [
     "City",
-    "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fcityscape1080px.png?v=1579449483178"
-  ],
-  [
-    "Team 009",
-    "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2F8b4718d5-af4e-4720-b09b-9c4f4a59768f.image.png?v=1579359942179"
+    "https://cdn.glitch.com/a8da06d9-f932-41a5-aaec-fae9a08ccb37%2F360BG_CityTemplateBlue_4k.jpg?v=1590133236612"
   ],
   [
     "Field",
@@ -21,11 +25,11 @@ var images = [
     "Person",
     "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fstamp_person1.png?v=1579396695751"  
   ],
-  [
+  /*[
     // temp image for multiple-images testing
     "Pigeon",
     "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2Fpigeon-transparent.png?v=1579407367303"
-  ],
+  ],*/
   [
     "Portal",
     "https://cdn.glitch.com/dff38557-346e-4aa3-94d5-969225a03cf0%2FPortal.png?v=1579443744370"
@@ -33,11 +37,12 @@ var images = [
 ];
 
 function pickFile() {
-  var input = document.createElement("input");
-  input.setAttribute("type", "file");
   return new Promise((ok, err) => {
+    var input = document.createElement("input");
+    input.setAttribute("type", "file");
     input.onchange = () => { 
       var file = input.files[0];
+      console.log(file);
       var reader = new FileReader();
       reader.onload = () => {
         var content = reader.result;
