@@ -420,6 +420,8 @@ registerComponent('mylookcontrols', {
     cur.data.rayOrigin = "entity";
     cur.data.fuse = true;
     cur.updateMouseEventListeners();
+    document.getElementById("cur").setAttribute("visible", true);
+    document.getElementById("circle").setAttribute("visible", false);
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.checkHeadsetConnected()) { return; }
     this.saveCameraPose();
@@ -435,8 +437,12 @@ registerComponent('mylookcontrols', {
    * Restore the pose.
    */
   onExitVR: function () {
-    this.cursor.setAttribute("cursor", "fuse", false);
-    this.cursor.setAttribute("cursor", "rayOrigin", "mouse");
+    var cur = document.getElementById("cursor").components.cursor;
+    cur.data.rayOrigin = "mouse";
+    cur.data.fuse = false;
+    cur.updateMouseEventListeners();
+    document.getElementById("cur").setAttribute("visible", false);
+    document.getElementById("circle").setAttribute("visible", true);
     if (!this.el.sceneEl.checkHeadsetConnected()) { return; }
     this.restoreCameraPose();
     this.previousHMDPosition.set(0, 0, 0);
