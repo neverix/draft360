@@ -168,7 +168,12 @@ AFRAME.registerComponent('frame-manager', {
       //}
     }
     document.getElementById("360-switch").onclick = () => {
-      this.frames
+      showDialog("Choose new 360 backdrop:", scenes.map(([name, url]) => [
+        name, () => {
+          closeDialog();
+          this.frames[this.frame].base = url;
+        }
+      ]));
     }
   },
   gc: function() {
