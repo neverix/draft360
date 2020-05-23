@@ -127,7 +127,7 @@ registerComponent('mylookcontrols', {
     document.getElementById("renderer").components.renderer.enabled = !this.movementMode;
     this.updateOrientation();
     if(this.mouseDown || this.touchStarted) {
-      var p = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
+      var p = this.el.components.raycaster.raycaster.ray.direction;
       document.getElementById("circle").setAttribute("position", `${p.x} ${p.y} ${p.z}`);
     }
   },

@@ -155,11 +155,11 @@
                 id="renderer">
         <a-sky id="sky" radius="5000"></a-sky>
       </a-entity>
-      <a-entity camera mylookcontrols id="camera">
+      <a-entity camera mylookcontrols id="camera" cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .clickable;">
         <a-entity animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
                   animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"
                   animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
-                  cursor="rayOrigin: mouse; fuse: false;"
+                  cursor="rayOrigin: entity; fuse: true;"
                   raycaster="objects: .clickable;"
                   position="0 0 -1"
                   id="cursor">
