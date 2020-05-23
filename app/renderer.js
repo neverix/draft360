@@ -23,7 +23,6 @@ AFRAME.registerComponent('renderer', {
       this.lines[scene] = [];
     }
     // if(scene != this.prevEnabled) {
-      this.loaded = false;
       var geo = new THREE.Geometry();
       this.line = this.lines[scene];
       geo.vertices = this.line;
@@ -32,6 +31,9 @@ AFRAME.registerComponent('renderer', {
       this.el.setObject3D("mesh", this.geo);
     // }
     this.loaded = this.sky.complete;
+    if(!this.loaded) {
+      this.sky.load();
+    }
     this.prevEnabled = scene;
   },
   init: function() {
