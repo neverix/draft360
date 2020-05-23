@@ -7,7 +7,8 @@ AFRAME.registerComponent('renderer', {
     strokeSize: {default: 3},
     hThreshold: {default: 0.8},
     enabled: {default: true},
-    maxDistance: {default: 0.1}
+    maxDistance: {default: 0.1},
+    mul: {default: 5}
   },
   deleteFrame: function(scene) {
     this.lines.splice(scene, 1);
@@ -58,7 +59,7 @@ AFRAME.registerComponent('renderer', {
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
     pos = new THREE.Vector3(pos.x, pos.y, pos.z);
-    pos.multiplyScalar(1000);
+    pos.multiplyScalar(this.data.mul);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled && this.on) {
       if(this.eraserMode) {

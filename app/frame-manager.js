@@ -2,8 +2,8 @@
 
 AFRAME.registerComponent('frame-manager', {
   schema: {
-    portalDistance: {default: 900},
-    s: {default: 300}
+    portalDistance: {default: 8},
+    s: {default: 4}
   },
   init: function() {
     this.loaded = true;
@@ -175,14 +175,15 @@ AFRAME.registerComponent('frame-manager', {
         }
       ]));
     }
-    document.getElementById("new-portal").onclick = () => {
+    document.getElementById("copy-frame").onclick = () => {
       var buttons = this.frames.map((frame, index) => [
         index + 1, () => {
           closeDialog();
-          this.frames[this.frame] = JSON.parse(JSON.stringify(this.frames[index]))
+          this.frames[this.frame] = JSON.parse(JSON.stringify(this.frames[index]));
+          this.gc();
         }
       ]);
-      showDialog("Link portal to:", buttons);
+      showDialog("Copy from:", buttons);
     };
   },
   gc: function() {

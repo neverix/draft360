@@ -21,6 +21,10 @@
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script> 
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <link rel="icon" 
+      type="image/png" 
+      href="https://cdn.glitch.com/a8da06d9-f932-41a5-aaec-fae9a08ccb37%2Fdraft360_32x32.png?v=1590268776760"
+    />
   </head>
   <body style="user-select: none;">
     <div style="position: fixed;
@@ -157,9 +161,9 @@
       <a-entity frame-manager id="frame-manager"></a-entity>
       <a-entity renderer="strokeColor: rgb(113, 103, 248)"
                 id="renderer">
-        <a-sky id="sky" radius="5000"></a-sky>
+        <a-sky id="sky" radius="100"></a-sky>
       </a-entity>
-      <a-entity camera mylookcontrols id="camera">
+      <a-entity camera="near: 0.1" mylookcontrols id="camera">
         <a-entity cursor="rayOrigin: mouse; fuse: false;"
                   raycaster="objects: .clickable;"
                   id="cursor">
