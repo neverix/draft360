@@ -36,13 +36,16 @@ var images = [
   ]
 ];
 
+var input = document.createElement("input");
+input.setAttribute("type", "file");
+input.onclick = () => { input.value = null };
+
 function pickFile() {
   return new Promise((ok, err) => {
     var input = document.createElement("input");
     input.setAttribute("type", "file");
-    input.onchange = () => { 
+    input.onchange = () => {
       var file = input.files[0];
-      console.log(file);
       var reader = new FileReader();
       reader.onload = () => {
         var content = reader.result;
