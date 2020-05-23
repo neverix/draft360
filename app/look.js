@@ -78,6 +78,7 @@ registerComponent('mylookcontrols', {
     document.getElementById("eraser-mode").addEventListener("click", () => {
       this.movementMode = false;
     });
+    this.circle = document.getElementById("circle");
     //this.cursor.setAttribute("cursor", "fuse", isTouch());
   },
 
@@ -416,8 +417,7 @@ registerComponent('mylookcontrols', {
    * Save pose.
    */
   onEnterVR: function () {
-    this.cursor.setAttribute("cursor", "rayOrigin", "entity");
-    this.cursor.setAttribute("cursor", "fuse", true);
+    this.circle.setAttribute("visible", false);
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.checkHeadsetConnected()) { return; }
     this.saveCameraPose();
@@ -433,8 +433,7 @@ registerComponent('mylookcontrols', {
    * Restore the pose.
    */
   onExitVR: function () {
-    this.cursor.setAttribute("cursor", "fuse", false);
-    this.cursor.setAttribute("cursor", "rayOrigin", "mouse");
+    this.circle.setAttribute("visible", true);
     if (!this.el.sceneEl.checkHeadsetConnected()) { return; }
     this.restoreCameraPose();
     this.previousHMDPosition.set(0, 0, 0);

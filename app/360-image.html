@@ -152,16 +152,13 @@
         <a-sky id="sky" radius="5000"></a-sky>
       </a-entity>
       <a-entity camera mylookcontrols id="camera">
-        <a-entity animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
-                  animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"
-                  animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
-                  cursor="rayOrigin: mouse; fuse: false;"
+        <a-entity cursor="rayOrigin: mouse; fuse: false;"
                   raycaster="objects: .clickable;"
                   id="cursor">
         </a-entity>
       </a-entity>
       <a-entity id="circle" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-        material="color: rgb(113, 103, 248); shader: flat;" position="0 0 -1" look-at="#camera"></a-entity>
+        material="color: rgb(113, 103, 248); shader: flat;" position="0 0 -1" look-at="#camera" visible="true"></a-entity>
       <a-entity laser-controls="defaultModelColor: white" raycaster="objects: .clickable" line="color: rgb(113, 103, 248)"></a-entity>
     </a-scene>
   </body>
