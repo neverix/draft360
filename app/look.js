@@ -127,7 +127,7 @@ registerComponent('mylookcontrols', {
     document.getElementById("renderer").components.renderer.enabled = !this.movementMode;
     this.updateOrientation();
     if(this.mouseDown || this.touchStarted) {
-      var p = this.el.components.raycaster.raycaster.ray.direction;
+      var p = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
       document.getElementById("circle").setAttribute("position", `${p.x} ${p.y} ${p.z}`);
     }
   },
@@ -390,7 +390,7 @@ registerComponent('mylookcontrols', {
     var pitchObject = this.pitchObject;
 
 
-    if (!this.touchStarted || !this.data.touchEnabled || !this.movementMode) { return; }
+    if (!this.touchStarted || !this.data.touchEnabled) { return; }
 
     deltaY = 2 * Math.PI * (evt.touches[0].pageX - this.touchStart.x) / canvas.clientWidth;
     deltaX = 2 * Math.PI * (evt.touches[0].pageY - this.touchStart.y) / canvas.clientHeight;
@@ -416,14 +416,8 @@ registerComponent('mylookcontrols', {
    * Save pose.
    */
   onEnterVR: function () {
-    this.movementMode = true;
-    var cur = document.getElementById("cursor").components.cursor;
-    cur.data.rayOrigin = "entity";
-    cur.data.fuse = true;
-    cur.updateMouseEventListeners();
-    document.getElementById("cursor").setAttribute("cursor", "rayOrigin: entity; fuse: true;")
-    document.getElementById("cur").setAttribute("visible", true);
-    document.getElementById("circle").setAttribute("visible", false);
+    this.cursor.setAttribute("cursor", "rayOrigin", "entity");
+    this.cursor.setAttribute("cursor", "fuse", true);
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.checkHeadsetConnected()) { return; }
     this.saveCameraPose();
@@ -439,12 +433,8 @@ registerComponent('mylookcontrols', {
    * Restore the pose.
    */
   onExitVR: function () {
-    var cur = document.getElementById("cursor").components.cursor;
-    cur.data.rayOrigin = "mouse";
-    cur.data.fuse = false;
-    cur.updateMouseEventListeners();
-    document.getElementById("cur").setAttribute("visible", false);
-    document.getElementById("circle").setAttribute("visible", true);
+    this.cursor.setAttribute("cursor", "fuse", false);
+    this.cursor.setAttribute("cursor", "rayOrigin", "mouse");
     if (!this.el.sceneEl.checkHeadsetConnected()) { return; }
     this.restoreCameraPose();
     this.previousHMDPosition.set(0, 0, 0);

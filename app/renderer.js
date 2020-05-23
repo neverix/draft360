@@ -15,7 +15,6 @@ AFRAME.registerComponent('renderer', {
   },
   loadImage: function(img, scene) {
     this.sky.setAttribute("src", img);
-    this.sky.src = img;
     var mat = new THREE.LineBasicMaterial({
       color: this.data.strokeColor,
       linewidth: this.data.strokeSize
@@ -24,6 +23,7 @@ AFRAME.registerComponent('renderer', {
       this.lines[scene] = [];
     }
     // if(scene != this.prevEnabled) {
+      this.loaded = false;
       var geo = new THREE.Geometry();
       this.line = this.lines[scene];
       geo.vertices = this.line;
@@ -31,7 +31,7 @@ AFRAME.registerComponent('renderer', {
       this.geos[scene] = this.geo;
       this.el.setObject3D("mesh", this.geo);
     // }
-    this.loaded = this.sky.complete;
+    this.loaded = true;
     this.prevEnabled = scene;
   },
   init: function() {
@@ -40,9 +40,7 @@ AFRAME.registerComponent('renderer', {
     this.lines = [[]];
     this.geos = [];
     this.sky = document.getElementById("sky");
-    this.sky.loading = "eager";
     this.circle = document.getElementById("circle");
-    this.prevOn = false;
     this.enabled = false;
     this.prevPos = null;
     this.eraserMode = false;
@@ -57,12 +55,8 @@ AFRAME.registerComponent('renderer', {
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
     pos = new THREE.Vector3(pos.x, pos.y, pos.z);
-    pos.multiplyScalar(1000);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled && this.on) {
-      if(!this.prevOn) {
-        this.prevPos = pos;
-      }
       if(this.eraserMode) {
         this.filterPairs(this.line, pos);
         var man = document.getElementById("frame-manager").components["frame-manager"];
@@ -76,11 +70,9 @@ AFRAME.registerComponent('renderer', {
         this.line.push(this.prevPos, pos);
       }
       this.geo.geometry.verticesNeedUpdate = true;
-      this.prevOn = true;
-    } else {
-      this.prevOn = false;
     }
     this.prevPos = pos;
+    this.prevEnabled = this.enabled;
   },
   filterObjects: function(arr, c) {
     var len = arr.length;
@@ -102,6 +94,6 @@ AFRAME.registerComponent('renderer', {
   },
   keep: function(a, c) {
     var a = new THREE.Vector3(a.x, a.y, a.z);
-    return a.normalize().distanceTo(c.normalize()) > this.data.maxDistance;
+    return a.normalize().distanceTo(c) > this.data.maxDistance;
   }
 });

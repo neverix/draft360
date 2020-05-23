@@ -115,10 +115,6 @@
           <i class="material-icons">sort</i>
         </button>
         <br><br>
-        <button id="360-switch" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" title="Change 360 BG">
-          <i class="material-icons">360</i>
-        </button>
-        <br><br>
         
         <!--Import/Export-->
         <p style="font-size:.6em;color:#7d4eff;background-color:#fff;text-align:center;border-radius:5px;padding:1px;">
@@ -150,28 +146,22 @@
       </div>
     </dialog>
     <a-scene>
-      <a-assets timeout="99999999">
-        <img id="sky" crossorigin="anonymous">
-      </a-assets>
       <a-entity frame-manager id="frame-manager"></a-entity>
       <a-entity renderer="strokeColor: rgb(113, 103, 248)"
                 id="renderer">
-        <a-sky src="#sky" radius="5000"></a-sky>
+        <a-sky id="sky"></a-sky>
       </a-entity>
-      <a-entity camera mylookcontrols id="camera" cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .clickable;">
+      <a-entity camera mylookcontrols id="camera">
         <a-entity animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
                   animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1500; from: 1 1 1; to: 0.1 0.1 0.1"
                   animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"
-                  cursor="rayOrigin: entity; fuse: true;"
+                  cursor="rayOrigin: mouse; fuse: false;"
                   raycaster="objects: .clickable;"
-                  position="0 0 -1"
                   id="cursor">
-          <a-entity id="cur" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-            material="color: rgb(113, 103, 248); shader: flat;" visible="false"></a-entity>
         </a-entity>
       </a-entity>
       <a-entity id="circle" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-        material="color: rgb(113, 103, 248); shader: flat;" position="0 0 -1" look-at="#camera" visible="true"></a-entity>
+        material="color: rgb(113, 103, 248); shader: flat;" position="0 0 -1" look-at="#camera"></a-entity>
       <a-entity laser-controls="defaultModelColor: white" raycaster="objects: .clickable" line="color: rgb(113, 103, 248)"></a-entity>
     </a-scene>
   </body>
