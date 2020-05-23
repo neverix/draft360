@@ -106,6 +106,6 @@ AFRAME.registerComponent('renderer', {
   },
   keep: function(a, c) {
     var a = new THREE.Vector3(a.x, a.y, a.z);
-    return a.normalize().distanceTo(c) > this.data.maxDistance;
+    return a.normalize().distanceTo(c.normalize()) > this.data.maxDistance;
   }
 });
