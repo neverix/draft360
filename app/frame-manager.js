@@ -3,7 +3,7 @@
 AFRAME.registerComponent('frame-manager', {
   schema: {
     portalDistance: {default: 900},
-    s: {default: 40}
+    s: {default: 300}
   },
   init: function() {
     this.loaded = true;
@@ -198,13 +198,14 @@ AFRAME.registerComponent('frame-manager', {
             var portal = document.createElement("a-image");
             portal.setAttribute("visible", false);
             portal.setAttribute("class", "clickable obj");
+            portal.setAttribute("height", this.data.s)
             portal.id = portalId;
             //portal.setAttribute("size", `200 200`);
             portal.setAttribute("src", src);
             var img = new Image();
             img.src = src;
             img.onload = () => {
-              portal.setAttribute("width", img.width / img.height);
+              portal.setAttribute("width", img.width / img.height * this.data.s);
               portal.setAttribute("visible", true);
             }
             // portal.setAttribute("particle-system", "color: #44CC00; maxAge: 0.1; particleCount: 10; velocityValue: 0 0 0; velocitySpread: 1 1 1");
