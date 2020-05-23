@@ -416,6 +416,7 @@ registerComponent('mylookcontrols', {
    * Save pose.
    */
   onEnterVR: function () {
+    this.movementMode = true;
     var cur = document.getElementById("cursor").components.cursor;
     cur.data.rayOrigin = "entity";
     cur.data.fuse = true;
