@@ -3,7 +3,7 @@
 AFRAME.registerComponent('frame-manager', {
   schema: {
     portalDistance: {default: 8},
-    s: {default: 4}
+    s: {default: 2.5}
   },
   init: function() {
     this.loaded = true;
