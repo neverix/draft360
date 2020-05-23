@@ -31,7 +31,10 @@ AFRAME.registerComponent('renderer', {
       this.geos[scene] = this.geo;
       this.el.setObject3D("mesh", this.geo);
     // }
-    this.loaded = true;
+    var map = this.sky.components.material.material.map;
+    if(!!map) {
+      this.loaded = map.image.complete;
+    }
     this.prevEnabled = scene;
   },
   init: function() {
