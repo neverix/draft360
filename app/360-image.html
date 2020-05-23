@@ -2,7 +2,7 @@
 <html>
   <head>
     <script src="/redir.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta charset="utf-8">
     <title>360&deg; Image</title>
     <meta name="description" content="360&deg; Image - A-Frame">
@@ -27,7 +27,9 @@
       href="https://cdn.glitch.com/a8da06d9-f932-41a5-aaec-fae9a08ccb37%2Fdraft360_32x32.png?v=1590268776760"
     />
   </head>
-  <body style="user-select: none;">
+  <body style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" 
+        unselectable="on"
+        onselectstart="return false;">
     <div style="position: fixed;
                 left: 0;
                 top: 0;

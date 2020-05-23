@@ -55,6 +55,7 @@ AFRAME.registerComponent('renderer', {
       this.eraserMode = true;
     });
     this.on = false;
+    this.prevOn = false;
   },
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
@@ -62,6 +63,9 @@ AFRAME.registerComponent('renderer', {
     pos.multiplyScalar(this.data.mul);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled && this.on) {
+      if(!this.prevOn) {
+        this.prevPos = pos;
+      }
       if(this.eraserMode) {
         this.filterPairs(this.line, pos);
         var man = document.getElementById("frame-manager").components["frame-manager"];
@@ -75,6 +79,9 @@ AFRAME.registerComponent('renderer', {
         this.line.push(this.prevPos, pos);
       }
       this.geo.geometry.verticesNeedUpdate = true;
+      this.prevOn = true;
+    } else {
+      this.prevOn = false;
     }
     this.prevPos = pos;
     this.prevEnabled = this.enabled;
