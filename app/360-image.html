@@ -150,10 +150,13 @@
       </div>
     </dialog>
     <a-scene>
+      <a-assets>
+        <img id="sky" crossorigin="anonymous">
+      </a-assets>
       <a-entity frame-manager id="frame-manager"></a-entity>
       <a-entity renderer="strokeColor: rgb(113, 103, 248)"
                 id="renderer">
-        <a-sky id="sky" radius="5000"></a-sky>
+        <a-sky src="#sky" radius="5000"></a-sky>
       </a-entity>
       <a-entity camera mylookcontrols id="camera" cursor="rayOrigin: mouse; fuse: false" raycaster="objects: .clickable;">
         <a-entity animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 150; from: 0.1 0.1 0.1; to: 1 1 1"

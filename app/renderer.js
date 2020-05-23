@@ -31,7 +31,7 @@ AFRAME.registerComponent('renderer', {
       this.geos[scene] = this.geo;
       this.el.setObject3D("mesh", this.geo);
     // }
-    this.loaded = true;
+    this.loaded = this.sky.complete;
     this.prevEnabled = scene;
   },
   init: function() {
@@ -40,6 +40,7 @@ AFRAME.registerComponent('renderer', {
     this.lines = [[]];
     this.geos = [];
     this.sky = document.getElementById("sky");
+    this.sky.loading = "eager";
     this.circle = document.getElementById("circle");
     this.prevOn = false;
     this.enabled = false;
