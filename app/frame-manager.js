@@ -2,7 +2,7 @@
 
 AFRAME.registerComponent('frame-manager', {
   schema: {
-    portalDistance: {default: 3},
+    portalDistance: {default: 10},
     portalRadius: {default: 0.1}
   },
   init: function() {
@@ -211,8 +211,9 @@ AFRAME.registerComponent('frame-manager', {
             portal.setAttribute("src", src);
             var img = new Image();
             img.src = src;
+            portal.setAttribute("height", 4);
             img.onload = () => {
-              portal.setAttribute("width", img.width / img.height);
+              portal.setAttribute("width", 4 * img.width / img.height);
               portal.setAttribute("visible", true);
             }
             // portal.setAttribute("particle-system", "color: #44CC00; maxAge: 0.1; particleCount: 10; velocityValue: 0 0 0; velocitySpread: 1 1 1");
@@ -221,7 +222,8 @@ AFRAME.registerComponent('frame-manager', {
               if(this.frames.length > to) this.frame = to;
             };
             var text = document.createElement("a-entity");
-            text.setAttribute("text", `width: 4; color: white; align: center; value: Portal to ${to + 1}`);
+            text.setAttribute("text", `width: 8; color: white; align: center; value: Portal to ${to + 1}`);
+            text.setAttribute("position", "0 0 0.1")
             portal.appendChild(text);
             var p = position;
             portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
@@ -241,13 +243,14 @@ AFRAME.registerComponent('frame-manager', {
             var stampImg = document.createElement("a-image");
             stampImg.setAttribute("visible", false);
             stampImg.setAttribute("class", "obj");
+            stampImg.setAttribute("height", 4);
             stampImg.id = stampId;
             //stampImg.setAttribute("size", `200 200`);
             stampImg.setAttribute("src", src);
             var img = new Image();
             img.src = src;
             img.onload = () => {
-              stampImg.setAttribute("width", img.width / img.height);
+              stampImg.setAttribute("width", 4 * img.width / img.height);
               stampImg.setAttribute("visible", true);
             }
             var p = position;
@@ -268,7 +271,7 @@ AFRAME.registerComponent('frame-manager', {
             var txt = document.createElement("a-entity");
             txt.setAttribute("class", "obj");
             txt.id = textId;
-            txt.setAttribute("text", `width: 2; wrapCount: 10; color: white; align: center; value: ${text}`);
+            txt.setAttribute("text", `width: 8; wrapCount: 10; color: white; align: center; value: ${text}`);
             this.el.sceneEl.appendChild(txt);
             var p = position;
             txt.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
