@@ -215,7 +215,6 @@ AFRAME.registerComponent('frame-manager', {
               portal.setAttribute("width", img.width / img.height);
               portal.setAttribute("visible", true);
             }
-            // so ig the main reason why i can't accomplish anything right now is either my own lack of skill (most likely) or the entire tech stack conspiring against me (i hate aframe. it always does exactly the opposite of what you would expect it to do. the dom model is a mess that encourages unorganised code. should've just used three.js.)
             // portal.setAttribute("particle-system", "color: #44CC00; maxAge: 0.1; particleCount: 10; velocityValue: 0 0 0; velocitySpread: 1 1 1");
             //portal.setAttribute("animation", "property: scale; dur: 1000; from: 1 1 1; to: 0.8 0.8 0.8; loop: true; direction: alternate; easing: linear");
             portal.onclick = () => {
