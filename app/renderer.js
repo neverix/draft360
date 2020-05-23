@@ -55,6 +55,7 @@ AFRAME.registerComponent('renderer', {
   tick: function(t) {
     var pos = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
     pos = new THREE.Vector3(pos.x, pos.y, pos.z);
+    pos.multiplyScalar(1000);
     document.getElementById("cover").style.display = this.loaded ? "none" : "block";
     if(this.loaded && this.enabled && this.on) {
       if(this.eraserMode) {

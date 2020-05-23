@@ -2,8 +2,8 @@
 
 AFRAME.registerComponent('frame-manager', {
   schema: {
-    portalDistance: {default: 3},
-    portalRadius: {default: 0.1}
+    portalDistance: {default: 900},
+    s: {default: 40}
   },
   init: function() {
     this.loaded = true;
@@ -233,13 +233,14 @@ AFRAME.registerComponent('frame-manager', {
             var stampImg = document.createElement("a-image");
             stampImg.setAttribute("visible", false);
             stampImg.setAttribute("class", "obj");
+            stampImg.setAttribute("height", this.data.s);
             stampImg.id = stampId;
             //stampImg.setAttribute("size", `200 200`);
             stampImg.setAttribute("src", src);
             var img = new Image();
             img.src = src;
             img.onload = () => {
-              stampImg.setAttribute("width", img.width / img.height);
+              stampImg.setAttribute("width", img.width / img.height * this.data.s);
               stampImg.setAttribute("visible", true);
             }
             var p = position;
@@ -260,7 +261,7 @@ AFRAME.registerComponent('frame-manager', {
             var txt = document.createElement("a-entity");
             txt.setAttribute("class", "obj");
             txt.id = textId;
-            txt.setAttribute("text", `width: 2; wrapCount: 10; color: white; align: center; value: ${text}`);
+            txt.setAttribute("text", `width: ${this.data.s}; wrapCount: 10; color: white; align: center; value: ${text}`);
             this.el.sceneEl.appendChild(txt);
             var p = position;
             txt.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
