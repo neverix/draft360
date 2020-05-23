@@ -167,6 +167,23 @@ AFRAME.registerComponent('frame-manager', {
       ]]);
       //}
     }
+    document.getElementById("360-switch").onclick = () => {
+      showDialog("Choose new 360 backdrop:", scenes.map(([name, url]) => [
+        name, () => {
+          closeDialog();
+          this.frames[this.frame].base = url;
+        }
+      ]));
+    }
+    document.getElementById("new-portal").onclick = () => {
+      var buttons = this.frames.map((frame, index) => [
+        index + 1, () => {
+          closeDialog();
+          this.frames[this.frame] = JSON.parse(JSON.stringify(this.frames[index]))
+        }
+      ]);
+      showDialog("Link portal to:", buttons);
+    };
   },
   gc: function() {
     var els = document.querySelectorAll(".obj");
