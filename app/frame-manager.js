@@ -215,6 +215,7 @@ AFRAME.registerComponent('frame-manager', {
             };
             var text = document.createElement("a-entity");
             text.setAttribute("text", `width: 4; color: white; align: center; value: Portal to ${to + 1}`);
+            text.setAttribute("position", "0 0 0.1")
             portal.appendChild(text);
             var p = position;
             portal.setAttribute("position", `${p.x} ${p.y} ${p.z}`);
