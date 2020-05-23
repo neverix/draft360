@@ -420,6 +420,7 @@ registerComponent('mylookcontrols', {
     cur.data.rayOrigin = "entity";
     cur.data.fuse = true;
     cur.updateMouseEventListeners();
+    document.getElementById("cursor").setAttribute("cursor", "rayOrigin: entity; fuse: true;")
     document.getElementById("cur").setAttribute("visible", true);
     document.getElementById("circle").setAttribute("visible", false);
     var sceneEl = this.el.sceneEl;
