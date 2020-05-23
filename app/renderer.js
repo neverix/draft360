@@ -15,6 +15,7 @@ AFRAME.registerComponent('renderer', {
   },
   loadImage: function(img, scene) {
     this.sky.setAttribute("src", img);
+    this.sky.src = img;
     var mat = new THREE.LineBasicMaterial({
       color: this.data.strokeColor,
       linewidth: this.data.strokeSize
@@ -31,9 +32,6 @@ AFRAME.registerComponent('renderer', {
       this.el.setObject3D("mesh", this.geo);
     // }
     this.loaded = this.sky.complete;
-    if(!this.loaded) {
-      this.sky.load();
-    }
     this.prevEnabled = scene;
   },
   init: function() {
