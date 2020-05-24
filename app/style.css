@@ -76,7 +76,7 @@ body::-webkit-scrollbar {
   font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
 
-#devpostLink {
+.devpostLink {
   font-size: 12px;
   margin-bottom: 20px;
 }}

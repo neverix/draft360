@@ -181,6 +181,8 @@ AFRAME.registerComponent('frame-manager', {
           closeDialog();
           this.frames[this.frame] = JSON.parse(JSON.stringify(this.frames[index]));
           this.gc();
+          var ren = document.getElementById("renderer").components.renderer;
+          ren.lines[this.frame] = JSON.parse(JSON.stringify(ren.lines[index]));
         }
       ]);
       showDialog("Copy from:", buttons);
