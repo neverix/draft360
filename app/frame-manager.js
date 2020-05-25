@@ -139,6 +139,7 @@ AFRAME.registerComponent('frame-manager', {
               src: image
             });
             closeDialog();
+            this.imageMode = false;
           }
         ]));
       //}
@@ -195,11 +196,27 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("forward").onclick = () => {
       if(this.frame < this.frames.length - 1) this.frame++;
     };
-    window.addEventListener("keyup", (e) => {
-      function bind(key, id, ) {
-        
-      };
-    });
+    function bind(key, id) {
+      window.addEventListener("keyup", (e) => {
+        if(e.key == key && !this.imageMode) {
+          document.getElementById(id).click();
+        }
+      });
+    };
+    bind("i", "image-mode");
+    bind('b', "back");
+    bind('f', "forward");
+    bind('d', "copy-frame");
+    bind('s', "360-switch");
+    bind('t', "text-mode");
+    bind('i', "image-mode");
+    bind('t', "new-portal");
+    bind('b', "back");
+    bind('d', "delete-frame");
+    bind('n', "new-frame");
+    bind('e', "export");
+    bind('a', "frames");
+    
   },
   gc: function() {
     var els = document.querySelectorAll(".obj");
