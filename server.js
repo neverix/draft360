@@ -27,11 +27,11 @@ if(!debug) {
   
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('app'));
-var dirname = __dirname + "/.data/files/"
+var dirname = path.join(__dirname, "/.data/files/");
 if (!fs.existsSync(dirname)){
   fs.mkdirSync(dirname);
 }
-app.use(express.static("/files", ".data/files"))
+app.use(express.static("/files", dirname));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function(request, response) {
