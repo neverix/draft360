@@ -187,6 +187,15 @@ AFRAME.registerComponent('frame-manager', {
       ]);
       showDialog("Copy from:", buttons);
     };
+    document.getElementById("back").onclick = () => {
+      if(this.frame > 0) this.frame--;
+    };
+    document.getElementById("forward").onclick = () => {
+      if(this.frame < this.frames.length - 1) this.frame++;
+    };
+    window.addEventListener("keyup", () => {
+      
+    });
   },
   gc: function() {
     var els = document.querySelectorAll(".obj");
