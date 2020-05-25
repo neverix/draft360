@@ -13,25 +13,20 @@ function skipLog (req, res) {
   var url = req.url;
   if(url.indexOf('?')>0)
     url = url.substr(0,url.indexOf('?'));
-  if(url.match(/(js|jpg|png|css|json)$/ig)) {
+  if(url.match(/(js|jpg|png|ico|css|woff|woff2|eot)$/ig)) {
     return true;
   }
-  return url.indexOf("/file/") > -1;
+  return false;
 }
 
 // https://github.com/expressjs/morgan
 if(!debug) {
   var accessLogStream = fs.createWriteStream(path.join(__dirname, '.data/access.log'), { flags: 'a' })
-  app.use(morgan('combined', { stream: accessLogStream, skip: skipLog }));
+  app.use(morgan('combined', { stream: accessLogStream }));
 }
   
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('app'));
-var dirname = path.join(__dirname, "/.data/files/");
-if (!fs.existsSync(dirname)){
-  fs.mkdirSync(dirname);
-}
-app.use(express.static("/files", ".data/files"))
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function(request, response) {
@@ -47,7 +42,10 @@ app.get("/360", function(request, response) {
 });
 
 app.post("/store", function (req, res) {
-
+  var dirname = __dirname + "/.data/"
+  if (!fs.existsSync(dirname)){
+    fs.mkdirSync(dirname);
+  }
   var fileId = Math.random().toString(16);
   console.log(fileId);
   var fileName = dirname + fileId + ".json";
@@ -70,6 +68,12 @@ if(debug) {
 
 app.get("/draft/:draftId", function (req, res) {
   res.sendFile(__dirname + '/app/360-image.html');
+})
+
+app.get("/file/:draftId", function (req, res) {
+  var fileId = req.params.draftId;
+  var fileName = __dirname + "/.data/" + fileId + ".json";
+  res.sendFile(fileName);
 });
 
 // listen for requests :)

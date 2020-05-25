@@ -11,7 +11,9 @@ AFRAME.registerComponent('frame-manager', {
     var prefix = "https://" + href.split("https://")[1].split("/")[0];
     if(href.includes("/draft/")) {
       this.loaded = false;
-      var url = href.replace("/draft/", "/file/") + ".json";
+      var parts = href.split('/');
+      var lastSegment = parts.pop() || parts.pop();
+      var url = prefix + "/file/" + lastSegment;
       fetch(url).then(res => res.text()).then(txt => {
         var json = JSON.parse('[' + txt + ']')[0]; // this is necessary for some reason
         this.frames = json.frames;
