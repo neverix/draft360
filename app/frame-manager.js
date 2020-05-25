@@ -196,14 +196,34 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("forward").onclick = () => {
       if(this.frame < this.frames.length - 1) this.frame++;
     };
+    this.clip = null;
     document.getElementById("cut").onclick = () => {
       function keep(a) {
         var c = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
         var a = new THREE.Vector3(a.x, a.y, a.z);
-        return a.normalize().distanceTo(c.normalize()) > this.data.maxDistance;
+        return a.normalize().distanceTo(c.normalize());
       };
-      
-    }
+      var f = this.frames[this.frame];
+      var t = [f.portals, f.images, f.texts];
+      var m = Infinity;
+      var i1 = -1;
+      var i2 = -1;
+      t.forEach((a, i0) => {
+        a.forEach((el, i) => {
+          var k = keep(el);
+          if(k < m) {
+            m = k;
+            i1 = i0;
+            i2 = i;
+          };
+        });
+      });
+      if(m < 0.4) {
+        this.clip = t[i1][i2];
+        t[i1].splice(i2, 1);
+        this.gc();
+      };
+    };
     function bind(key, id) {
       window.addEventListener("keyup", (e) => {
         if(e.key == key && !this.imageMode) {
@@ -224,7 +244,7 @@ AFRAME.registerComponent('frame-manager', {
     bind('n', "new-frame");
     bind('e', "export");
     bind('a', "frames");
-    
+    bind('x', "cut");
   },
   gc: function() {
     var els = document.querySelectorAll(".obj");
