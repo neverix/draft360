@@ -248,9 +248,9 @@ AFRAME.registerComponent('frame-manager', {
       });
     };
     bind("i", "image-mode");
-    bind('b', "back");
-    bind('f', "forward");
-    bind('d', "copy-frame");
+    bind('o', "back");
+    bind('p', "forward");
+    bind('c', "copy-frame");
     bind('s', "360-switch");
     bind('t', "text-mode");
     bind('i', "image-mode");
@@ -261,6 +261,9 @@ AFRAME.registerComponent('frame-manager', {
     bind('e', "export");
     bind('a', "frames");
     bind('x', "cut");
+    bind('v', "paste");
+    bind('q', "image-open");
+    bind('w', "360-open");
   },
   gc: function() {
     var els = document.querySelectorAll(".obj");
