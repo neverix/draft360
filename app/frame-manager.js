@@ -144,6 +144,7 @@ AFRAME.registerComponent('frame-manager', {
       //}
     }
     document.getElementById("text-mode").onclick = () => {
+      this.imageMode = true;
       document.getElementById("camera").setAttribute("mylookcontrols", "useSpace", false);
       showDialog(`Write some text here:
                   <br>
@@ -152,6 +153,7 @@ AFRAME.registerComponent('frame-manager', {
                   </div>`, [
         ["Ok", () => {
           document.getElementById("camera").setAttribute("mylookcontrols", "useSpace", true);
+          this.imageMode = false;
           var cursor = document.getElementById("circle");
           var worldPos = new THREE.Vector3();
           worldPos.setFromMatrixPosition(cursor.object3D.matrixWorld);
