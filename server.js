@@ -31,7 +31,7 @@ var dirname = path.join(__dirname, "/.data/files/");
 if (!fs.existsSync(dirname)){
   fs.mkdirSync(dirname);
 }
-app.use(express.static("/files", dirname));
+app.use(express.static("/files", ".data/files"))
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function(request, response) {
