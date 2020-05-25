@@ -1,11 +1,30 @@
-require('dotenv').config();
 var fs = require('fs');
 var rimraf = require("rimraf");
 // init project
+var morgan = require('morgan');
 var express = require('express');
-var app = express();
-var debug = !!process.env.DEBUG;
+var path = require('path')
+require('dotenv').config();
 
+var debug = !!process.env.DEBUG;
+var app = express();
+
+function skipLog (req, res) {
+  var url = req.url;
+  if(url.indexOf('?')>0)
+    url = url.substr(0,url.indexOf('?'));
+  if(url.match(/(js|jpg|png|ico|css|woff|woff2|eot)$/ig)) {
+    return true;
+  }
+  return false;
+}
+
+// https://github.com/expressjs/morgan
+if(!debug) {
+  var accessLogStream = fs.createWriteStream(path.join(__dirname, '.data/access.log'), { flags: 'a' })
+  app.use(morgan('combined', { stream: accessLogStream }));
+}
+  
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('app'));
 
