@@ -9,20 +9,20 @@ require('dotenv').config();
 var debug = !!process.env.DEBUG;
 var app = express();
 
-function skipLog (req, res) {
+function skip(req, res) {
   var url = req.url;
   if(url.indexOf('?')>0)
     url = url.substr(0,url.indexOf('?'));
   if(url.match(/(js|jpg|png|ico|css|woff|woff2|eot)$/ig)) {
     return true;
   }
-  return false;
+  return url.indexOf("/file/") != -1;
 }
 
 // https://github.com/expressjs/morgan
 if(!debug) {
   var accessLogStream = fs.createWriteStream(path.join(__dirname, '.data/access.log'), { flags: 'a' })
-  app.use(morgan('combined', { stream: accessLogStream }));
+  app.use(morgan('combined', { stream: accessLogStream, skip }));
 }
   
 // http://expressjs.com/en/starter/static-files.html
