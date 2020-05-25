@@ -259,7 +259,7 @@ AFRAME.registerComponent('frame-manager', {
     bind('d', "delete-frame");
     bind('n', "new-frame");
     bind('l', "export");
-    bind('a', "frames");
+    bind('f', "frames");
     bind('x', "cut");
     bind('v', "paste");
     bind('q', "image-open");
