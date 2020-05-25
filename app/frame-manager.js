@@ -197,9 +197,11 @@ AFRAME.registerComponent('frame-manager', {
       if(this.frame < this.frames.length - 1) this.frame++;
     };
     this.clip = null;
+    this.clipI = null;
     document.getElementById("cut").onclick = () => {
       function keep(a) {
-        var c = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
+        var c = document.getElementById("circle").getAttribute("position");
+        c = new THREE.Vector3(c.x, c.y, c.z);
         var a = new THREE.Vector3(a.x, a.y, a.z);
         return a.normalize().distanceTo(c.normalize());
       };
@@ -210,7 +212,7 @@ AFRAME.registerComponent('frame-manager', {
       var i2 = -1;
       t.forEach((a, i0) => {
         a.forEach((el, i) => {
-          var k = keep(el);
+          var k = keep(el.position);
           if(k < m) {
             m = k;
             i1 = i0;
@@ -218,11 +220,19 @@ AFRAME.registerComponent('frame-manager', {
           };
         });
       });
-      if(m < 0.4) {
+      if(m < 0.2) {
         this.clip = t[i1][i2];
+        this.clipI = i1;
         t[i1].splice(i2, 1);
         this.gc();
       };
+    };
+    document.getElementById("paste").onclick = () => {
+      if(this.clip == null) return;
+      var f = this.frames[this.frame];
+      var t = [f.portals, f.images, f.texts];
+      var c = document.getElementById("circle").getAttribute("position");
+      c = new THREE.Vector3(c.x, c.y, c.z);
     };
     function bind(key, id) {
       window.addEventListener("keyup", (e) => {
