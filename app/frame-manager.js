@@ -248,22 +248,24 @@ AFRAME.registerComponent('frame-manager', {
       });
     };
     bind("i", "image-mode");
-    bind('o', "back");
-    bind('p', "forward");
+    bind('ArrowLeft', "back");
+    bind('ArrowRight', "forward");
     bind('c', "copy-frame");
     bind('s', "360-switch");
     bind('t', "text-mode");
     bind('i', "image-mode");
-    bind('t', "new-portal");
+    bind('p', "new-portal");
     bind('b', "back");
     bind('d', "delete-frame");
     bind('n', "new-frame");
-    bind('e', "export");
+    bind('l', "export");
     bind('a', "frames");
     bind('x', "cut");
     bind('v', "paste");
     bind('q', "image-open");
     bind('w', "360-open");
+    bind('d', "draw-mode");
+    bind('e', "eraser-mode");
   },
   gc: function() {
     var els = document.querySelectorAll(".obj");
