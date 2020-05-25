@@ -295,8 +295,8 @@ registerComponent('mylookcontrols', {
       this.updateMagicWindowOrientation();
 
       // On mobile, do camera rotation with touch events and sensors.
-      object3D.rotation.x = this.magicWindowDeltaEuler.x + pitchObject.rotation.x;
-      object3D.rotation.y = this.magicWindowDeltaEuler.y + yawObject.rotation.y;
+      object3D.rotation.x = this.magicWindowDeltaEuler.x - pitchObject.rotation.x;
+      object3D.rotation.y = this.magicWindowDeltaEuler.y - yawObject.rotation.y;
       object3D.rotation.z = this.magicWindowDeltaEuler.z;
     };
   })(),

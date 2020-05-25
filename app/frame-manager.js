@@ -229,10 +229,16 @@ AFRAME.registerComponent('frame-manager', {
     };
     document.getElementById("paste").onclick = () => {
       if(this.clip == null) return;
-      var f = this.frames[this.frame];
-      var t = [f.portals, f.images, f.texts];
       var c = document.getElementById("circle").getAttribute("position");
       c = new THREE.Vector3(c.x, c.y, c.z);
+      c.multiplyScalar(this.data.portalDistance);
+      var o = JSON.parse(JSON.stringify(this.clip));
+      o.position = c;
+      var rot = document.getElementById("circle").object3D.rotation;
+      o.rotation = rot;
+      var f = this.frames[this.frame];
+      var t = [f.portals, f.images, f.texts][this.clipI];
+      t.push(o);
     };
     function bind(key, id) {
       window.addEventListener("keyup", (e) => {
