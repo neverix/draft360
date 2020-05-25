@@ -196,6 +196,14 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("forward").onclick = () => {
       if(this.frame < this.frames.length - 1) this.frame++;
     };
+    document.getElementById("cut").onclick = () => {
+      function keep(a) {
+        var c = document.getElementById("cursor").components.raycaster.raycaster.ray.direction;
+        var a = new THREE.Vector3(a.x, a.y, a.z);
+        return a.normalize().distanceTo(c.normalize()) > this.data.maxDistance;
+      };
+      
+    }
     function bind(key, id) {
       window.addEventListener("keyup", (e) => {
         if(e.key == key && !this.imageMode) {
