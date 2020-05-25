@@ -13,7 +13,7 @@ AFRAME.registerComponent('frame-manager', {
       this.loaded = false;
       var parts = href.split('/');
       var lastSegment = parts.pop() || parts.pop();
-      var url = prefix + "/file/" + lastSegment;
+      var url = prefix + "/file/" + lastSegment + ".json";
       fetch(url).then(res => res.text()).then(txt => {
         var json = JSON.parse('[' + txt + ']')[0]; // this is necessary for some reason
         this.frames = json.frames;
