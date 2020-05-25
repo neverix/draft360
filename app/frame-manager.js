@@ -195,8 +195,10 @@ AFRAME.registerComponent('frame-manager', {
     document.getElementById("forward").onclick = () => {
       if(this.frame < this.frames.length - 1) this.frame++;
     };
-    window.addEventListener("keyup", () => {
-      
+    window.addEventListener("keyup", (e) => {
+      function bind(key, id, ) {
+        
+      };
     });
   },
   gc: function() {
