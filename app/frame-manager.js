@@ -240,13 +240,14 @@ AFRAME.registerComponent('frame-manager', {
       var t = [f.portals, f.images, f.texts][this.clipI];
       t.push(o);
     };
-    function bind(key, id) {
+    var bind = ((key, id) => {
+      var t = this;
       window.addEventListener("keyup", (e) => {
-        if(e.key == key && !this.imageMode) {
+        if(e.key == key && !t.imageMode) {
           document.getElementById(id).click();
         }
       });
-    };
+    }).bind(this);
     bind("i", "image-mode");
     bind('ArrowLeft', "back");
     bind('ArrowRight', "forward");

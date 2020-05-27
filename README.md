@@ -1,18 +1,5 @@
-// server.js
+# draft360
 
-// init project
-var express = require('express');
-var app = express();
+A 360 interactive storyboarding tool.
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('app'));
-
-// http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function(request, response) {
-  response.sendFile(__dirname + '/app/index.html');
-});
-
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
+[Learn more](https://draft360.io)
